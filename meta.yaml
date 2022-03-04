@@ -1,0 +1,23 @@
+requirements:
+    # python 3.10.2, # conda 4.10.1, # pygame 2.1.2,  # pygame_gui 0.6.4
+    # run in terminal:
+      # pip3 install pygame
+      # pip3 install pygame_gui
+      # pip3 install conda
+      # conda create --name se-proj
+      # conda active se-proj
+      # conda install invoke
+
+  develop:
+    - pytest=6.2.4
+
+  build:
+    - pytest=6.2.4 #replace later
+
+  run:
+    - numpy=1.21.2
+    - pytest=6.2.4
+    
+
+
+
