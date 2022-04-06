@@ -1,6 +1,6 @@
 import pandas as pd
 
-class BackgroundStock:
+class Background_Stock:
 
     def __init__(self, id: int, name: str, price: int, volatility: int, trend: int,  historical_prices: pd.DataFrame) -> None:
         self.id = id
