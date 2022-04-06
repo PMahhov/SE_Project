@@ -1,7 +1,7 @@
 import shlex
+import sys
 
 from invoke import task
-
 
 @task(help={"python": "Set the python version (default: current version)"})
 def bootstrap(ctx, python="3.10.2"):
@@ -11,7 +11,7 @@ def bootstrap(ctx, python="3.10.2"):
         clean_packages = sorted({shlex.quote(package) for package in sorted(packages)})
         ctx.run(
             "conda install --quiet --yes " + " ".join(clean_packages),
-            pty=True,
+            pty = sys.platform != 'win32',
             echo=True,
         )
 
