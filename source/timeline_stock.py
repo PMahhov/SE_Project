@@ -1,4 +1,5 @@
 from source.background_stock import Background_Stock
+from source.information_popup import Information_Popup
 
 class Timeline_Stock:
 
@@ -6,11 +7,14 @@ class Timeline_Stock:
         self.id = id
         self.volume = volume
         self.avg_price_bought = avg_price_bought
-        self.cash_flow = cashflow
+        self.cash_flow = cash_flow
         self.stock_reference = stock_reference
 
-    def progress_time() -> None:
+    def change_volume(volume: int) -> None:
+        self.volume = volume
+
+    def display_info() -> Information_Popup:
         pass
 
     def get_price() -> int:
-        return self.price 
+        pass

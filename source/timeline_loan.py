@@ -1,16 +1,16 @@
 from source.background_loan import Background_Loan
+from source.information_popup import Information_Popup
 
 class Timeline_Loan:
 
-    def __init__(self, id: int, volume: int, avg_price_bought: int, cash_flow: int, stock_reference: Background_Loan) -> None:
+    def __init__(self, id: int, amount_owed: int, interest_at_borrowing: int, loan_reference: Background_Loan) -> None:
         self.id = id
-        self.volume = volume
-        self.avg_price_bought = avg_price_bought
-        self.cash_flow = cashflow
-        self.stock_reference = stock_reference
+        self.amount_owed = amount_owed
+        self.interest_at_borrowing = interest_at_borrowing
+        self.loan_reference = loan_reference
 
-    def progress_time() -> None:
+    def progress_amount_owed() -> int:
         pass
 
-    def get_price() -> int:
-        return self.price 
+    def display_info() -> Information_Popup:
+        pass
