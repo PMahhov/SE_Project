@@ -2,13 +2,12 @@ from source.background_stock import Background_Stock
 
 class Timeline_Stock:
 
-    def __init__(self, id: int, volume: int, avg_price_bought: int, cashflow: int, stock_reference: Background_Stock) -> None:
+    def __init__(self, id: int, volume: int, avg_price_bought: int, cash_flow: int, stock_reference: Background_Stock) -> None:
         self.id = id
         self.volume = volume
-        self.price = price
-        self.volatility = volatility
-        self.trend = trend
-        self.historical_prices = historical_prices
+        self.avg_price_bought = avg_price_bought
+        self.cash_flow = cashflow
+        self.stock_reference = stock_reference
 
     def progress_time() -> None:
         pass

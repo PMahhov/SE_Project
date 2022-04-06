@@ -1,7 +1,6 @@
-from re import M
 import pandas as pd
 
-class BackgroundLoan:
+class Background_Loan:
 
     def __init__(self, id: int, offered_interest_rate: int, historical_interest_rates:  pd.DataFrame, volatility: int, trend: int, max_amount_multiplier: int) -> None:
         self.id = id
