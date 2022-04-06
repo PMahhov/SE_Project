@@ -1,5 +1,5 @@
-from source.background_stock import Background_Stock
-from source.information_popup import Information_Popup
+from background_stock import Background_Stock
+from information_popup import Information_Popup
 
 
 class Timeline_Stock:

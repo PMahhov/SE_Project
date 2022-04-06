@@ -1,4 +1,4 @@
-import pandas as pd
+import numpy as np
 
 
 class Background_Stock:
@@ -9,7 +9,7 @@ class Background_Stock:
         price: int,
         volatility: int,
         trend: int,
-        historical_prices: pd.DataFrame,
+        historical_prices: np.array,
     ) -> None:
         self.id = id
         self.name = name

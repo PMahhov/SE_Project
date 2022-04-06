@@ -1,5 +1,5 @@
-from source.timeline_loan import Timeline_Loan
-from source.timeline_stock import Timeline_Stock
+from timeline_loan import Timeline_Loan
+from timeline_stock import Timeline_Stock
 
 
 class Timeline:
