@@ -1,5 +1,5 @@
-from source.background_loan import Background_Loan
-from source.information_popup import Information_Popup
+from background_loan import Background_Loan
+from information_popup import Information_Popup
 
 
 class Timeline_Loan:
