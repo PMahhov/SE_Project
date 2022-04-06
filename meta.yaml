@@ -15,6 +15,7 @@ requirements:
     - isort
     - black
     - autoflake
+    - pandas
 
   build:
     - pytest=6.2.4 #replace later

@@ -14,4 +14,4 @@ class BackgroundStock:
         pass
 
     def get_price() -> int:
-        return self.price
+        return self.price 
