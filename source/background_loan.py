@@ -1,4 +1,4 @@
-import pandas as pd
+import numpy as np
 
 
 class Background_Loan:
@@ -6,7 +6,7 @@ class Background_Loan:
         self,
         id: int,
         offered_interest_rate: int,
-        historical_interest_rates: pd.DataFrame,
+        historical_interest_rates: np.array,
         volatility: int,
         trend: int,
         max_amount_multiplier: int,
