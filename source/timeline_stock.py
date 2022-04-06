@@ -17,11 +17,11 @@ class Timeline_Stock:
         self.cash_flow = cash_flow
         self.stock_reference = stock_reference
 
-    def change_volume(volume: int) -> None:
+    def change_volume(self, volume: int) -> None:
         self.volume = volume
 
-    def display_info() -> Information_Popup:
+    def display_info(self) -> Information_Popup:
         pass
 
-    def get_price() -> int:
+    def get_price(self) -> int:
         pass

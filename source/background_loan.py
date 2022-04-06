@@ -18,5 +18,5 @@ class Background_Loan:
         self.trend = trend
         self.max_amount_multiplier = max_amount_multiplier
 
-    def progress_time() -> None:
+    def progress_time(self) -> None:
         pass

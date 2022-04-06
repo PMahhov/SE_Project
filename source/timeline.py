@@ -8,7 +8,7 @@ class Timeline:
         is_active: bool,
         money: int,
         net_worth: int,
-        stocks: List[Timeline_Stock],
+        stocks: list[Timeline_Stock],
         loan: Timeline_Loan,
         active_loan_id: int,
     ) -> None:
@@ -19,23 +19,25 @@ class Timeline:
         self.loan = loan
         self.active_loan_id = active_loan_id
 
-    def buy_stock(Timeline_Stock, volume: int) -> None:
+    def buy_stock(self, Timeline_Stock, volume: int) -> None:
         pass
 
-    def sell_stock(Timeline_Stock, volume: int) -> None:
+    def sell_stock(self, Timeline_Stock, volume: int) -> None:
         pass
 
-    def take_loan(Timeline_Stock, amount: int) -> None:
+    def take_loan(self, Timeline_Stock, amount: int) -> None:
         pass
 
-    def pay_loan(amount: int) -> None:
+    def pay_loan(self, amount: int) -> None:
         pass
 
-    def progress_time() -> None:
+    def progress_time(self) -> None:
         pass
 
-    def switch_activity() -> None:
+    def switch_activity(self) -> None:
         pass
 
-    def copy_data(kept_timeline: Timeline) -> None:
+def copy_data(self, kept_timeline: Timeline) -> None:
         pass
+
+Timeline.copy_data = copy_data

@@ -18,8 +18,8 @@ class Background_Stock:
         self.trend = trend
         self.historical_prices = historical_prices
 
-    def progress_time() -> None:
+    def progress_time(self) -> None:
         pass
 
-    def get_price() -> int:
+    def get_price(self) -> int:
         return self.price

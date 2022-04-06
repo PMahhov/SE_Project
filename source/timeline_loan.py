@@ -15,8 +15,8 @@ class Timeline_Loan:
         self.interest_at_borrowing = interest_at_borrowing
         self.loan_reference = loan_reference
 
-    def progress_amount_owed() -> int:
+    def progress_amount_owed(self) -> int:
         pass
 
-    def display_info() -> Information_Popup:
+    def display_info(self) -> Information_Popup:
         pass

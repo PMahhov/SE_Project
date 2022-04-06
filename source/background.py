@@ -24,24 +24,24 @@ class Background:
         self.win_cond_type = win_cond_type
         self.win_conds = win_conds
 
-    def get_instance() -> self.Background:
+    def get_instance(self) -> self.Background:
         # https://www.geeksforgeeks.org/singleton-pattern-in-python-a-complete-guide/
         pass
 
-    def load_data(scenario_info: str) -> None:
+    def load_data(self, scenario_info: str) -> None:
         pass
 
-    def get_stock(id: int) -> Background_Stock:
+    def get_stock(self, id: int) -> Background_Stock:
         pass
 
-    def get_loan(id: int) -> Background_Loan:
+    def get_loan(self, id: int) -> Background_Loan:
         return loan
 
-    def split_timelines() -> None:
+    def split_timelines(self) -> None:
         pass
 
-    def merge_timeline(Timeline) -> None:
+    def merge_timeline(self, Timeline) -> None:
         pass
 
-    def progress_time() -> None:
+    def progress_time(self) -> None:
         pass
