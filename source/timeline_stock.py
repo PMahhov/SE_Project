@@ -1,9 +1,16 @@
 from source.background_stock import Background_Stock
 from source.information_popup import Information_Popup
 
-class Timeline_Stock:
 
-    def __init__(self, id: int, volume: int, avg_price_bought: int, cash_flow: int, stock_reference: Background_Stock) -> None:
+class Timeline_Stock:
+    def __init__(
+        self,
+        id: int,
+        volume: int,
+        avg_price_bought: int,
+        cash_flow: int,
+        stock_reference: Background_Stock,
+    ) -> None:
         self.id = id
         self.volume = volume
         self.avg_price_bought = avg_price_bought

@@ -1,8 +1,16 @@
 import pandas as pd
 
-class Background_Stock:
 
-    def __init__(self, id: int, name: str, price: int, volatility: int, trend: int,  historical_prices: pd.DataFrame) -> None:
+class Background_Stock:
+    def __init__(
+        self,
+        id: int,
+        name: str,
+        price: int,
+        volatility: int,
+        trend: int,
+        historical_prices: pd.DataFrame,
+    ) -> None:
         self.id = id
         self.name = name
         self.price = price
@@ -14,4 +22,4 @@ class Background_Stock:
         pass
 
     def get_price() -> int:
-        return self.price 
+        return self.price

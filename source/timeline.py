@@ -1,9 +1,17 @@
 from source.timeline_loan import Timeline_Loan
 from source.timeline_stock import Timeline_Stock
 
-class Timeline:
 
-    def __init__(self, is_active: bool, money: int, net_worth: int, stocks: List[Timeline_Stock], loan:Timeline_Loan , active_loan_id: int) -> None:
+class Timeline:
+    def __init__(
+        self,
+        is_active: bool,
+        money: int,
+        net_worth: int,
+        stocks: List[Timeline_Stock],
+        loan: Timeline_Loan,
+        active_loan_id: int,
+    ) -> None:
         self.is_active = is_active
         self.money = money
         self.net_worth = net_worth
