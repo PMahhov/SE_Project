@@ -19,11 +19,11 @@ screen_width = 768
 window_surface = pygame.display.set_mode((screen_length, screen_width))
 
 
-bg = pygame.Surface((screen_length, screen_width))
-bg.fill(pygame.Color('#A5AAAF'))
+background = pygame.Surface((screen_length, screen_width))
+background.fill(pygame.Color('#A5AAAF'))
 default_manager = UIManager((screen_length, screen_width)) #, 'data/themes/quick_theme.json')
 
-background = Background(default_manager)
+bg = Background(default_manager)
 
 clock = pygame.time.Clock()
 is_running = True
@@ -35,14 +35,14 @@ while is_running:
 			is_running = False
 
 		if event.type == pygame_gui.UI_BUTTON_PRESSED:
-			if event.ui_element == background.creation_button:
+			if event.ui_element == bg.creation_button:
 			  print("i'm here")
 
 		default_manager.process_events(event)
 
 	default_manager.update(time_delta)
 
-	window_surface.blit(bg, (0, 0))
+	window_surface.blit(background, (0, 0))
 	default_manager.draw_ui(window_surface)
 
 	pygame.display.update()

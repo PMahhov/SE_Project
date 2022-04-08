@@ -45,7 +45,7 @@ class Background:
         pass
 
     def get_loan(self, id: int) -> Background_Loan:
-        return loan
+        return self.loan
 
     def split_timelines(self) -> None:
         pass
