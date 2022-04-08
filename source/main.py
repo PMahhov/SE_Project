@@ -1,3 +1,4 @@
+import yaml
 import copy
 import numpy as np
 import pygame
@@ -7,15 +8,16 @@ from pygame_gui.elements import UIButton, UILabel, UIPanel, UITextBox
 
 from background import Background
 
+with open("config.yaml") as config_file:
+    config = yaml.safe_load(config_file)
 
 is_running = False
+
 
 pygame.init()
 
 pygame.display.set_caption('[Game Title]')
 
-screen_length = 1366
-screen_width = 768
 window_surface = pygame.display.set_mode((screen_length, screen_width))
 
 
