@@ -9,6 +9,7 @@ with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
 screen_length = config["screen_length"]
 screen_width = config["screen_width"]
+
 is_running = False
 
 pygame.init()
@@ -40,8 +41,7 @@ while is_running:
             is_running = False
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == bg.creation_button:
-                print("i'm here")
+            bg.button_pressed(event)
 
         default_manager.process_events(event)
 
