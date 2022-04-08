@@ -1,7 +1,7 @@
 from background_loan import Background_Loan
 from background_stock import Background_Stock
 
-# from timeline import Timeline
+from timeline import Timeline
 
 import pygame
 import pygame_gui
@@ -23,6 +23,9 @@ class Background:
         self.creation_button = UIButton(text= "Split Timeline", tool_tip_text = 'Copy the current timeline into two',
                             relative_rect=pygame.Rect(300,500,200,50),
                             manager = manager)
+        self.left_timeline = Timeline()
+        self.center_timeline = Timeline()
+        self.right_timeline = Timeline()
 
 
     # find a way to create a private constructor
