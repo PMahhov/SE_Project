@@ -41,12 +41,7 @@ while is_running:
             is_running = False
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == bg.creation_button:
-                bg.split_timelines()
-            elif event.ui_element == bg.dropleft_button:
-                bg.merge_timeline(bg.right_timeline)
-            elif event.ui_element == bg.dropright_button:
-                bg.merge_timeline(bg.left_timeline)
+            bg.button_pressed(event)
 
         default_manager.process_events(event)
 

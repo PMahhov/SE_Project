@@ -83,3 +83,14 @@ class Background:
 
     def progress_time(self) -> None:
         pass
+
+    def button_pressed(self, event):
+        if event.ui_element == self.creation_button:
+            self.split_timelines()
+        elif event.ui_element == self.dropleft_button:
+            self.merge_timeline(self.right_timeline)
+        elif event.ui_element == self.dropright_button:
+            self.merge_timeline(self.left_timeline)
+
+        for timeline in self.timelines:
+            pass
