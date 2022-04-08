@@ -23,7 +23,8 @@ background = pygame.Surface((screen_length, screen_width))
 background.fill(pygame.Color('#A5AAAF'))
 default_manager = UIManager((screen_length, screen_width)) #, 'data/themes/quick_theme.json')
 
-bg = Background(default_manager)
+bg = Background()
+bg.init_class(default_manager)
 
 clock = pygame.time.Clock()
 is_running = True
