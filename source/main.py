@@ -27,30 +27,6 @@ default_manager = UIManager(
 bg = Background()
 bg.init_class(default_manager)
 
-# pop up window
-import matplotlib
-
-matplotlib.use("Agg")
-
-
-# # create the popup window
-# examplewindow = UIWindow(pygame.Rect(screen_length/6 , screen_width/10, (4*screen_length)/6, (8*screen_width)/10), manager = default_manager, window_display_title="test_window")
-
-# # create the graph
-# fig = pylab.figure(figsize=[4, 4], # Inches
-#                    dpi=100,        # 100 dots per inch, so the resulting buffer is 400x400 pixels
-#                    )
-# ax = fig.gca()
-# ax.plot([1, 2, 4])
-# canvas = agg.FigureCanvasAgg(fig)
-# canvas.draw()
-
-# # create the image element
-# renderer = canvas.get_renderer()
-# raw_data = renderer.tostring_rgb()
-# size = canvas.get_width_height()
-# surf = pygame.image.fromstring(raw_data, size, "RGB")
-# image = UIImage(pygame.Rect(0, 0, (4*screen_length)/6, ((8*screen_width)/10)-55), surf, manager = default_manager, container=examplewindow)
 popup = Information_Popup("window", "data", default_manager)
 popup.display_graph()
 

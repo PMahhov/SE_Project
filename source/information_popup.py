@@ -8,7 +8,6 @@ from pygame_gui.elements import UIImage, UIWindow
 
 matplotlib.use("Agg")
 
-
 class Information_Popup:
     def __init__(self, window_title: str, data: str, manager: UIManager) -> None:
         with open("config.yaml") as config_file:
