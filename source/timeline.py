@@ -1,17 +1,13 @@
-from timeline_loan import Timeline_Loan
-from timeline_stock import Timeline_Stock
-from typing import List
-
 import pygame
-import pygame_gui
-from pygame_gui import UIManager, PackageResource
-from pygame_gui.elements import UIButton, UILabel, UIPanel, UITextBox
-
 import yaml
+from pygame_gui import UIManager
+from pygame_gui.elements import UIPanel, UITextBox
+
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
 screen_length = config["screen_length"]
 screen_width = config["screen_width"]
+
 
 class Timeline:
     def __init__(
@@ -34,26 +30,28 @@ class Timeline:
         # self.loan = loan
         # self.active_loan_id = active_loan_id
 
-    # UI setup
+        # UI setup
         self.top = 150
-        self.box_width = box_width            
+        self.box_width = box_width
         self.side = side
         if self.side == "left":
-            self.left = (screen_length/3) - 3*box_width/4
+            self.left = (screen_length / 3) - 3 * box_width / 4
             self.start_hidden = True
         elif self.side == "center":
-            self.left = (screen_length-self.box_width)/2
+            self.left = (screen_length - self.box_width) / 2
             self.start_hidden = False
         elif self.side == "right":
-            self.left = (2*screen_length/3) - box_width/4
+            self.left = (2 * screen_length / 3) - box_width / 4
             self.start_hidden = True
         else:
             raise ValueError("Timeline has weird side")
 
-        self.timeline_panel = UIPanel(relative_rect=pygame.Rect(self.left,self.top,self.box_width+6,510),
-                            starting_layer_height = 0,
-                            manager=self.manager,
-                            visible = not self.start_hidden)
+        self.timeline_panel = UIPanel(
+            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, 510),
+            starting_layer_height=0,
+            manager=self.manager,
+            visible=not self.start_hidden,
+        )
         self.update_boxes()
 
     def update_boxes(self):
@@ -62,10 +60,12 @@ class Timeline:
         except:
             pass
         finally:
-            self.moneybox = UITextBox(html_text= "Money: "+str(self.money),
-                                        relative_rect=pygame.Rect(0,50,self.box_width,50),
-                                        container = self.timeline_panel,
-                                        manager=self.manager)
+            self.moneybox = UITextBox(
+                html_text="Money: " + str(self.money),
+                relative_rect=pygame.Rect(0, 50, self.box_width, 50),
+                container=self.timeline_panel,
+                manager=self.manager,
+            )
 
     def switch_activity(self) -> None:
         if self.is_active == False:
@@ -92,7 +92,9 @@ class Timeline:
     def progress_time(self) -> None:
         pass
 
+
 def copy_data(self, kept_timeline: Timeline) -> None:
-        pass
+    pass
+
 
 Timeline.copy_data = copy_data
