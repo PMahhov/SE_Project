@@ -10,7 +10,8 @@ from background import Background
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
-
+screen_length = config["screen_length"]
+screen_width = config["screen_width"]
 is_running = False
 
 
