@@ -28,6 +28,7 @@ class Timeline:
     ) -> None:
         self.is_active = is_active
         self.money = money
+        self.manager = manager
         # self.net_worth = net_worth
         # self.stocks = stocks
         # self.loan = loan
@@ -51,9 +52,20 @@ class Timeline:
 
         self.timeline_panel = UIPanel(relative_rect=pygame.Rect(self.left,self.top,self.box_width+6,510),
                             starting_layer_height = 0,
-                            manager=manager,
+                            manager=self.manager,
                             visible = not self.start_hidden)
+        self.update_boxes()
 
+    def update_boxes(self):
+        try:
+            self.moneybox.kill()
+        except:
+            pass
+        finally:
+            self.moneybox = UITextBox(html_text= "Money: "+str(self.money),
+                                        relative_rect=pygame.Rect(0,50,self.box_width,50),
+                                        container = self.timeline_panel,
+                                        manager=self.manager)
 
     def switch_activity(self) -> None:
         if self.is_active == False:
