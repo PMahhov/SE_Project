@@ -14,8 +14,8 @@ pygame.init()
 
 pygame.display.set_caption('[Game Title]')
 
-screen_length = 1920
-screen_width = 1080
+screen_length = 1366
+screen_width = 768
 window_surface = pygame.display.set_mode((screen_length, screen_width))
 
 
