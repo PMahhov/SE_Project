@@ -37,57 +37,11 @@ def bootstrap(ctx, python="3.10.2"):
     ensure_packages(*develop_packages, *build_packages, *run_packages)
 
 
-@task(
-    incrementable=["verbose"],
-    help={
-        "behavioral": "Run behavioral tests too (default: False)",
-        "performance": "Run performance tests too (default: False)",
-        "external": "Run external tests too (default: False)",
-        "x": "Exit instantly on first error or failed test (default: False)",
-        "junit-xml": "Create junit-xml style report (default: False)",
-        "failed-first": "run all tests but run the last failures first (default: False)",
-        "quiet": "Decrease verbosity",
-        "verbose": "Increase verbosity (can be repeated)",
-    },
-)
-def test(
-    ctx,
-    behavioral=False,
-    performance=False,
-    external=False,
-    x=False,
-    junit_xml=False,
-    failed_first=False,
-    quiet=False,
-    verbose=0,
-):
+@task(help={})
+def test(ctx,):
     """Run tests."""
-    markers = []
-    if not behavioral:
-        markers.append("not behavioral")
-    if not performance:
-        markers.append("not performance")
-    if not external:
-        markers.append("not external")
     args = []
-    if markers:
-        args.append("-m '" + " and ".join(markers) + "'")
-    if not behavioral and not performance and not external:
-        args.append(f"--cov={PACKAGE}")
-        args.append(f"--cov-fail-under={REQUIRED_COVERAGE}")
-    if x:
-        args.append("-x")
-    if junit_xml:
-        args.append("--junit-xml=junit.xml")
-    if failed_first:
-        args.append("--failed-first")
-    if quiet:
-        verbose -= 1
-    if verbose < 0:
-        args.append("--quiet")
-    if verbose > 0:
-        args.append("-" + ("v" * verbose))
-    ctx.run("pytest tests " + " ".join(args), pty=True, echo=True)
+    ctx.run("pytest tests/setup_test.py tests " + " ".join(args), pty=True, echo=True)
 
 
 @task(
@@ -96,26 +50,21 @@ def test(
         "typing": "Check typing with mypy",
     }
 )
-def check(ctx, style=True, typing=False):
+def check(ctx, style=True, typing=True):
     """Check for style and static typing errors."""
-    paths = ["tasks.py", "source"]
-    # if Path("tests").is_dir():
-    #     paths.append("tests")
+    paths = ["tests", "source"]
     if style:
         ctx.run("flake8 " + " ".join(paths), echo=True)
         ctx.run("isort --diff --check-only " + " ".join(paths), echo=True)
         ctx.run("black --diff --check " + " ".join(paths), echo=True)
-    # if typing:
-    #     ctx.run(f"mypy --no-incremental --cache-dir=/dev/null {PACKAGE}", echo=True)
+    if typing:
+        ctx.run(f"mypy --no-incremental --cache-dir=/dev/null {paths}", echo=True)
 
 
 @task(name="format", aliases=["fmt"])
 def format_(ctx):
     """Format code to use standard style guidelines."""
-    # paths = ["setup.py", "tasks.py", PACKAGE]
-    paths = ["tasks.py", "source"]
-    # if Path("tests").is_dir():
-    #     paths.append("tests")
+    paths = ["tests", "source"]
     autoflake = "autoflake -i --recursive --remove-all-unused-imports --remove-duplicate-keys --remove-unused-variables"
     ctx.run(f"{autoflake} " + " ".join(paths), echo=True)
     ctx.run("isort " + " ".join(paths), echo=True)
