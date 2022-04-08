@@ -1,7 +1,3 @@
-from timeline_loan import Timeline_Loan
-from timeline_stock import Timeline_Stock
-from typing import List
-
 class Timeline:
     def __init__(
         self,
@@ -38,7 +34,9 @@ class Timeline:
     def switch_activity(self) -> None:
         pass
 
+
 def copy_data(self, kept_timeline: Timeline) -> None:
-        pass
+    pass
+
 
 Timeline.copy_data = copy_data
