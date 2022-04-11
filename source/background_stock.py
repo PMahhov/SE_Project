@@ -23,3 +23,9 @@ class Background_Stock:
 
     def get_price(self) -> int:
         return self.price
+
+    def get_name(self) -> str:
+        return self.name
+
+    def get_historical_prices(self) -> np.array:
+        return self.historical_prices

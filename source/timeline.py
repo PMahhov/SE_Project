@@ -1,7 +1,9 @@
+from datetime import time
 import pygame
 import yaml
 from pygame_gui import UIManager
 from pygame_gui.elements import UIPanel, UITextBox
+from timeline_stock import Timeline_Stock
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -77,13 +79,22 @@ class Timeline:
         else:
             raise ValueError("timeline is neither active or inactive")
 
-    def buy_stock(self, Timeline_Stock, volume: int) -> None:
-        pass
+    def buy_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
+        cost = timeline_stock.get_price() * volume
+        if cost > self.money:# add fee
+            pass # cannot buy
+        else: 
+            timeline_stock.buy(volume)
+            self.money -= cost
 
-    def sell_stock(self, Timeline_Stock, volume: int) -> None:
-        pass
+    def sell_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
+        if volume > timeline_stock.get_volume:# add fee
+            pass # cannot sell
+        else: 
+            timeline_stock.sell(volume)
+            self.money += volume * timeline_stock.get_price
 
-    def take_loan(self, Timeline_Stock, amount: int) -> None:
+    def take_loan(self, timeline_stock: Timeline_Stock, amount: int) -> None:
         pass
 
     def pay_loan(self, amount: int) -> None:
