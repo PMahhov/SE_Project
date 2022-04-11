@@ -104,8 +104,8 @@ class Background:
         
         # f = open(path_level_module)
         # data = json.load(f)
-        
-        self.loan = "loan"
+
+        self.loan = Background_Loan(1, 2, 3, 4, "list", 2)
         stock1 = Background_Stock(1, "stock1", 50, 2, 4, "list")
         stock2 = Background_Stock(2, "stock2", 60, 2, 4, "list")
         self.stocks = [stock1, stock2]
