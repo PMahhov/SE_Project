@@ -7,7 +7,7 @@ from pygame_gui import UIManager
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
-screen_length = config["screen_length"]
+screen_height = config["screen_height"]
 screen_width = config["screen_width"]
 
 is_running = False
@@ -16,13 +16,13 @@ pygame.init()
 
 pygame.display.set_caption("[Game Title]")
 
-window_surface = pygame.display.set_mode((screen_length, screen_width))
+window_surface = pygame.display.set_mode((screen_width, screen_height))
 
 
-background = pygame.Surface((screen_length, screen_width))
+background = pygame.Surface((screen_width, screen_height))
 background.fill(pygame.Color("#A5AAAF"))
 default_manager = UIManager(
-    (screen_length, screen_width)
+    (screen_width, screen_height)
 )  # , 'data/themes/quick_theme.json')
 
 bg = Background()

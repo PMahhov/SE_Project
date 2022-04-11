@@ -5,8 +5,8 @@ from pygame_gui.elements import UIPanel, UITextBox
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
-screen_length = config["screen_length"]
 screen_width = config["screen_width"]
+screen_height = config["screen_height"]
 
 
 class Timeline:
@@ -15,6 +15,8 @@ class Timeline:
         manager: UIManager,
         side: str,
         box_width: int,
+        box_height: int,
+        top:int,
         is_active: bool,
         # net_worth: int,
         # stocks: List[Timeline_Stock],
@@ -31,23 +33,24 @@ class Timeline:
         # self.active_loan_id = active_loan_id
 
         # UI setup
-        self.top = 150
+        self.top = top
         self.box_width = box_width
+        self.box_height = box_height
         self.side = side
         if self.side == "left":
-            self.left = (screen_length / 3) - 3 * box_width / 4
+            self.left = (screen_width / 3) - 3 * box_width / 4
             self.start_hidden = True
         elif self.side == "center":
-            self.left = (screen_length - self.box_width) / 2
+            self.left = (screen_width - self.box_width) / 2
             self.start_hidden = False
         elif self.side == "right":
-            self.left = (2 * screen_length / 3) - box_width / 4
+            self.left = (2 * screen_width / 3) - box_width / 4
             self.start_hidden = True
         else:
             raise ValueError("Timeline has weird side")
 
         self.timeline_panel = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_width-300),
+            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_height-300),
             starting_layer_height=0,
             manager=self.manager,
             visible=not self.start_hidden,
@@ -62,7 +65,7 @@ class Timeline:
         finally:
             self.moneybox = UITextBox(
                 html_text="Money: " + str(self.money),
-                relative_rect=pygame.Rect(0, 50, self.box_width, 50),
+                relative_rect=pygame.Rect(0, self.box_height, self.box_width, 50),
                 container=self.timeline_panel,
                 manager=self.manager,
             )

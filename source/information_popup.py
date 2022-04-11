@@ -12,8 +12,8 @@ class Information_Popup:
     def __init__(self, window_title: str, data: str, manager: UIManager) -> None:
         with open("config.yaml") as config_file:
             self.config = yaml.safe_load(config_file)
-        self.window_length = self.config["screen_length"]
         self.window_width = self.config["screen_width"]
+        self.window_height = self.config["screen_height"]
         self.window_title = window_title
         self.data = data
         self.manager = manager
@@ -22,10 +22,10 @@ class Information_Popup:
         # create the popup window
         window = UIWindow(
             pygame.Rect(
-                self.window_length / 6,
-                self.window_width / 10,
-                (4 * self.window_length) / 6,
-                (8 * self.window_width) / 10,
+                self.window_width / 6,
+                self.window_height / 10,
+                (4 * self.window_width) / 6,
+                (8 * self.window_height) / 10,
             ),
             manager=self.manager,
             window_display_title=self.window_title,
@@ -47,7 +47,7 @@ class Information_Popup:
         surf = pygame.image.fromstring(raw_data, size, "RGB")
         image = UIImage(
             pygame.Rect(
-                0, 0, (4 * self.window_length) / 6, ((8 * self.window_width) / 10) - 55
+                0, 0, (4 * self.window_width) / 6, ((8 * self.window_height) / 10) - 55
             ),
             surf,
             manager=self.manager,

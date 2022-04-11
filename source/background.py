@@ -9,7 +9,7 @@ from timeline import Timeline
 with open("config.yaml") as config_file:
 
     config = yaml.safe_load(config_file)
-screen_length = config["screen_length"]
+screen_height = config["screen_height"]
 screen_width = config["screen_width"]
 
 
@@ -30,23 +30,25 @@ class Background:
 
     # Initialize attributes of the class
     def init_class(self, manager: UIManager):
-        self.box_width = screen_length / 3
-        self.left_timeline = Timeline(manager, "left", self.box_width, is_active=False)
+        self.box_width = screen_width / 3
+        self.box_height = 50
+        self.top = 150
+        self.left_timeline = Timeline(manager, "left", self.box_width, self.box_height, self.top, is_active=False)
         self.center_timeline = Timeline(
-            manager, "center", self.box_width, is_active=True
+            manager, "center", self.box_width, self.box_height, self.top, is_active=True
         )
         self.right_timeline = Timeline(
-            manager, "right", self.box_width, is_active=False
+            manager, "right", self.box_width, self.box_height, self.top, is_active=False
         )
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
         self.creation_button = UIButton(
             text="Split Timeline",
             tool_tip_text="Copy the current timeline into two",
             relative_rect=pygame.Rect(
-                (screen_length - self.box_width) / 2,
-                screen_width - 100,
+                (screen_width - self.box_width) / 2,
+                screen_height - 100,
                 self.box_width,
-                50,
+                self.box_height,
             ),
             manager=manager,
             visible=True,
@@ -55,10 +57,10 @@ class Background:
             text="Drop Timeline",
             tool_tip_text="Delete this timeline",
             relative_rect=pygame.Rect(
-                (screen_length / 3) - 3 * self.box_width / 4,
-                screen_width - 100,
+                (screen_width / 3) - 3 * self.box_width / 4,
+                screen_height - 100,
                 self.box_width,
-                50,
+                self.box_height,
             ),
             manager=manager,
             visible=False,
@@ -67,13 +69,25 @@ class Background:
             text="Drop Timeline",
             tool_tip_text="Delete this timeline",
             relative_rect=pygame.Rect(
-                (2 * screen_length / 3) - self.box_width / 4,
-                screen_width - 100,
+                (2 * screen_width / 3) - self.box_width / 4,
+                screen_height - 100,
                 self.box_width,
-                50,
+                self.box_height,
             ),
             manager=manager,
             visible=False,
+        )
+        self.timeprogress_button = UIButton(
+            text="Progress Time",
+            tool_tip_text="Advance time within the scenario",
+            relative_rect=pygame.Rect(
+                (screen_width / 2) - self.box_width / 3,
+                self.top/2-self.box_height/3,
+                2*self.box_width/3,
+                self.box_height,
+            ),
+            manager=manager,
+            visible=True,
         )
 
     # self.timelines = timelines
