@@ -3,13 +3,15 @@ import matplotlib.backends.backend_agg as agg
 import pygame
 import pylab
 import yaml
+import numpy as np
 from pygame_gui import UIManager
 from pygame_gui.elements import UIImage, UIWindow
+
 
 matplotlib.use("Agg")
 
 class Information_Popup:
-    def __init__(self, window_title: str, data: str, manager: UIManager) -> None:
+    def __init__(self, window_title: str, data: np.array, manager: UIManager) -> None:
         with open("config.yaml") as config_file:
             self.config = yaml.safe_load(config_file)
         self.window_width = self.config["screen_width"]
