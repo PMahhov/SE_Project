@@ -47,7 +47,7 @@ class Timeline:
             raise ValueError("Timeline has weird side")
 
         self.timeline_panel = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, 510),
+            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_width-300),
             starting_layer_height=0,
             manager=self.manager,
             visible=not self.start_hidden,
