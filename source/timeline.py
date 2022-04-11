@@ -27,7 +27,7 @@ class Timeline:
         self.is_active = is_active
         self.money = money
         self.manager = manager
-        # self.net_worth = net_worth
+        self.net_worth = self.calculate_net_worth()
         # self.stocks = stocks
         # self.loan = loan
         # self.active_loan_id = active_loan_id
@@ -60,15 +60,23 @@ class Timeline:
     def update_boxes(self):
         try:
             self.moneybox.kill()
+            self.net_worth_box.kill()
         except:
             pass
         finally:
             self.moneybox = UITextBox(
                 html_text="Money: " + str(self.money),
-                relative_rect=pygame.Rect(0, self.box_height, self.box_width, 50),
+                relative_rect=pygame.Rect(0, self.box_height, self.box_width/2, 50),
                 container=self.timeline_panel,
                 manager=self.manager,
             )
+            self.net_worth_box = UITextBox(
+                html_text="Net Worth: " + str(self.net_worth),
+                relative_rect=pygame.Rect(self.box_width/2, self.box_height, self.box_width/2, 50),
+                container=self.timeline_panel,
+                manager=self.manager,
+            )
+
 
     def switch_activity(self) -> None:
         if self.is_active == False:
@@ -92,8 +100,16 @@ class Timeline:
     def pay_loan(self, amount: int) -> None:
         pass
 
+    def calculate_net_worth(self) -> int:
+        net_worth = self.money
+        #[TODO] add impact of stocks and loans
+        return net_worth
+
     def progress_time(self) -> None:
-        pass
+        self.net_worth = self.calculate_net_worth()
+        self.update_boxes()
+
+        # call progress time for timeline stocks and loans
 
 
 

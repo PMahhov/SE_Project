@@ -169,6 +169,9 @@ class Background:
             self.game_end = True
             self.end_game()
 
+        for timeline in self.timelines:
+            timeline.progress_time()
+
 
     def end_game(self) -> None:
         self.timeprogress_button.kill()
