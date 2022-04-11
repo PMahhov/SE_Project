@@ -18,8 +18,15 @@ class Background_Stock:
         self.trend = trend
         self.historical_prices = historical_prices
 
+    # update all atributes of the class when the user push the button "progress time"
     def progress_time(self) -> None:
-        pass
+        # add previous stock price to the list of historical prices
+        np.append(self.historical_prices, self.price)
+        
+        # update the stock price based on a normal distribution 
+        mean = self.price + self.trend
+        std = self.volatility
+        self.price = int(np.random.normal(mean, std, 1) + 0.5)
 
     def get_price(self) -> int:
         return self.price
