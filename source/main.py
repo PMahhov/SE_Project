@@ -28,8 +28,8 @@ default_manager = UIManager(
 bg = Background()
 bg.init_class(default_manager)
 
-popup = Information_Popup("window", "data", default_manager)
-popup.display_graph()
+#popup = Information_Popup("window", "data", default_manager)
+#popup.display_graph()
 
 clock = pygame.time.Clock()
 is_running = True

@@ -3,11 +3,10 @@ import yaml
 from background_loan import Background_Loan
 from background_stock import Background_Stock
 from pygame_gui import UIManager
-from pygame_gui.elements import UIButton
+from pygame_gui.elements import UIButton, UILabel
 from timeline import Timeline
 
 with open("config.yaml") as config_file:
-
     config = yaml.safe_load(config_file)
 screen_height = config["screen_height"]
 screen_width = config["screen_width"]
@@ -30,17 +29,34 @@ class Background:
 
     # Initialize attributes of the class
     def init_class(self, manager: UIManager):
+
+        self.manager = manager
+        self.game_end = False
+
+        # Information provided by the level module
+        self.timestep = "Day"  # options: "Day", "Month", "Year"
+        self.timelimit = 5
+            # how many stocks/loans to create, parameters for each
+
+        # Game tracking information
+        self.current_time = 1
+
+        # UI poisitioning
         self.box_width = screen_width / 3
         self.box_height = 50
         self.top = 150
-        self.left_timeline = Timeline(manager, "left", self.box_width, self.box_height, self.top, is_active=False)
+
+        # Creating timeline objects
+        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, is_active=False)
         self.center_timeline = Timeline(
-            manager, "center", self.box_width, self.box_height, self.top, is_active=True
+            self.manager, "center", self.box_width, self.box_height, self.top, is_active=True
         )
         self.right_timeline = Timeline(
-            manager, "right", self.box_width, self.box_height, self.top, is_active=False
+            self.manager, "right", self.box_width, self.box_height, self.top, is_active=False
         )
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
+
+        # Creating buttons
         self.creation_button = UIButton(
             text="Split Timeline",
             tool_tip_text="Copy the current timeline into two",
@@ -50,7 +66,7 @@ class Background:
                 self.box_width,
                 self.box_height,
             ),
-            manager=manager,
+            manager=self.manager,
             visible=True,
         )
         self.dropleft_button = UIButton(
@@ -62,7 +78,7 @@ class Background:
                 self.box_width,
                 self.box_height,
             ),
-            manager=manager,
+            manager=self.manager,
             visible=False,
         )
         self.dropright_button = UIButton(
@@ -74,21 +90,23 @@ class Background:
                 self.box_width,
                 self.box_height,
             ),
-            manager=manager,
+            manager=self.manager,
             visible=False,
         )
         self.timeprogress_button = UIButton(
-            text="Progress Time",
-            tool_tip_text="Advance time within the scenario",
+            text="Next "+self.timestep,
+            tool_tip_text="Progress time within the scenario",
             relative_rect=pygame.Rect(
                 (screen_width / 2) - self.box_width / 3,
                 self.top/2-self.box_height/3,
                 2*self.box_width/3,
                 self.box_height,
             ),
-            manager=manager,
+            manager=self.manager,
             visible=True,
         )
+
+        self.update_labels()
 
     # self.timelines = timelines
     # self.stocks = stocks
@@ -96,6 +114,24 @@ class Background:
     # self.transation_cost = transaction_cost
     # self.win_cond_type = win_cond_type
     # self.win_conds = win_conds
+
+    def update_labels(self):
+        try:
+            self.timeprogress_label.kill()
+        except:
+            pass
+        finally:
+            self.timeprogress_label = UILabel(
+                text=self.timestep+" "+str(self.current_time)+" / "+str(self.timelimit),
+                relative_rect=pygame.Rect(
+                    (5*screen_width / 6) - self.box_width / 3,
+                    self.top/2-self.box_height/3,
+                    self.box_width/2,
+                    self.box_height,
+            ),
+            manager=self.manager,
+            visible=True,
+        )
 
     def load_data(self, scenario_info: str) -> None:
         pass
@@ -126,7 +162,28 @@ class Background:
         # [TODO] copy given timeline information into center timeline
 
     def progress_time(self) -> None:
-        pass
+        self.current_time += 1
+        self.update_labels()
+
+        if self.current_time >= self.timelimit:
+            self.game_end = True
+            self.end_game()
+
+
+    def end_game(self) -> None:
+        self.timeprogress_button.kill()
+        self.timeprogress_button = UILabel(
+            text="Scenario End",
+            relative_rect=pygame.Rect(
+                (screen_width / 2) - self.box_width / 3,
+                self.top/2-self.box_height/3,
+                2*self.box_width/3,
+                self.box_height,
+            ),
+            manager = self.manager,
+            visible = True
+        )
+        self.timeprogress_button.disable()
 
     def button_pressed(self, event):
         if event.ui_element == self.creation_button:
