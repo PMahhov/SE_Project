@@ -2,6 +2,8 @@ import pygame
 import yaml
 from pygame_gui import UIManager
 from pygame_gui.elements import UIPanel, UITextBox
+from timeline_stock import Timeline_Stock
+from timeline_loan import Timeline_Loan
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -21,7 +23,6 @@ class Timeline:
         # net_worth: int,
         # stocks: List[Timeline_Stock],
         # loan: Timeline_Loan,
-        # active_loan_id: int,
         money: int = 0,
     ) -> None:
         self.is_active = is_active
@@ -30,7 +31,6 @@ class Timeline:
         self.net_worth = self.calculate_net_worth()
         # self.stocks = stocks
         # self.loan = loan
-        # self.active_loan_id = active_loan_id
 
         # UI setup
         self.top = top
