@@ -25,8 +25,10 @@ default_manager = UIManager(
     (screen_width, screen_height)
 )  # , 'data/themes/quick_theme.json')
 
+path_level_module = "path"
+
 bg = Background()
-bg.init_class(default_manager)
+bg.init_class(default_manager, path_level_module)
 
 #popup = Information_Popup("window", "data", default_manager)
 #popup.display_graph()

@@ -5,6 +5,8 @@ from background_stock import Background_Stock
 from pygame_gui import UIManager
 from pygame_gui.elements import UIButton, UILabel
 from timeline import Timeline
+import json
+import numpy as np
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -28,10 +30,12 @@ class Background:
         )  # return the instance variable that contains the object of the Background class
 
     # Initialize attributes of the class
-    def init_class(self, manager: UIManager):
+    def init_class(self, manager: UIManager, path_level_module: str):
 
         self.manager = manager
         self.game_end = False
+
+        self.load_data(path_level_module)
 
         # Information provided by the level module
         self.timestep = "Day"  # options: "Day", "Month", "Year"
@@ -108,9 +112,7 @@ class Background:
 
         self.update_labels()
 
-    # self.timelines = timelines
-    # self.stocks = stocks
-    # self.loan = loan
+
     # self.transation_cost = transaction_cost
     # self.win_cond_type = win_cond_type
     # self.win_conds = win_conds
@@ -133,8 +135,16 @@ class Background:
             visible=True,
         )
 
-    def load_data(self, scenario_info: str) -> None:
-        pass
+    def load_data(self, path_level_module: str) -> None:  
+        # read scenario_info JSON file and initialize stocks and loans
+        
+        # f = open(path_level_module)
+        # data = json.load(f)
+
+        self.loan = Background_Loan(1, 2, 3, 4, "list", 2)
+        stock1 = Background_Stock(1, "stock1", 50, 2, 4, "list")
+        stock2 = Background_Stock(2, "stock2", 60, 2, 4, "list")
+        self.stocks = [stock1, stock2]
 
     def get_stock(self, id: int) -> Background_Stock:
         pass
@@ -171,6 +181,9 @@ class Background:
 
         for timeline in self.timelines:
             timeline.progress_time()
+        for stock in self.stocks:
+            stock.progress_time()
+        self.loan.progress_time()
 
 
     def end_game(self) -> None:
@@ -187,6 +200,7 @@ class Background:
             visible = True
         )
         self.timeprogress_button.disable()
+        
 
     def button_pressed(self, event):
         if event.ui_element == self.creation_button:
