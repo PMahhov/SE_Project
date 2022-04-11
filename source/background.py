@@ -135,6 +135,8 @@ class Background:
             self.merge_timeline(self.right_timeline)
         elif event.ui_element == self.dropright_button:
             self.merge_timeline(self.left_timeline)
+        elif event.ui_element == self.timeprogress_button:
+            self.progress_time()
 
         for timeline in self.timelines:
             pass
