@@ -240,16 +240,21 @@ class Background:
             pass
     
     def display_tutorial(self) -> None:
-        text_window = UIMessageWindow(
-            pygame.Rect(
-                (2 * screen_width / 8),
-                (2 * screen_height / 12),
-                (1.5 * self.box_width),
-                (8 * self.box_height),
-            ),
-            manager=self.manager,
-            window_title= "Tutorial",
-            html_message=self.tutorial
-        )
+        try: 
+            self.text_window.kill()
+        except:
+            pass
+        finally:
+            self.text_window = UIMessageWindow(
+                pygame.Rect(
+                    (2 * screen_width / 8),
+                    (2 * screen_height / 12),
+                    (1.5 * self.box_width),
+                    (8 * self.box_height),
+                ),
+                manager=self.manager,
+                window_title= "Tutorial",
+                html_message=self.tutorial
+            )
 
 
