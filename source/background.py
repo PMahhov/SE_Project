@@ -3,7 +3,8 @@ import yaml
 from background_loan import Background_Loan
 from background_stock import Background_Stock
 from pygame_gui import UIManager
-from pygame_gui.elements import UIButton, UILabel
+from pygame_gui.elements import UIButton, UILabel, UIWindow
+from pygame_gui.windows import UIMessageWindow
 from timeline import Timeline
 import json
 import numpy as np
@@ -110,12 +111,20 @@ class Background:
             visible=True,
         )
 
+        self.get_help_button = UIButton(
+            text="Tutorial",
+            tool_tip_text="Display the level tutorial",
+            relative_rect=pygame.Rect(
+                (screen_width / 35),
+                (screen_height / 25),
+                1*self.box_width/3,
+                self.box_height,
+            ),
+            manager=self.manager,
+            visible=True,
+        )
+
         self.update_labels()
-
-
-    # self.transation_cost = transaction_cost
-    # self.win_cond_type = win_cond_type
-    # self.win_conds = win_conds
 
     def update_labels(self):
         try:
@@ -151,7 +160,8 @@ class Background:
             self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
 
         self.transaction_cost = data_module['transaction_cost']
-        
+        self.tutorial = data_module['tutorial']
+
         # [TODO] add win conditions and win condition type
         # self.win_cond_type = data_module['win_cond_type']
 
@@ -214,7 +224,7 @@ class Background:
         self.timeprogress_button.disable()
         
 
-    def button_pressed(self, event):
+    def button_pressed(self, event) -> None:
         if event.ui_element == self.creation_button:
             self.split_timelines()
         elif event.ui_element == self.dropleft_button:
@@ -223,6 +233,23 @@ class Background:
             self.merge_timeline(self.left_timeline)
         elif event.ui_element == self.timeprogress_button:
             self.progress_time()
+        elif event.ui_element == self.get_help_button:
+            self.display_tutorial()
 
         for timeline in self.timelines:
             pass
+    
+    def display_tutorial(self) -> None:
+        text_window = UIMessageWindow(
+            pygame.Rect(
+                (2 * screen_width / 8),
+                (2 * screen_height / 12),
+                (1.5 * self.box_width),
+                (8 * self.box_height),
+            ),
+            manager=self.manager,
+            window_title= "Tutorial",
+            html_message=self.tutorial
+        )
+
+
