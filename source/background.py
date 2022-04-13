@@ -137,19 +137,31 @@ class Background:
 
     def load_data(self, path_level_module: str) -> None:  
         # read scenario_info JSON file and initialize stocks and loans
-        
-        # f = open(path_level_module)
-        # data = json.load(f)
+        file = open(path_level_module)
+        data_module = json.load(file)
 
-        self.loan = Background_Loan(1, 2, 3, 4, "list", 2)
-        stock1 = Background_Stock(1, "stock1", 50, 2, 4, "list")
-        stock2 = Background_Stock(2, "stock2", 60, 2, 4, "list")
-        self.stocks = [stock1, stock2]
+        self.stocks = []
+        for stock in data_module["stocks"]:
+            self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['number_of_historical_prices']))
+        
+        loan = data_module["loan"]
+        if loan == "None":
+            self.loan = None
+        else:
+            self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
+
+        self.transaction_cost = data_module['transaction_cost']
+        
+        # [TODO] add win conditions and win condition type
+        # self.win_cond_type = data_module['win_cond_type']
 
     def get_stock(self, id: int) -> Background_Stock:
-        pass
+        for stock in self.stocks:
+            if stock.get_id() == id:
+                return stock
+        return None
 
-    def get_loan(self, id: int) -> Background_Loan:
+    def get_loan(self) -> Background_Loan:
         return self.loan
 
     def split_timelines(self) -> None:
