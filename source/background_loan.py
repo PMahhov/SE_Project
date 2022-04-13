@@ -15,8 +15,9 @@ class Background_Loan:
         self.offered_interest_rate = offered_interest_rate
         self.volatility = volatility
         self.trend = trend
-        self.number_of_historical_interest_rates = number_of_historical_interest_rates
         self.historical_interest_rates = []
+        for i in range(number_of_historical_interest_rates):
+            self.progress_time()
         self.max_amount_multiplier = max_amount_multiplier
 
     # update all atributes of the class when the user push the button "progress time"
@@ -26,7 +27,7 @@ class Background_Loan:
         
         # update the loan interest rate based on a normal distribution 
         mean = self.offered_interest_rate + self.trend
-        std = self.volatility
+        std = self.volatility*mean/100
         self.offered_interest_rate = np.random.normal(mean, std, 1)
 
     def get_historical_interest_rates(self) -> List[float]:
