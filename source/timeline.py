@@ -2,7 +2,7 @@ from datetime import time
 import pygame
 import yaml
 from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UITextBox
+from pygame_gui.elements import UIPanel, UITextBox, UIVerticalScrollBar
 from background_stock import Background_Stock
 from timeline_stock import Timeline_Stock
 from background_stock import Background_Stock
@@ -33,10 +33,6 @@ class Timeline:
         self.is_active = is_active
         self.money = money
         self.manager = manager
-        self.stocks = [Timeline_Stock(background_stock) for background_stock in reference_stocks] 
-        self.loan = Timeline_Loan(reference_loan)
-        self.net_worth = self.calculate_net_worth()
-
 
         # UI setup
         self.top = top
@@ -61,9 +57,32 @@ class Timeline:
             manager=self.manager,
             visible=not self.start_hidden,
         )
+
+        self.timeline_scrollbar = UIVerticalScrollBar(
+            relative_rect= pygame.Rect(self.box_width-20,0,20,screen_height-300),
+            manager = self.manager,
+            container = self.timeline_panel,
+            visible_percentage=0.5
+        )
+
+        # testreference = Background_Stock(100,"teststock",50,20,5,[20,30,40])
+        # teststock = Timeline_Stock(5,testreference,box_width,box_height,self.timeline_panel,self.manager)
+        
+        self.stocks = []
+        stock_top = 100
+        for background_stock in reference_stocks:
+            self.stocks.append(Timeline_Stock(0, background_stock,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager))
+            stock_top += self.box_height * 5
+
+        #self.stocks = [Timeline_Stock(0, background_stock,100,self.box_width,self.box_height,self.timeline_panel,self.manager) for background_stock in reference_stocks] 
+        self.loan = Timeline_Loan(reference_loan)
+        self.net_worth = self.calculate_net_worth()
+        
+        self.money = 10000
+        self.buy_stock(self.stocks[0],1)
+
         self.update_boxes()
-        testreference = Background_Stock(100,"teststock",50,20,5,[20,30,40])
-        teststock = Timeline_Stock(100,5,testreference,box_width,box_height,self.timeline_panel,self.manager)
+
 
     def update_boxes(self):
         try:
@@ -144,9 +163,9 @@ class Timeline:
     def progress_time(self) -> None:
         self.loan.progress_amount_owed()
         self.net_worth = self.calculate_net_worth()
-        self.update_boxes()
-
-        # call progress time for timeline stocks and loans
+        for stock in self.stocks:
+            stock.progress_time()
+        # call progress time for timeline loans
 
 
 

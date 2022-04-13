@@ -16,7 +16,8 @@ class Timeline_Loan:
         self.loan_reference = loan_reference
 
     def progress_amount_owed(self) -> int:
-        self.amount_owed = int(self.amount_owed * (1 + self.interest_at_borrowing) + 1) # round up
+        if self.interest_at_borrowing != None:
+            self.amount_owed = int(self.amount_owed * (1 + self.interest_at_borrowing) + 1) # round up
 
     def take_loan(self, amount: int) -> None:
         self.amount_owed = amount
