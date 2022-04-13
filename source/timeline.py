@@ -3,6 +3,7 @@ import pygame
 import yaml
 from pygame_gui import UIManager
 from pygame_gui.elements import UIPanel, UITextBox
+from background_stock import Background_Stock
 from timeline_stock import Timeline_Stock
 from timeline_loan import Timeline_Loan
 
@@ -57,6 +58,8 @@ class Timeline:
             visible=not self.start_hidden,
         )
         self.update_boxes()
+        testreference = Background_Stock(100,"teststock",50,20,5,[20,30,40])
+        teststock = Timeline_Stock(100,5,testreference,box_width,box_height,self.timeline_panel,self.manager)
 
     def update_boxes(self):
         try:
