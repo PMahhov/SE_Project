@@ -2,7 +2,7 @@ from datetime import time
 import pygame
 import yaml
 from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UITextBox, UIVerticalScrollBar
+from pygame_gui.elements import UIPanel, UITextBox, UIScrollingContainer
 from background_stock import Background_Stock
 from timeline_stock import Timeline_Stock
 from background_stock import Background_Stock
@@ -51,22 +51,20 @@ class Timeline:
         else:
             raise ValueError("Timeline has weird side")
 
-        self.timeline_panel = UIPanel(
+        self.timeline_panel_bg = UIPanel(
             relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_height-300),
             starting_layer_height=0,
             manager=self.manager,
             visible=not self.start_hidden,
         )
-
-        self.timeline_scrollbar = UIVerticalScrollBar(
-            relative_rect= pygame.Rect(self.box_width-20,0,20,screen_height-300),
-            manager = self.manager,
-            container = self.timeline_panel,
-            visible_percentage=0.5
+        self.timeline_panel = UIScrollingContainer(
+            relative_rect=pygame.Rect(0,0,self.box_width, screen_height-300),
+            starting_height = 1,
+            container = self.timeline_panel_bg,
+            manager=self.manager,
+            visible=not self.start_hidden,
         )
 
-        # testreference = Background_Stock(100,"teststock",50,20,5,[20,30,40])
-        # teststock = Timeline_Stock(5,testreference,box_width,box_height,self.timeline_panel,self.manager)
         
         self.stocks = []
         stock_top = 100
@@ -74,12 +72,11 @@ class Timeline:
             self.stocks.append(Timeline_Stock(0, background_stock,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager))
             stock_top += self.box_height * 5
 
-        #self.stocks = [Timeline_Stock(0, background_stock,100,self.box_width,self.box_height,self.timeline_panel,self.manager) for background_stock in reference_stocks] 
+        self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,self.box_height*5*len(reference_stocks)+self.box_height*2))
+
         self.loan = Timeline_Loan(reference_loan)
         self.net_worth = self.calculate_net_worth()
         
-        self.money = 10000
-        self.buy_stock(self.stocks[0],1)
 
         self.update_boxes()
 
@@ -107,10 +104,10 @@ class Timeline:
 
     def switch_activity(self) -> None:
         if self.is_active == False:
-            self.timeline_panel.show()
+            self.timeline_panel_bg.show()
             self.is_active = True
         elif self.is_active == True:
-            self.timeline_panel.hide()
+            self.timeline_panel_bg.hide()
             self.is_active = False
         else:
             raise ValueError("timeline is neither active or inactive")
