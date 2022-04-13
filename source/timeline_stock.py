@@ -5,14 +5,14 @@ from pygame_gui import UIManager
 class Timeline_Stock:
     def __init__(
         self,
-        id: int,
-        volume: int,
-        total_cost: float,
+        # id: int,
+        # volume: int,
+        # total_cost: float,
         stock_reference: Background_Stock,
     ) -> None:
-        self.id = id
-        self.volume = volume
-        self.total_cost = total_cost
+        # self.id = id
+        self.volume = 0
+        self.total_cost = 0
         self.stock_reference = stock_reference
 
     def change_volume(self, volume: int) -> None:
@@ -22,8 +22,14 @@ class Timeline_Stock:
         info_popup = Information_Popup(self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), manager)
         info_popup.display_graph()
         
+    def get_total_value(self) -> int:
+        return self.stock_reference.get_price() * self.volume
+
     def get_price(self) -> int:
         return self.stock_reference.get_price()
+
+    def get_volume(self) -> int:
+        return self.volume
 
     def buy(self, volume_increase: int) -> None:
         self.volume += volume_increase
@@ -34,7 +40,7 @@ class Timeline_Stock:
         if self.volume == 0:
             self.total_cost = 0
         else:
-            self.total_cost -= self.get_avg_buy_cost * volume_decrease
+            self.total_cost -= self.get_avg_buy_cost() * volume_decrease
 
     def get_avg_buy_cost(self) -> float:
         if self.volume == 0:

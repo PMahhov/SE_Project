@@ -51,12 +51,12 @@ class Background:
         self.top = 150
 
         # Creating timeline objects
-        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, is_active=False)
+        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False) # temp
         self.center_timeline = Timeline(
-            self.manager, "center", self.box_width, self.box_height, self.top, is_active=True
+            self.manager, "center", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=True
         )
         self.right_timeline = Timeline(
-            self.manager, "right", self.box_width, self.box_height, self.top, is_active=False
+            self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False
         )
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
 
