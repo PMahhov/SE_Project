@@ -26,7 +26,7 @@ class Information_Popup:
 
     def display_graph(self) -> None:
         # create the popup window
-        window = UIWindow(
+        self.window = UIWindow(
             pygame.Rect(
                 ((self.window_width - (2.5 * self.window_width/6)) / 2) ,
                 self.window_height / 8,
@@ -39,7 +39,7 @@ class Information_Popup:
        
         # create the graph
         fig = pylab.figure(
-            figsize=[4, 4], dpi=500,  # Inches  # 100 dots per inch,
+            figsize=[4, 4], dpi=300,  # Inches  # 100 dots per inch,
         )  # resulting buffer is 400x400 pixels
         ax = fig.gca()
         
@@ -70,5 +70,9 @@ class Information_Popup:
             ),
             surf,
             manager=self.manager,
-            container=window,
+            container=self.window,
         )
+
+    def kill(self):
+        self.window.kill()
+        

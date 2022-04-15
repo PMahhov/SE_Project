@@ -40,8 +40,13 @@ class Timeline_Loan:
         return not self.amount_owed
 
     def display_info(self, manager: UIManager) -> None:
-        info_popup = Information_Popup("Historical Loan Interest Rates", self.loan_reference.get_historical_prices(), self.loan_reference.get_iinitial_number_of_historical_interest_rates(), self.timestep, "interest rate", manager)
-        info_popup.display_graph()
+        try:
+            self.info_popup.kill()
+        except:
+            pass
+        finally:
+            self.info_popup = Information_Popup("Historical Loan Interest Rates", self.loan_reference.get_historical_prices(), self.loan_reference.get_initial_number_of_historical_interest_rates(), self.timestep, "interest rate", manager)
+            self.info_popup.display_graph()
 
     def button_pressed(self, event) -> bool:
         pass

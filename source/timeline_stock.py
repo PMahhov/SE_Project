@@ -72,6 +72,7 @@ class Timeline_Stock:
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
+            tool_tip_text = "Buy one of this stock"
         )
 
         self.buyten_button = UIButton(
@@ -80,6 +81,7 @@ class Timeline_Stock:
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
+            tool_tip_text = "Buy 10 of this stock"
         )
 
         self.buymax_button = UIButton(
@@ -88,6 +90,7 @@ class Timeline_Stock:
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
+            tool_tip_text = "Buy as much as you can afford"
         )        
 
         self.sellone_button = UIButton(
@@ -96,6 +99,7 @@ class Timeline_Stock:
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
+            tool_tip_text = "Sell one of this stock"
         )
 
         self.sellten_button = UIButton(
@@ -104,6 +108,7 @@ class Timeline_Stock:
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
+            tool_tip_text = "Sell 10 of this stock"
         )
 
         self.sellmax_button = UIButton(
@@ -112,6 +117,7 @@ class Timeline_Stock:
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
+            tool_tip_text = "Sell all of this stock"
         )         
 
         self.pricebox = UITextBox(
@@ -121,6 +127,16 @@ class Timeline_Stock:
             container = self.stock_panel,
             parent_element = self.stock_panel
         )
+
+        self.information_button = UIButton(
+            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "i",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+            tool_tip_text = "Display historical information about the stock"
+        )
+
         self.update_boxes()
     
 
@@ -200,9 +216,14 @@ class Timeline_Stock:
     def change_volume(self, volume: int) -> None:
         self.volume = volume
 
-    def display_info(self, manager: UIManager) -> None:
-        info_popup = Information_Popup(self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), self.stock_reference.get_initial_number_of_historical_prices(), self.timestep, "stock price", manager)
-        info_popup.display_graph()
+    def display_info(self) -> None:
+        try:
+            self.info_popup.kill()
+        except:
+            pass
+        finally:
+            self.info_popup = Information_Popup(self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), self.stock_reference.get_initial_number_of_historical_prices(), self.timestep, "stock price", self.manager)
+            self.info_popup.display_graph()
         
     def get_total_value(self) -> int:
         return self.stock_reference.get_price() * self.volume
@@ -252,6 +273,8 @@ class Timeline_Stock:
             self.sell(10)
         elif event.ui_element == self.sellmax_button:
             self.sell(self.volume)
+        elif event.ui_element == self.information_button:
+            self.display_info()
         else:
             return False
         return True
