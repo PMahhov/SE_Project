@@ -4,6 +4,7 @@ import yaml
 from background import Background
 from information_popup import Information_Popup
 from pygame_gui import UIManager
+import numpy as np
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -23,15 +24,12 @@ background = pygame.Surface((screen_width, screen_height))
 background.fill(pygame.Color("#A5AAAF"))
 default_manager = UIManager(
     (screen_width, screen_height)
-)  # , 'data/themes/quick_theme.json')
+) #, 'source/window.json')
 
 path_level_module = "level_modules/level_module_template.json"
 
 bg = Background()
 bg.init_class(default_manager, path_level_module)
-
-#popup = Information_Popup("window", "data", default_manager)
-#popup.display_graph()
 
 clock = pygame.time.Clock()
 is_running = True

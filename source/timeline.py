@@ -27,12 +27,14 @@ class Timeline:
         # net_worth: int,
         reference_stocks: List[Background_Stock],
         reference_loan: Background_Loan,
+        timestep: str,
         is_active: bool,
         money: int = 0,
     ) -> None:
         self.is_active = is_active
         self.money = money
         self.manager = manager
+        self.timestep = timestep
 
         # UI setup
         self.top = top
@@ -69,12 +71,12 @@ class Timeline:
         self.stocks = []
         stock_top = 100
         for background_stock in reference_stocks:
-            self.stocks.append(Timeline_Stock(0, background_stock,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager))
+            self.stocks.append(Timeline_Stock(0, background_stock,stock_top,self.box_width,self.box_height,self.timeline_panel, self.manager, self.timestep))
             stock_top += self.box_height * 5
 
         self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,self.box_height*5*len(reference_stocks)+self.box_height*2))
 
-        self.loan = Timeline_Loan(reference_loan)
+        self.loan = Timeline_Loan(reference_loan, self.timestep)
         self.net_worth = self.calculate_net_worth()
         
 
@@ -164,8 +166,14 @@ class Timeline:
             stock.progress_time()
         # call progress time for timeline loans
 
-
-
+    def display_historical_information(self, financial_instrument: str, id: int) -> None:
+        if financial_instrument == "loan":
+            self.loan.display_info(self.manager)
+        else:
+            for stock in self.stocks:
+                if stock.get_id() == id:
+                    stock.display_info(self.manager)
+                    break
 
 def copy_data(self, kept_timeline: Timeline) -> None:
     pass
