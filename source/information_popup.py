@@ -48,9 +48,9 @@ class Information_Popup:
             x_values.append(i - self.initial_number_of_historical_data + 1)
         for i in range(len(self.data) - self.initial_number_of_historical_data):
             x_values.append(i + 1)
-        
         ax.plot(x_values, self.data)
         
+        # set graph parameters
         ax.set_title(self.window_title, fontsize = 12, pad = 10)
         ax.set_xlabel(self.x_label, labelpad=3, fontsize = 10)
         ax.set_ylabel(self.y_label, labelpad=0, fontsize = 10)

@@ -31,17 +31,6 @@ path_level_module = "level_modules/level_module_template.json"
 bg = Background()
 bg.init_class(default_manager, path_level_module)
 
-# test
-values = []
-for i in range(50):
-    values.append(np.random.normal(10, 10, 1)[0])
-
-popup = Information_Popup("window", values, 50, "day", "price", default_manager)
-popup.data.append(12)
-popup.data.append(11)
-popup.data.append(14)
-popup.display_graph()
-
 clock = pygame.time.Clock()
 is_running = True
 
