@@ -2,7 +2,7 @@ from datetime import time
 import pygame
 import yaml
 from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UITextBox, UIScrollingContainer
+from pygame_gui.elements import UIPanel, UITextBox, UIScrollingContainer, UILabel
 from background_stock import Background_Stock
 from timeline_stock import Timeline_Stock
 from background_stock import Background_Stock
@@ -64,16 +64,22 @@ class Timeline:
             manager=self.manager,
             visible=not self.start_hidden,
         )
+        self.timeline_label = UILabel(
+            relative_rect = pygame.Rect(0,0,self.box_width,self.box_height),
+            text = "TIMELINE",
+            manager = manager,
+            container = self.timeline_panel,
+        )
 
         
         self.stocks = []
         stock_top = 100
         for background_stock in reference_stocks:
             self.stocks.append(Timeline_Stock(0, background_stock,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager))
-            stock_top += self.box_height * 5
+            stock_top += self.box_height * 4 + 10
 
-        self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,self.box_height*5*len(reference_stocks)+self.box_height*2))
-
+        self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(self.box_height*4 + 10) * len(reference_stocks) + self.box_height*2 + 5))
+ 
         self.loan = Timeline_Loan(reference_loan)
         self.net_worth = self.calculate_net_worth()
         

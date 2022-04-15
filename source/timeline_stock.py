@@ -3,7 +3,7 @@ from background_stock import Background_Stock
 from information_popup import Information_Popup
 import pygame
 from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UITextBox, UILabel
+from pygame_gui.elements import UIPanel, UITextBox, UILabel, UIButton
 
 class Timeline_Stock:
     def __init__(
@@ -30,7 +30,7 @@ class Timeline_Stock:
         self.stock_reference = stock_reference
 
         self.stock_panel = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 5),
+            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 4 + 10),
             starting_layer_height=0,
             manager=self.manager,
             container=timeline_panel,
@@ -44,7 +44,71 @@ class Timeline_Stock:
             container = self.stock_panel,
             parent_element = self.stock_panel,
             )
+
+        self.buylabel = UILabel(
+            relative_rect = pygame.Rect(0,self.box_height*3,self.box_width/8,self.box_height),
+            text = "Buy: ",
+            manager = self.manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+            ) 
         
+        self.selllabel = UILabel(
+            relative_rect = pygame.Rect(self.box_width/2 - 10,self.box_height*3,self.box_width/8,self.box_height),
+            text = "Sell: ",
+            manager = self.manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+            ) 
+
+        self.buyone_button = UIButton(
+            relative_rect = pygame.Rect(self.box_width / 8 - 15, self.box_height*3, self.box_width/8, self.box_height),
+            text = "x1",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+        )
+
+        self.buyten_button = UIButton(
+            relative_rect = pygame.Rect(2*self.box_width / 8 - 15, self.box_height*3, self.box_width/8, self.box_height),
+            text = "x10",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+        )
+
+        self.buymax_button = UIButton(
+            relative_rect = pygame.Rect(3*self.box_width / 8 - 15, self.box_height*3, self.box_width/8, self.box_height),
+            text = "Max",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+        )        
+
+        self.sellone_button = UIButton(
+            relative_rect = pygame.Rect(5*self.box_width / 8 - 22, self.box_height*3, self.box_width/8, self.box_height),
+            text = "x1",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+        )
+
+        self.sellten_button = UIButton(
+            relative_rect = pygame.Rect(6*self.box_width / 8 - 22, self.box_height*3, self.box_width/8, self.box_height),
+            text = "x10",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+        )
+
+        self.sellmax_button = UIButton(
+            relative_rect = pygame.Rect(7*self.box_width / 8 - 22, self.box_height*3, self.box_width/8, self.box_height),
+            text = "Max",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+        )         
+
         self.pricebox = UITextBox(
             html_text = "Price: "+str(self.stock_reference.get_price()),
             relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
