@@ -26,7 +26,7 @@ class Timeline_Stock:
         self.manager = manager
         self.timestep = timestep
 
-        self.id = id
+        self.id = stock_reference.get_id()
         self.volume = volume
         self.total_cost = volume*stock_reference.get_price()
         self.stock_reference = stock_reference
@@ -139,6 +139,9 @@ class Timeline_Stock:
 
     def get_cash_flow(self) -> int:
         return self.get_total_value() - self.total_cost
+
+    def get_id(self) -> int:
+        return self.id
 
 
     
