@@ -15,6 +15,7 @@ class Background_Loan:
         self.offered_interest_rate = offered_interest_rate
         self.volatility = volatility
         self.trend = trend
+        self.initial_number_of_historical_interest_rates = number_of_historical_interest_rates
         self.historical_interest_rates = []
         for i in range(number_of_historical_interest_rates):
             self.progress_time()
@@ -41,3 +42,6 @@ class Background_Loan:
     
     def get_id(self) -> int:
         return self.id
+
+    def get_iinitial_number_of_historical_interest_rates(self) -> int:
+        return self.initial_number_of_historical_interest_rates

@@ -17,12 +17,14 @@ class Timeline_Stock:
         box_height: int,
         timeline_panel: UIPanel,
         manager: UIManager,
+        timestep: str
     ) -> None:
         self.box_width = box_width
         self.box_height = box_height
         self.left = 0
         self.top = top
         self.manager = manager
+        self.timestep = timestep
 
         self.id = id
         self.volume = volume
@@ -104,7 +106,7 @@ class Timeline_Stock:
         self.volume = volume
 
     def display_info(self, manager: UIManager) -> None:
-        info_popup = Information_Popup(self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), manager)
+        info_popup = Information_Popup(self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), self.stock_reference.get_initial_number_of_historical_prices(), self.timestep, "stock price", manager)
         info_popup.display_graph()
         
     def get_total_value(self) -> int:

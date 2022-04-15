@@ -9,11 +9,13 @@ class Timeline_Loan:
         # amount_owed: int,
         # interest_at_borrowing: int,
         loan_reference: Background_Loan,
+        timestep: str
     ) -> None:
         # self.id = id
         self.amount_owed = 0
         self.interest_at_borrowing = None
         self.loan_reference = loan_reference
+        self.timestep = timestep
 
     def progress_amount_owed(self) -> int:
         if self.interest_at_borrowing != None:
@@ -38,5 +40,5 @@ class Timeline_Loan:
         return not self.amount_owed
 
     def display_info(self, manager: UIManager) -> None:
-        info_popup = Information_Popup("Historical Loan Interest Rates", self.loan_reference.get_historical_prices(), manager)
+        info_popup = Information_Popup("Historical Loan Interest Rates", self.loan_reference.get_historical_prices(), self.loan_reference.get_iinitial_number_of_historical_interest_rates(), self.timestep, "interest rate", manager)
         info_popup.display_graph()

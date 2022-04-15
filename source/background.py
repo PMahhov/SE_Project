@@ -38,11 +38,6 @@ class Background:
 
         self.load_data(path_level_module)
 
-        # Information provided by the level module
-        self.timestep = "Day"  # options: "Day", "Month", "Year"
-        self.timelimit = 5
-            # how many stocks/loans to create, parameters for each
-
         # Game tracking information
         self.current_time = 1
 
@@ -52,12 +47,12 @@ class Background:
         self.top = 150
 
         # Creating timeline objects
-        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False) # temp
+        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=False) # temp
         self.center_timeline = Timeline(
-            self.manager, "center", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=True
+            self.manager, "center", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=True
         )
         self.right_timeline = Timeline(
-            self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False
+            self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=False
         )
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
 
@@ -123,7 +118,6 @@ class Background:
             manager=self.manager,
             visible=True,
         )
-
         self.update_labels()
 
     def update_labels(self):
@@ -145,7 +139,7 @@ class Background:
         )
 
     def load_data(self, path_level_module: str) -> None:  
-        # read scenario_info JSON file and initialize stocks and loans
+        # read level_module JSON file and initialize stocks, loans and other variables
         file = open(path_level_module)
         data_module = json.load(file)
 
@@ -161,6 +155,9 @@ class Background:
 
         self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']
+
+        self.timestep = data_module["timestep"]
+        self.timelimit = data_module["timelimit"]
 
         # [TODO] add win conditions and win condition type
         # self.win_cond_type = data_module['win_cond_type']
@@ -251,5 +248,3 @@ class Background:
             window_title= "Tutorial",
             html_message=self.tutorial
         )
-
-

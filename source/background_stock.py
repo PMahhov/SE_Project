@@ -16,6 +16,7 @@ class Background_Stock:
         self.price = price
         self.volatility = volatility
         self.trend = trend
+        self.initial_number_of_historical_prices = number_of_historical_prices
         self.historical_prices = []
         for i in range(number_of_historical_prices):
             self.progress_time()
@@ -41,3 +42,7 @@ class Background_Stock:
 
     def get_id(self) -> int:
         return self.id
+    
+    def get_initial_number_of_historical_prices(self) -> int:
+        return self.initial_number_of_historical_prices
+        

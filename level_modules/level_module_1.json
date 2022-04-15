@@ -1,0 +1,33 @@
+{
+    "name": "Level 1: Introduction",
+    "id": 0,
+    "tutorial": "This is level 1, good luck!",
+    "stocks": [
+        {
+            "id": 0,
+            "name": "stock0",
+            "price": 100,
+            "volatility": 2,
+            "trend": 3,
+            "number_of_historical_prices": 10
+        },
+        {
+            "id": 1,
+            "name": "stock1",
+            "price": 10,
+            "volatility": 1,
+            "trend": 5,
+            "number_of_historical_prices": 4
+        }
+    ],
+    "loan": {
+        "id": 0,
+        "offered_interest_rate": 4,
+        "volatility": 1,
+        "trend": 5,
+        "number_of_historical_interest_rates": 23,
+        "max_amount_multiplier": 3
+    },
+    "transaction_cost": 1
+}
+
