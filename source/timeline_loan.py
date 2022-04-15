@@ -40,3 +40,6 @@ class Timeline_Loan:
     def display_info(self, manager: UIManager) -> None:
         info_popup = Information_Popup("Historical Loan Interest Rates", self.loan_reference.get_historical_prices(), manager)
         info_popup.display_graph()
+
+    def button_pressed(self, event) -> bool:
+        pass

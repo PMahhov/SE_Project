@@ -2,6 +2,7 @@
     "name": "template",
     "id": 0,
     "tutorial": "This is a template",
+    "initial_money": 10000,
     "stocks": [
         {
             "id": 0,

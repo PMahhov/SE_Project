@@ -52,12 +52,12 @@ class Background:
         self.top = 150
 
         # Creating timeline objects
-        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False) # temp
+        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False, money = self.initial_money) # temp
         self.center_timeline = Timeline(
-            self.manager, "center", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=True
+            self.manager, "center", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=True, money = self.initial_money
         )
         self.right_timeline = Timeline(
-            self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False
+            self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, is_active=False, money = self.initial_money
         )
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
 
@@ -149,6 +149,8 @@ class Background:
         file = open(path_level_module)
         data_module = json.load(file)
 
+        self.initial_money = data_module["initial_money"]
+        
         self.stocks = []
         for stock in data_module["stocks"]:
             self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['number_of_historical_prices']))
@@ -161,6 +163,8 @@ class Background:
 
         self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']
+
+        
 
         # [TODO] add win conditions and win condition type
         # self.win_cond_type = data_module['win_cond_type']
@@ -201,10 +205,13 @@ class Background:
             self.game_end = True
             self.end_game()
 
-        for timeline in self.timelines:
-            timeline.progress_time()
+        # call progress time for background stocks
         for stock in self.stocks:
             stock.progress_time()
+
+        for timeline in self.timelines:
+            timeline.progress_time()
+
         self.loan.progress_time()
 
 
@@ -235,9 +242,10 @@ class Background:
             self.progress_time()
         elif event.ui_element == self.get_help_button:
             self.display_tutorial()
-
-        for timeline in self.timelines:
-            pass
+        else:
+            for timeline in self.timelines:
+                if timeline.button_pressed(event):
+                    break
     
     def display_tutorial(self) -> None:
         try: 

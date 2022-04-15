@@ -1,4 +1,5 @@
 from datetime import time
+from xmlrpc.client import Boolean
 import pygame
 import yaml
 from pygame_gui import UIManager
@@ -24,11 +25,10 @@ class Timeline:
         box_width: int,
         box_height: int,
         top:int,
-        # net_worth: int,
         reference_stocks: List[Background_Stock],
         reference_loan: Background_Loan,
         is_active: bool,
-        money: int = 0,
+        money: int,
     ) -> None:
         self.is_active = is_active
         self.money = money
@@ -75,13 +75,13 @@ class Timeline:
         self.stocks = []
         stock_top = 100
         for background_stock in reference_stocks:
-            self.stocks.append(Timeline_Stock(0, background_stock,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager))
+            self.stocks.append(Timeline_Stock(0, background_stock,self,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager))
             stock_top += self.box_height * 4 + 10
 
         self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(self.box_height*4 + 10) * len(reference_stocks) + self.box_height*2 + 5))
  
         self.loan = Timeline_Loan(reference_loan)
-        self.net_worth = self.calculate_net_worth()
+        self.calculate_net_worth()
         
 
         self.update_boxes()
@@ -118,24 +118,24 @@ class Timeline:
         else:
             raise ValueError("timeline is neither active or inactive")
 
-    def buy_max_stock(self, timeline_stock: Timeline_Stock) -> None:
-        volume = self.money//timeline_stock.get_price()
-        self.buy_stock(timeline_stock, volume)
+    # def buy_max_stock(self, timeline_stock: Timeline_Stock) -> None:
+    #     volume = self.money//timeline_stock.get_price()
+    #     self.buy_stock(timeline_stock, volume)
 
-    def buy_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
-        cost = timeline_stock.get_price() * volume
-        if cost > self.money:# add fee
-            pass # cannot buy
-        else: 
-            timeline_stock.buy(volume)
-            self.money -= cost
+    # def buy_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
+    #     cost = timeline_stock.get_price() * volume
+    #     if cost > self.money:# add fee
+    #         pass # cannot buy
+    #     else: 
+    #         timeline_stock.buy(volume)
+    #         self.money -= cost
 
-    def sell_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
-        if volume > timeline_stock.get_volume():# add fee
-            pass # cannot sell
-        else: 
-            timeline_stock.sell(volume)
-            self.money += volume * timeline_stock.get_price()
+    # def sell_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
+    #     if volume > timeline_stock.get_volume():# add fee
+    #         pass # cannot sell
+    #     else: 
+    #         timeline_stock.sell(volume)
+    #         self.money += volume * timeline_stock.get_price()
 
     def take_loan(self, amount: int) -> None:
         if (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():
@@ -155,23 +155,39 @@ class Timeline:
         else:
             self.loan.pay_off(amount)
 
-    def calculate_net_worth(self) -> int:
-        net_worth = self.money
-        net_worth -= self.loan.get_amount_owed()
+    def calculate_net_worth(self) -> None:
+        self.net_worth = self.money
+        self.net_worth -= self.loan.get_amount_owed()
         for stock in self.stocks:
-            net_worth += net_worth + stock.get_total_value()
-        # [net_worth = net_worth + stock.get_total_value() for stock in self.stocks]
-        return net_worth
+            self.net_worth += stock.get_total_value()
 
     def progress_time(self) -> None:
         self.loan.progress_amount_owed()
-        self.net_worth = self.calculate_net_worth()
+        self.calculate_net_worth()
+
+        # call progress time for timeline stocks
         for stock in self.stocks:
             stock.progress_time()
-        # call progress time for timeline loans
 
+        # call progress time for timeline loans: 
+        #[TODO]
 
+        self.update_boxes()
 
+    def button_pressed(self, event) -> bool:
+        for stock in self.stocks:
+            if stock.button_pressed(event, self):
+                for stock in self.stocks:
+                    stock.update_boxes()
+                self.update_boxes()
+                return True
+        if self.loan.button_pressed(event):
+            # [TODO] loan.update_boxes()
+            self.update_boxes()
+            return True
+        else:
+            return False
+        
 
 def copy_data(self, kept_timeline: Timeline) -> None:
     pass
