@@ -253,16 +253,3 @@ class Background:
                 window_title= "Tutorial",
                 html_message=self.tutorial
             )
-
-
-        # text_window = UIMessageWindow(
-        #     pygame.Rect(
-        #         (2 * screen_width / 8),
-        #         (2 * screen_height / 12),
-        #         (1.5 * self.box_width),
-        #         (8 * self.box_height),
-        #     ),
-        #     manager=self.manager,
-        #     window_title= "Tutorial",
-        #     html_message=self.tutorial
-        # )
