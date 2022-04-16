@@ -30,6 +30,8 @@ class Background_Stock:
         mean = self.price + self.trend
         std = self.volatility*mean/100
         self.price = int(np.random.normal(mean, std, 1) + 0.5)
+        #[TODO] make sure price cant go negative --> if stock price goes to zero, then the company goes bankrupt --> all stocks lost, this stock can't be bought again
+        # unless this is the only stock left, in which case can't go lower than a number (1?)
 
     def get_price(self) -> int:
         return self.price

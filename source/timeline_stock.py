@@ -162,8 +162,9 @@ class Timeline_Stock:
                 container = self.stock_panel,
                 parent_element = self.stock_panel
             )                      
+            # net cash flow as measured from start of scenario to current point
             self.cashflowbox = UITextBox(
-            html_text = "Cash flow: " + f"{self.cash_flow:.2f}",
+            html_text = "Net cash flow: " + f"{self.cash_flow:.2f}",
             relative_rect = pygame.Rect(self.box_width/2,self.box_height*2,self.box_width/2,self.box_height),
             manager = self.manager,
             container = self.stock_panel,

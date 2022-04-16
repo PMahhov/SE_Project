@@ -10,15 +10,15 @@
             "price": 100,
             "volatility": 2,
             "trend": 3,
-            "number_of_historical_prices": 10
+            "number_of_historical_prices": 30
         },
         {
             "id": 1,
             "name": "stock1",
             "price": 10,
-            "volatility": 1,
-            "trend": 5,
-            "number_of_historical_prices": 4
+            "volatility": 5,
+            "trend": 2,
+            "number_of_historical_prices": 40
         }
     ],
     "loan": {
