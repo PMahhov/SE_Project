@@ -30,6 +30,7 @@ class Timeline_Loan:
         self.amount_owed = amount_owed
         self.interest_at_borrowing = interest_at_borrowing
         self.loan_reference = loan_reference
+        self.timeline_reference = timeline_reference
         self.timestep = timestep
 
         self.loan_panel_offered = UIPanel(
@@ -69,6 +70,13 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
         )            
 
+        self.max_amount_box = UITextBox(
+            html_text = "Max amount: "+f"{self.get_max_amount():.2f}",
+            relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
+            manager = self.manager,
+            container = self.loan_panel_offered,
+        )            
+
         self.information_button_1 = UIButton(
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
@@ -92,6 +100,7 @@ class Timeline_Loan:
         self.update_boxes()
         try:
             self.offered_ir_box.kill()
+            self.max_amount_box.kill()
         except:
             pass
         finally:
@@ -100,8 +109,16 @@ class Timeline_Loan:
             relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
             manager = self.manager,
             container = self.loan_panel_offered,
-        )            
-
+            )           
+            self.max_amount_box = UITextBox(
+                html_text = "Max allowed: "+f"{self.get_max_amount():.2f}",
+                relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
+                manager = self.manager,
+                container = self.loan_panel_offered,
+            )   
+    
+    def get_max_amount(self) -> float:
+        return self.timeline_reference.net_worth *  self.loan_reference.get_max_amount_multiplier()
 
     def progress_amount_owed(self) -> int:
         if self.interest_at_borrowing != None:

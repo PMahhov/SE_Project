@@ -87,13 +87,16 @@ class Timeline:
             self.stocks.append(Timeline_Stock(0, background_stock,self,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager, self.timestep))
             stock_top += stock_panel_size
 
+        self.calculate_net_worth(False)
+
         if reference_loan != None:
             self.loan = Timeline_Loan(reference_loan, self, 2*self.box_height, self.box_width,self.box_height,self.timeline_panel,self.manager,self.timestep)
             self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + loan_panel_size + self.box_height*2 + 5))
         else:
             self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + self.box_height*2 + 5))
+            self.loan = None
 
-        self.calculate_net_worth()
+        
         
 
         self.update_boxes()
@@ -150,7 +153,9 @@ class Timeline:
     #         self.money += volume * timeline_stock.get_price()
 
     def take_loan(self, amount: int) -> None:
-        if (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():
+        if self.loan == None:
+            raise TypeError("trying to take a nonexistent loan")
+        elif (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():
             pass # cannot take loan
         else:
             self.loan.take_loan(amount)
@@ -162,27 +167,34 @@ class Timeline:
             self.pay_loan(min(self.cash, self.loan.get_amount_owed()))
 
     def pay_loan(self, amount: int) -> None:
-        if self.loan.get_amount_owed() < amount or self.money < amount or not self.loan.have_loan():
+        if self.loan == None:
+            raise TypeError("trying to pay a nonexistent loan")
+        elif self.loan.get_amount_owed() < amount or self.money < amount or not self.loan.have_loan():
             pass # cannot pay loan
         else:
             self.loan.pay_off(amount)
 
-    def calculate_net_worth(self) -> None:
+    def calculate_net_worth(self, loan_exists: bool) -> None:
         self.net_worth = self.money
-        self.net_worth -= self.loan.get_amount_owed()
         for stock in self.stocks:
             self.net_worth += stock.get_total_value()
 
+        if loan_exists:
+            self.net_worth -= self.loan.get_amount_owed()
+
     def progress_time(self) -> None:
-        self.loan.progress_amount_owed()
-        self.calculate_net_worth()
+        if self.loan != None:
+            self.loan.progress_amount_owed()
+
+        self.calculate_net_worth(self.loan != None)         # loan exists if it is not none
 
         # call progress time for timeline stocks
         for stock in self.stocks:
             stock.progress_time()
 
         # call progress time for timeline loans: 
-        self.loan.progress_time()
+        if self.loan != None:
+            self.loan.progress_time()
 
         self.update_boxes()       
              
@@ -204,10 +216,11 @@ class Timeline:
                     stock.update_boxes()
                 self.update_boxes()
                 return True
-        if self.loan.button_pressed(event):
-            # [TODO] loan.update_boxes()
-            self.update_boxes()
-            return True
+        if self.loan != None:
+            if self.loan.button_pressed(event):
+                # [TODO] loan.update_boxes()
+                self.update_boxes()
+                return True
         else:
             return False
         

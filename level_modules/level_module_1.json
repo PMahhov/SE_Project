@@ -2,6 +2,7 @@
     "name": "Level 1: Introduction",
     "id": 0,
     "tutorial": "This is level 1, good luck!",
+    "initial_money": 5000,
     "stocks": [
         {
             "id": 0,
@@ -21,6 +22,8 @@
         }
     ],
     "loan": "None",
-    "transaction_cost": 1
+    "transaction_cost": 1,
+    "timestep": "Month",
+    "timelimit": 7
 }
 

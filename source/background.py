@@ -159,7 +159,7 @@ class Background:
             self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['number_of_historical_prices']))
         
         loan = data_module["loan"]
-        if loan["exists"] == "None":
+        if loan == "None":
             self.loan = None
         else:
             self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])

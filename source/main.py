@@ -26,7 +26,8 @@ default_manager = UIManager(
     (screen_width, screen_height)
 ) #, 'source/window.json')
 
-path_level_module = "level_modules/level_module_template.json"
+#path_level_module = "level_modules/level_module_template.json"
+path_level_module = "level_modules/level_module_1.json"
 
 bg = Background()
 bg.init_class(default_manager, path_level_module)
