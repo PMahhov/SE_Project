@@ -1,9 +1,10 @@
+from multiprocessing import managers
 import pygame
 import yaml
 from background_loan import Background_Loan
 from background_stock import Background_Stock
 from pygame_gui import UIManager
-from pygame_gui.elements import UIButton, UILabel, UIWindow
+from pygame_gui.elements import UIButton, UILabel, UIWindow, UIPanel
 from pygame_gui.windows import UIMessageWindow
 from timeline import Timeline
 import json
@@ -210,6 +211,16 @@ class Background:
 
     def end_game(self) -> None:
         self.timeprogress_button.kill()
+        self.scenario_end_panel = UIPanel(
+            relative_rect = pygame.Rect(
+                (screen_width / 2) - self.box_width / 3,
+                self.top/2-self.box_height/3,
+                2*self.box_width/3,
+                self.box_height,
+            ),
+            starting_layer_height = 0,
+            manager = self.manager,
+        )
         self.timeprogress_button = UILabel(
             text="Scenario End",
             relative_rect=pygame.Rect(
