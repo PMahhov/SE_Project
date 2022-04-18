@@ -159,3 +159,8 @@ class Timeline_Loan:
         else:
             return False
         return True
+
+    def update_attributes(self, new_loan: any) -> None:
+        # [TODO] update loan attributes
+        # [TODO] self.update_boxes()
+        pass

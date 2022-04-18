@@ -183,6 +183,10 @@ class Background:
         return self.loan
 
     def split_timelines(self) -> None:
+        # copy center timeline information into left and right timelines
+        self.copy_data(self.center_timeline, self.left_timeline)
+        self.copy_data(self.center_timeline, self.right_timeline)
+
         for tl in self.timelines:
             tl.switch_activity()
 
@@ -190,16 +194,15 @@ class Background:
         self.dropleft_button.show()
         self.dropright_button.show()
 
-        # [TODO] copy center timeline information into left and right timelines
+    def merge_timeline(self, timeline: Timeline) -> None:
+        # copy given timeline information into center timeline
+        self.copy_data(timeline, self.center_timeline)
 
-    def merge_timeline(self, Timeline) -> None:
         for tl in self.timelines:
             tl.switch_activity()
             self.creation_button.show()
             self.dropleft_button.hide()
             self.dropright_button.hide()
-
-        # [TODO] copy given timeline information into center timeline
 
     def progress_time(self) -> None:
         self.current_time += 1
@@ -281,3 +284,7 @@ class Background:
                 window_title= "Tutorial",
                 html_message=self.tutorial
             )
+    
+    def copy_data(self, sender_timeline: Timeline, receiver_timeline: Timeline) -> None:
+        receiver_timeline.update_attributes(sender_timeline.get_money(), sender_timeline.get_net_worth(), sender_timeline.get_stocks(), sender_timeline.get_loan())
+    

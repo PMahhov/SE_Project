@@ -235,6 +235,9 @@ class Timeline_Stock:
     def get_volume(self) -> int:
         return self.volume
 
+    def get_cash_flow(self) -> float:
+        return self.cash_flow
+
     def buy(self, volume_increase: int) -> None:
         if self.buyable() >= volume_increase:
             self.volume += volume_increase
@@ -280,5 +283,10 @@ class Timeline_Stock:
             return False
         return True
     
+    def update_attributes(self, new_stock: any) -> None:
+        self.volume = new_stock.get_volume()
+        self.cash_flow = new_stock.get_cash_flow()
 
-
+        # update total_cost with update avg_buy_cost when self.update_boxes() is called
+        self.total_cost = self.volume * self.stock_reference.get_price()
+        self.update_boxes()
