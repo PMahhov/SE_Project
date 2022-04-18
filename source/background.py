@@ -125,6 +125,16 @@ class Background:
         except:
             pass
         finally:
+            self.timeprogress_panel = UIPanel(
+            relative_rect = pygame.Rect(
+                    (5*screen_width / 6) - self.box_width / 3,
+                    self.top/2-self.box_height/3,
+                    self.box_width/2,
+                    self.box_height,
+            ),
+            starting_layer_height = 0,
+            manager = self.manager,
+        )
             self.timeprogress_label = UILabel(
                 text=self.timestep+" "+str(self.current_time)+" / "+str(self.timelimit),
                 relative_rect=pygame.Rect(
