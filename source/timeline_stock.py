@@ -288,5 +288,5 @@ class Timeline_Stock:
         self.cash_flow = new_stock.get_cash_flow()
 
         # update total_cost with update avg_buy_cost when self.update_boxes() is called
-        self.total_cost = self.volume * self.stock_reference.get_price()
+        self.total_cost = self.volume * new_stock.get_avg_buy_cost()
         self.update_boxes()
