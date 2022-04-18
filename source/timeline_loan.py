@@ -71,7 +71,7 @@ class Timeline_Loan:
         )            
 
         self.max_amount_box = UITextBox(
-            html_text = "Max amount: "+f"{self.get_max_amount():.2f}",
+            html_text = "Max amount: "+str(self.get_max_amount()),
             relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
             manager = self.manager,
             container = self.loan_panel_offered,
@@ -111,14 +111,14 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
             )           
             self.max_amount_box = UITextBox(
-                html_text = "Max allowed: "+f"{self.get_max_amount():.2f}",
+                html_text = "Max allowed: "+str(self.get_max_amount()),
                 relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
                 manager = self.manager,
                 container = self.loan_panel_offered,
             )   
     
-    def get_max_amount(self) -> float:
-        return self.timeline_reference.net_worth *  self.loan_reference.get_max_amount_multiplier()
+    def get_max_amount(self) -> int:
+        return int(self.timeline_reference.net_worth *  self.loan_reference.get_max_amount_multiplier())
 
     def progress_amount_owed(self) -> int:
         if self.interest_at_borrowing != None:
