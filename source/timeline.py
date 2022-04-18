@@ -182,7 +182,7 @@ class Timeline:
             stock.progress_time()
 
         # call progress time for timeline loans: 
-        #[TODO]
+        self.loan.progress_time()
 
         self.update_boxes()       
              

@@ -213,11 +213,13 @@ class Background:
         for stock in self.stocks:
             stock.progress_time()
 
+        if self.loan != None:
+            self.loan.progress_time()
+
         for timeline in self.timelines:
             timeline.progress_time()
 
-        if self.loan != None:
-            self.loan.progress_time()
+        
 
 
     def end_game(self) -> None:

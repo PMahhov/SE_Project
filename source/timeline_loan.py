@@ -63,8 +63,8 @@ class Timeline_Loan:
             )
 
         self.offered_ir_box = UITextBox(
-            html_text = "Interest rate: "+str(self.loan_reference.get_offered_interest_rate()),
-            relative_rect = pygame.Rect(0,self.box_height,2*self.box_width/2,self.box_height),
+            html_text = "Interest rate: "+f"{self.loan_reference.get_offered_interest_rate():.2f}",
+            relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
             manager = self.manager,
             container = self.loan_panel_offered,
         )            
@@ -84,6 +84,24 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Display historical information about the loan"
         )        
+
+    def update_boxes(self) -> None:
+        pass
+
+    def progress_time(self) -> None:
+        self.update_boxes()
+        try:
+            self.offered_ir_box.kill()
+        except:
+            pass
+        finally:
+            self.offered_ir_box = UITextBox(
+            html_text = "Interest rate: "+f"{self.loan_reference.get_offered_interest_rate():.2f}",
+            relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
+            manager = self.manager,
+            container = self.loan_panel_offered,
+        )            
+
 
     def progress_amount_owed(self) -> int:
         if self.interest_at_borrowing != None:

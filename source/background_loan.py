@@ -29,7 +29,7 @@ class Background_Loan:
         # update the loan interest rate based on a normal distribution 
         mean = self.offered_interest_rate + self.trend
         std = self.volatility*mean/100
-        self.offered_interest_rate = np.random.normal(mean, std, 1)
+        self.offered_interest_rate = np.random.normal(mean, std, 1)[0]
 
     def get_historical_interest_rates(self) -> List[float]:
         return self.historical_interest_rates
