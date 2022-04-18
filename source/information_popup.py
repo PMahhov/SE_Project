@@ -12,13 +12,13 @@ from typing import List
 matplotlib.use("Agg")
 
 class Information_Popup:
-    def __init__(self, window_title: str, data: List[int], initial_number_of_historical_data: int, x_label: int, y_label: int, manager: UIManager) -> None:
+    def __init__(self, window_title: str, data: any, initial_number_of_historical_data: int, x_label: int, y_label: int, manager: UIManager) -> None:
         with open("config.yaml") as config_file:
             self.config = yaml.safe_load(config_file)
         self.window_width = self.config["screen_width"]
         self.window_height = self.config["screen_height"]
         self.window_title = window_title
-        self.data = data
+        self.data = np.array(data, dtype=object)
         self.initial_number_of_historical_data = initial_number_of_historical_data
         self.x_label = x_label
         self.y_label = y_label

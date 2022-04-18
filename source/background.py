@@ -159,7 +159,7 @@ class Background:
             self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['number_of_historical_prices']))
         
         loan = data_module["loan"]
-        if loan == "None":
+        if loan["exists"] == "None":
             self.loan = None
         else:
             self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
@@ -216,7 +216,8 @@ class Background:
         for timeline in self.timelines:
             timeline.progress_time()
 
-        self.loan.progress_time()
+        if self.loan != None:
+            self.loan.progress_time()
 
 
     def end_game(self) -> None:
@@ -263,11 +264,11 @@ class Background:
     
     def display_tutorial(self) -> None:
         try: 
-            self.text_window.kill()
+            self.tutorial_window.kill()
         except:
             pass
         finally:
-            self.text_window = UIMessageWindow(
+            self.tutorial_window = UIMessageWindow(
                 pygame.Rect(
                     (2 * screen_width / 8),
                     (2 * screen_height / 12),

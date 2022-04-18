@@ -1,7 +1,7 @@
 {
     "name": "template",
     "id": 0,
-    "tutorial": "This is a template",
+    "tutorial": "This is a templatea tutorial text",
     "initial_money": 10000,
     "stocks": [
         {
@@ -22,6 +22,7 @@
         }
     ],
     "loan": {
+        "exists": 1,
         "id": 0,
         "offered_interest_rate": 4,
         "volatility": 1,

@@ -54,13 +54,13 @@ class Timeline:
             raise ValueError("Timeline has weird side")
 
         self.timeline_panel_bg = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_height-300),
+            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_height-300+7),
             starting_layer_height=0,
             manager=self.manager,
             visible=not self.start_hidden,
         )
         self.timeline_panel = UIScrollingContainer(
-            relative_rect=pygame.Rect(0,0,self.box_width, screen_height-300),
+            relative_rect=pygame.Rect(0,0,self.box_width, screen_height-300+7),
             starting_height = 1,
             container = self.timeline_panel_bg,
             manager=self.manager,
@@ -75,15 +75,24 @@ class Timeline:
 
         
         self.stocks = []
-        stock_top = 100
+
+        stock_top = 2*self.box_height
+        stock_panel_size = self.box_height * 4 + 10     # if you change these two, change the corresponding height in the panel creation itself
+        loan_panel_size = self.box_height * 3 + 10
+
+        if reference_loan != None:
+            stock_top += loan_panel_size
 
         for background_stock in reference_stocks:
             self.stocks.append(Timeline_Stock(0, background_stock,self,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager, self.timestep))
-            stock_top += self.box_height * 4 + 10
+            stock_top += stock_panel_size
 
-        self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(self.box_height*4 + 10) * len(reference_stocks) + self.box_height*2 + 5))
- 
-        self.loan = Timeline_Loan(reference_loan, self.timestep)
+        if reference_loan != None:
+            self.loan = Timeline_Loan(reference_loan, self, 2*self.box_height, self.box_width,self.box_height,self.timeline_panel,self.manager,self.timestep)
+            self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + loan_panel_size + self.box_height*2 + 5))
+        else:
+            self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + self.box_height*2 + 5))
+
         self.calculate_net_worth()
         
 

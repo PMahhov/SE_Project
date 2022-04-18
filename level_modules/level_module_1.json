@@ -20,14 +20,7 @@
             "number_of_historical_prices": 4
         }
     ],
-    "loan": {
-        "id": 0,
-        "offered_interest_rate": 4,
-        "volatility": 1,
-        "trend": 5,
-        "number_of_historical_interest_rates": 23,
-        "max_amount_multiplier": 3
-    },
+    "loan": "None",
     "transaction_cost": 1
 }
 

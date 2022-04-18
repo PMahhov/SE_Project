@@ -43,5 +43,5 @@ class Background_Loan:
     def get_id(self) -> int:
         return self.id
 
-    def get_iinitial_number_of_historical_interest_rates(self) -> int:
+    def get_initial_number_of_historical_interest_rates(self) -> int:
         return self.initial_number_of_historical_interest_rates
