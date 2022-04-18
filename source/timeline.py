@@ -201,10 +201,32 @@ class Timeline:
             return True
         else:
             return False
+    
+    def get_money(self) -> int:
+        return self.money
+    
+    def get_net_worth(self) -> int:
+        return self.net_worth
+
+    def get_stocks(self) -> List[Timeline_Stock]:
+        return self.stocks
+
+    def get_loan(self) -> Timeline_Loan:
+        return self.loan
+
+    # when the user clicks on the "split timeline" or "merge timeline" button, update the timeline's attributes
+    def update_attributes(self, money: int, net_worth: int, new_stocks: List[Timeline_Stock], new_loan: Timeline_Loan) -> None:
+        self.money = money
+        self.net_worth = net_worth
         
+        i = 0
+        for stock in self.stocks:
+            stock.update_attributes(new_stocks[i])
+            i +=1
+    
+        if new_loan == None:
+            self.loan = None
+        else:
+            self.loan.update_attributes(new_loan)
 
-def copy_data(self, kept_timeline: Timeline) -> None:
-    pass
-
-
-Timeline.copy_data = copy_data
+        self.update_boxes()

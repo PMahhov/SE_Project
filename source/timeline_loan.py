@@ -50,3 +50,8 @@ class Timeline_Loan:
 
     def button_pressed(self, event) -> bool:
         pass
+
+    def update_attributes(self, new_loan: any) -> None:
+        # [TODO] update loan attributes
+        # [TODO] self.update_boxes()
+        pass
