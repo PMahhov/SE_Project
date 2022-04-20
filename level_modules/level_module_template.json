@@ -24,9 +24,9 @@
     "loan": {
         "exists": 1,
         "id": 0,
-        "offered_interest_rate": 4,
+        "offered_interest_rate": 2,
         "volatility": 1,
-        "trend": 5,
+        "trend": 0.1,
         "number_of_historical_interest_rates": 23,
         "max_amount_multiplier": 3
     },

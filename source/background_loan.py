@@ -6,8 +6,8 @@ class Background_Loan:
         self,
         id: int,
         offered_interest_rate: float,
-        volatility: int,
-        trend: int,
+        volatility: float,
+        trend: float,
         number_of_historical_interest_rates: int,
         max_amount_multiplier: float,
     ) -> None:

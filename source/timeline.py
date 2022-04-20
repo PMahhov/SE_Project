@@ -43,13 +43,13 @@ class Timeline:
         self.side = side
         if self.side == "left":
             self.left = (screen_width / 3) - 3 * box_width / 4
-            self.start_hidden = True
+            self.is_active = False
         elif self.side == "center":
             self.left = (screen_width - self.box_width) / 2
-            self.start_hidden = False
+            self.is_active = True
         elif self.side == "right":
             self.left = (2 * screen_width / 3) - box_width / 4
-            self.start_hidden = True
+            self.is_active = False
         else:
             raise ValueError("Timeline has weird side")
 
@@ -57,14 +57,14 @@ class Timeline:
             relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_height-300+7),
             starting_layer_height=0,
             manager=self.manager,
-            visible=not self.start_hidden,
+            visible=self.is_active,
         )
         self.timeline_panel = UIScrollingContainer(
             relative_rect=pygame.Rect(0,0,self.box_width, screen_height-300+7),
             starting_height = 1,
             container = self.timeline_panel_bg,
             manager=self.manager,
-            visible=not self.start_hidden,
+            visible= self.is_active,
         )
         self.timeline_label = UILabel(
             relative_rect = pygame.Rect(0,0,self.box_width,self.box_height),
@@ -96,7 +96,15 @@ class Timeline:
             self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + self.box_height*2 + 5))
             self.loan = None
 
-        
+        # print("timeline additional check")
+        # if not self.is_active:
+        #     self.timeline_panel_bg.hide()
+        #     self.timeline_panel.hide()
+        #     self.loan.loan_panel_offered.hide()
+        #     self.loan.loan_panel_taken.hide()
+        # else:
+        #     self.timeline_panel_bg.show()
+        #     self.timeline_panel.show()
         
 
         self.update_boxes()
@@ -156,7 +164,7 @@ class Timeline:
         if self.loan == None:
             raise TypeError("trying to take a nonexistent loan")
         elif (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():
-            pass # cannot take loan
+            raise ValueError(" cannot take loan")
         else:
             self.loan.take_loan(amount)
 
@@ -218,7 +226,7 @@ class Timeline:
                 return True
         if self.loan != None:
             if self.loan.button_pressed(event):
-                # [TODO] loan.update_boxes()
+                self.loan.update_boxes()
                 self.update_boxes()
                 return True
         else:
