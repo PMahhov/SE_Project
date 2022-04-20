@@ -117,6 +117,20 @@ class Background:
             manager=self.manager,
             visible=True,
         )
+
+        self.next_scenario_button = UIButton(
+            text="Next Scenario",
+            tool_tip_text="Go to the next scenario",
+            relative_rect=pygame.Rect(
+                (screen_width / 35) + self.box_width/3 + 10,
+                (screen_height / 25),
+                1*self.box_width/3,
+                self.box_height,
+            ),
+            manager=self.manager,
+            visible=False,
+        )
+
         self.update_labels()
         self.check_win_condition()
         self.display_tutorial()
@@ -257,9 +271,9 @@ class Background:
         if type_end == "Victory!":
             self.display_win_window()
         
-        # [TODO] go to the next scenario
-            
-            
+        # create button to go to next scenario
+        self.next_scenario_button.show()
+                 
     def display_win_window(self) -> None:
             try: 
                 self.win_window.kill()
@@ -290,6 +304,8 @@ class Background:
             self.progress_time()
         elif event.ui_element == self.get_help_button:
             self.display_tutorial()
+        elif event.ui_element == self.next_scenario_button:
+            self.go_to_next_scenario()
         else:
             for timeline in self.timelines:
                 # call button_pressed() in each timeline 
@@ -371,6 +387,11 @@ class Background:
                         self.end_scenario("Failure")
         
         # [TODO]: are there other loose conditions?
+
+    def go_to_next_scenario(self) -> None:
+        pass
+         # [TODO] go to the next scenario
+
 
 
 
