@@ -252,3 +252,6 @@ class Timeline:
             self.loan.update_attributes(new_loan)
 
         self.update_boxes()
+
+    def get_is_active(self) -> bool:
+        return self.is_active

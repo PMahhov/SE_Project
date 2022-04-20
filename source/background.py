@@ -35,7 +35,7 @@ class Background:
     def init_class(self, manager: UIManager, path_level_module: str):
 
         self.manager = manager
-        self.game_end = False
+        self.scenario_end = False
 
         self.load_data(path_level_module)
 
@@ -118,6 +118,7 @@ class Background:
             visible=True,
         )
         self.update_labels()
+        self.check_win_condition()
 
     def update_labels(self):
         try:
@@ -171,7 +172,9 @@ class Background:
         self.timelimit = data_module["timelimit"]
 
         # [TODO] add win conditions and win condition type
-        # self.win_cond_type = data_module['win_cond_type']
+        self.win_cond_type = data_module['win_cond_type']
+        self.win_cond = data_module['win_cond']
+        self.win_message = data_module['win_message']
 
     def get_stock(self, id: int) -> Background_Stock:
         for stock in self.stocks:
@@ -209,8 +212,8 @@ class Background:
         self.update_labels()
 
         if self.current_time >= self.timelimit:
-            self.game_end = True
-            self.end_game()
+            self.scenario_end = True
+            self.end_scenario("Failure")
 
         # call progress time for background stocks
         for stock in self.stocks:
@@ -222,10 +225,9 @@ class Background:
         for timeline in self.timelines:
             timeline.progress_time()
 
-        
 
-
-    def end_game(self) -> None:
+    # end the scenario
+    def end_scenario(self, type_end: str) -> None:
         self.timeprogress_button.kill()
         self.scenario_end_panel = UIPanel(
             relative_rect = pygame.Rect(
@@ -238,7 +240,7 @@ class Background:
             manager = self.manager,
         )
         self.timeprogress_button = UILabel(
-            text="Scenario End",
+            text="Scenario End - " + type_end,
             relative_rect=pygame.Rect(
                 (screen_width / 2) - self.box_width / 3,
                 self.top/2-self.box_height/3,
@@ -249,7 +251,32 @@ class Background:
             visible = True
         )
         self.timeprogress_button.disable()
+
+        # display window with win message
+        if type_end == "Victory!":
+            self.display_win_window()
         
+        # [TODO] go to the next scenario
+            
+            
+    def display_win_window(self) -> None:
+            try: 
+                self.win_window.kill()
+            except:
+                pass
+            finally:
+                self.win_window = UIMessageWindow(
+                    pygame.Rect(
+                        ((screen_width/2) - (self.box_width/2)),
+                        ((screen_height/2) - (5*self.box_height/2)),
+                        (1 * self.box_width),
+                        (5 * self.box_height),
+                    ),
+                    manager=self.manager,
+                    window_title= "Victory!",
+                    html_message=self.win_message
+                )
+
 
     def button_pressed(self, event) -> None:
         if event.ui_element == self.creation_button:
@@ -264,8 +291,11 @@ class Background:
             self.display_tutorial()
         else:
             for timeline in self.timelines:
-                if timeline.button_pressed(event):
+                # call button_pressed() in each timeline 
+                if timeline.button_pressed(event): # if returns true, no need to check for other timelines
                     break
+        self.check_loose_condition()
+        self.check_win_condition()
     
     def display_tutorial(self) -> None:
         try: 
@@ -288,3 +318,58 @@ class Background:
     def copy_data(self, sender_timeline: Timeline, receiver_timeline: Timeline) -> None:
         receiver_timeline.update_attributes(sender_timeline.get_money(), sender_timeline.get_net_worth(), sender_timeline.get_stocks(), sender_timeline.get_loan())
     
+
+    def check_win_condition(self) -> None:
+        # if win_cond_type == "money": 
+        #     win_cond = int
+        # if win_cond_type == "stocks":
+        #     win_cond = dictionary of stocks and volume for each stock
+        # if win_cond_type = "loan":
+        #     wind_cond = None 
+        
+        # the win condition is to reach a particular amount of money
+        if self.win_cond_type == "money":
+            for timeline in self.timelines:
+                if timeline.get_is_active() and timeline.get_money() >= self.win_cond and self.scenario_end == False:
+                    self.scenario_end = True
+                    self.end_scenario("Victory!")
+
+        # the win condition is to buy a particular amount of stocks
+        elif self.win_cond_type == "stock":
+            for timeline in self.timelines:
+                if timeline.get_is_active():
+                    win = True
+                    for stock in timeline.get_stocks():
+                        if stock.get_volume() < self.win_cond_type[stock.get_id()]:
+                            win = False
+                    if win == True and self.scenario_end == False:
+                        self.scenario_end = True
+                        self.end_scenario("Victory!")
+                        break          
+        
+        # the win condition is to reimburse a loan
+        elif self.win_cond_type == "loan":
+            for timeline in self.timelines:
+                if timeline.get_is_active() and timeline.get_loan().get_amount_owed() <= 0:
+                    if self.scenario_end == False:
+                        self.scenario_end = True
+                        self.end_scenario("Victory!")
+                        break
+
+    
+    def check_loose_condition(self) -> None:
+        # if the user has no money and no stock
+        if self.center_timeline.get_is_active() == True:
+            if self.center_timeline.get_money() <= 0:
+                volume_stocks = 0
+                for stock in self.center_timeline.get_stocks():
+                    volume_stocks += stock.get_volume()
+                if volume_stocks == 0:
+                    if self.scenario_end == False:
+                        self.scenario_end = True
+                        self.end_scenario("Failure")
+        
+        # [TODO]: are there other loose conditions?
+
+
+
