@@ -128,13 +128,22 @@ class Timeline_Stock:
             parent_element = self.stock_panel
         )
 
+        self.graph_button = UIButton(
+            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "h",
+            manager = manager,
+            container = self.stock_panel,
+            parent_element = self.stock_panel,
+            tool_tip_text = "Display a graph with historical information about the stock"
+        )
+
         self.information_button = UIButton(
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
-            tool_tip_text = "Display historical information about the stock"
+            tool_tip_text = "Display information about stocks"
         )
 
         self.update_boxes()
@@ -217,7 +226,7 @@ class Timeline_Stock:
     def change_volume(self, volume: int) -> None:
         self.volume = volume
 
-    def display_info(self) -> None:
+    def display_graph(self) -> None:
         try:
             self.info_popup.kill()
         except:
@@ -277,6 +286,8 @@ class Timeline_Stock:
             self.sell(10)
         elif event.ui_element == self.sellmax_button:
             self.sell(self.volume)
+        elif event.ui_element == self.graph_button:
+            self.display_graph()
         elif event.ui_element == self.information_button:
             self.display_info()
         else:
@@ -290,3 +301,6 @@ class Timeline_Stock:
         # update total_cost with update avg_buy_cost when self.update_boxes() is called
         self.total_cost = self.volume * new_stock.get_avg_buy_cost()
         self.update_boxes()
+    
+    def display_info(self) -> None:
+        pass

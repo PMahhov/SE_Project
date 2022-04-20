@@ -81,21 +81,37 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
         )            
 
-        self.information_button_1 = UIButton(
-            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
-            text = "i",
+        self.graph_button_1 = UIButton(
+            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "h",
             manager = manager,
             container = self.loan_panel_offered,
             tool_tip_text = "Display historical information about the loan"
         )      
 
+        self.graph_button_2 = UIButton(
+            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "h",
+            manager = manager,
+            container = self.loan_panel_taken,
+            tool_tip_text = "Display a graph with historical information about the loan"
+        )     
+
+        self.information_button_1 = UIButton(
+            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "i",
+            manager = manager,
+            container = self.loan_panel_offered,
+            tool_tip_text = "Display information about loans"
+        )   
+        
         self.information_button_2 = UIButton(
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
             container = self.loan_panel_taken,
-            tool_tip_text = "Display historical information about the loan"
-        )        
+            tool_tip_text = "Display information about loans"
+        )   
 
         self.take_loan_button = UIButton(
             relative_rect = pygame.Rect(0, self.box_height * 2, self.box_width / 4, self.box_height),
@@ -255,7 +271,7 @@ class Timeline_Loan:
             return False
     
 
-    def display_info(self) -> None:
+    def display_graph(self) -> None:
         try:
             self.info_popup.kill()
         except:
@@ -265,7 +281,11 @@ class Timeline_Loan:
             self.info_popup.display_graph()
 
     def button_pressed(self, event) -> bool:
-        if event.ui_element == self.information_button_1:
+        if event.ui_element == self.graph_button_1:
+            self.display_graph()
+        elif event.ui_element == self.graph_button_2:
+            self.display_graph()
+        elif event.ui_element == self.information_button_1:
             self.display_info()
         elif event.ui_element == self.information_button_2:
             self.display_info()
@@ -343,4 +363,7 @@ class Timeline_Loan:
     def update_attributes(self, new_loan: any) -> None:
         # [TODO] update loan attributes
         # [TODO] self.update_boxes()
+        pass
+
+    def display_info(self) -> None:
         pass

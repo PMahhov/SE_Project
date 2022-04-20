@@ -1,7 +1,7 @@
 {
     "name": "template",
     "id": 0,
-    "tutorial": "This is a templatea tutorial text",
+    "tutorial": "This is a templatea tutorial text. Add win conditions here",
     "initial_money": 10000,
     "stocks": [
         {
@@ -16,7 +16,7 @@
             "id": 1,
             "name": "stock1",
             "price": 10,
-            "volatility": 5,
+            "volatility": 5, 
             "trend": 2,
             "number_of_historical_prices": 40
         }
@@ -32,5 +32,8 @@
     },
     "transaction_cost": 1,
     "timestep": "Day",
-    "timelimit": 5
+    "timelimit": 5,
+    "win_cond_type": "money",
+    "win_cond": 10100,
+    "win_message": "Congrats, You have reached 1100 dollars!"
 }
