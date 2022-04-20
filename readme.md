@@ -1,11 +1,11 @@
 TODO list
-- [ ] copy data
+- [ ] continu i and h buttons
+- [ ] copy data loan
 - [ ] implement information buttons stocks and loans
 - [ ] messaging
 - [ ] set scroll when splitting
 - [ ] text box default test "enter the amount"
 - [ ] menu
-- [ ] change i and h buttons
 
 - [ ] Update Gantt chart
  

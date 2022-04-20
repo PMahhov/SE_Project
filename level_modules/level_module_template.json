@@ -16,7 +16,7 @@
             "id": 1,
             "name": "stock1",
             "price": 10,
-            "volatility": 5, 
+            "volatility": 5,
             "trend": 2,
             "number_of_historical_prices": 40
         }
