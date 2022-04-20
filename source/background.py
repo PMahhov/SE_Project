@@ -119,6 +119,7 @@ class Background:
         )
         self.update_labels()
         self.check_win_condition()
+        self.display_tutorial()
 
     def update_labels(self):
         try:
