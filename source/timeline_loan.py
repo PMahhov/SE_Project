@@ -178,7 +178,12 @@ class Timeline_Loan:
             self.selected_amount = None
             self.take_loan_button.disable()
 
+            self.pay_loan_entry.set_text("0")
+            self.selected_amount = None
+            self.pay_loan_button.disable()
+
         self.take_loan_entry.set_text_length_limit(len(str(self.get_max_amount())))         # input limit changes dynamically according to the length of the current max input value
+        self.pay_loan_entry.set_text_length_limit(len(str(self.get_amount_owed())))
 
         try: 
             self.taken_ir_box.kill()
@@ -271,6 +276,12 @@ class Timeline_Loan:
             self.take_loan_button.enable()
             self.active_proposal = True
 
+        elif event.ui_element == self.pay_max_loan_button:
+            self.pay_loan_entry.set_text(str(self.get_amount_owed()))
+            self.current_amount = self.get_amount_owed()
+            self.pay_loan_button.enable()
+            self.active_proposal = True
+
         elif event.ui_element == self.select_loan_button:
             input = self.take_loan_entry.get_text()
             if input == "":
@@ -296,6 +307,33 @@ class Timeline_Loan:
 
         elif event.ui_element == self.take_loan_button:
             self.timeline_reference.take_loan(self.current_amount)
+            self.current_amount = None
+
+        elif event.ui_element == self.select_pay_button:
+            input = self.pay_loan_entry.get_text()
+            if input == "":
+                proposed_amount = 0
+            else:
+                proposed_amount = int(self.pay_loan_entry.get_text())
+
+            if proposed_amount > self.get_amount_owed():
+                self.pay_loan_entry.set_text(str(self.get_amount_owed()))
+                self.current_amount = self.get_amount_owed()
+                self.pay_loan_button.enable()
+                self.active_proposal = True
+            
+            elif proposed_amount > 0:
+                self.pay_loan_entry.set_text(str(proposed_amount))
+                self.current_amount = proposed_amount
+                self.pay_loan_button.enable()
+                self.active_proposal = True
+
+            else:
+                self.active_proposal = False
+                self.pay_loan_button.disable()
+
+        elif event.ui_element == self.pay_loan_button:
+            self.timeline_reference.pay_loan(self.current_amount)
             self.current_amount = None
 
         else:

@@ -164,23 +164,27 @@ class Timeline:
         if self.loan == None:
             raise TypeError("trying to take a nonexistent loan")
         elif (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():
-            raise ValueError(" cannot take loan")
+            raise ValueError("cannot take loan")
         else:
             self.loan.take_loan(amount)
+            self.money += amount
 
     def pay_max_loan(self) -> None:
-        if self.money <= 0:
+        if self.money <= 0 or self.loan.get_amount_owed() <= 0:
             pass # cannot pay off any amount
         else:
-            self.pay_loan(min(self.cash, self.loan.get_amount_owed()))
+            amount = min(self.cash, self.loan.get_amount_owed())
+            self.pay_loan(amount)
+            self.money -= amount
 
     def pay_loan(self, amount: int) -> None:
         if self.loan == None:
             raise TypeError("trying to pay a nonexistent loan")
         elif self.loan.get_amount_owed() < amount or self.money < amount or not self.loan.have_loan():
-            pass # cannot pay loan
+            raise ValueError("cannot pay off loan")
         else:
             self.loan.pay_off(amount)
+            self.money -= amount
 
     def calculate_net_worth(self, loan_exists: bool) -> None:
         self.net_worth = self.money
