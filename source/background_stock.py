@@ -13,7 +13,7 @@ class Background_Stock:
     ) -> None:
         self.id = id
         self.name = name
-        self.price = price
+        self.price = max(1, price)
         self.volatility = volatility
         self.trend = trend
         self.initial_number_of_historical_prices = number_of_historical_prices
@@ -29,9 +29,7 @@ class Background_Stock:
         # update the stock price based on a normal distribution 
         mean = self.price + self.trend
         std = self.volatility*mean/100
-        self.price = int(np.random.normal(mean, std, 1) + 0.5)
-        #[TODO] make sure price cant go negative --> if stock price goes to zero, then the company goes bankrupt --> all stocks lost, this stock can't be bought again
-        # unless this is the only stock left, in which case can't go lower than a number (1?)
+        self.price = max(1, int(np.random.normal(mean, std, 1) + 0.5))
 
     def get_price(self) -> int:
         return self.price
