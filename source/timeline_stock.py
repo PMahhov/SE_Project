@@ -129,8 +129,8 @@ class Timeline_Stock:
         )
 
         self.graph_button = UIButton(
-            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
-            text = "g",
+            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "h",
             manager = manager,
             container = self.stock_panel,
             parent_element = self.stock_panel,
@@ -138,7 +138,7 @@ class Timeline_Stock:
         )
 
         self.information_button = UIButton(
-            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
             container = self.stock_panel,

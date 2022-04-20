@@ -78,23 +78,23 @@ class Timeline_Loan:
         )            
 
         self.graph_button_1 = UIButton(
-            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
-            text = "g",
+            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "h",
             manager = manager,
             container = self.loan_panel_offered,
             tool_tip_text = "Display historical information about the loan"
         )      
 
         self.graph_button_2 = UIButton(
-            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
-            text = "g",
+            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            text = "h",
             manager = manager,
             container = self.loan_panel_taken,
             tool_tip_text = "Display a graph with historical information about the loan"
         )     
 
         self.information_button_1 = UIButton(
-            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
             container = self.loan_panel_offered,
@@ -102,7 +102,7 @@ class Timeline_Loan:
         )   
         
         self.information_button_2 = UIButton(
-            relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
+            relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
             container = self.loan_panel_taken,
