@@ -355,6 +355,13 @@ class Background:
                 # call button_pressed() in each timeline 
                 if timeline.button_pressed(event): # if returns true, no need to check for other timelines
                     break
+        for timeline in self.timelines:
+            timeline.update_boxes()
+            for stock in timeline.stocks:
+                stock.update_boxes()
+            if timeline.loan != None:
+                timeline.loan.update_boxes()
+    
         self.check_lose_condition()
         self.check_win_condition()
     

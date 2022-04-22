@@ -14,6 +14,35 @@ screen_height = config["screen_height"]
 screen_width = config["screen_width"]
 info_loan = config["info_loan"]
 
+class UINumberEntryLine(UITextEntryLine):
+    def set_select_reference(self, select_button):
+        self.select_reference = select_button
+
+    def focus(self):
+        # from the pygame module
+        super().focus()
+        pygame.key.set_repeat(500, 25)
+
+        # new addition to the function
+        self.set_text("")
+        self.set_allowed_characters("numbers")
+
+        self.select_reference.enable()
+
+    def unfocus(self):
+        # from the pygame module
+        super().unfocus()
+        pygame.key.set_repeat(0)
+        self.select_range = [0, 0]
+        self.edit_position = 0
+        self.cursor_on = False
+        self.text_entered = False
+        self.redraw()
+
+        # # new addition to the function
+        # self.allowed_characters = None
+        # self.set_text("[Click to Enter]")        
+
 class Timeline_Loan:
     def __init__(
         self,
@@ -35,7 +64,7 @@ class Timeline_Loan:
         self.top = top
         self.manager = manager
         self.timestep = timestep
-        self.active_proposal = False
+    #    self.active_proposal = False
 
         # self.id = id
         self.amount_owed = amount_owed
@@ -44,7 +73,7 @@ class Timeline_Loan:
         self.timeline_reference = timeline_reference
         self.timestep = timestep
 
-        self.selected_amount = None
+        #self.selected_amount = None
 
         self.loan_panel_offered = UIPanel(
             relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 3 + 10),
@@ -129,6 +158,7 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
             tool_tip_text = "Take out a loan with the offered interest rate",
         )
+        self.take_loan_button.disable()
 
         self.pay_loan_button = UIButton(
             relative_rect = pygame.Rect(0, self.box_height * 2, self.box_width / 4, self.box_height),
@@ -137,22 +167,7 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Pay off a portion of the taken loan",
         )        
-
-        self.take_loan_entry = UITextEntryLine(
-            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
-            manager = manager,
-            container = self.loan_panel_offered,
-        )
-        self.take_loan_entry.set_allowed_characters("numbers")
-
-        self.pay_loan_entry = UITextEntryLine(
-            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
-            manager = manager,
-            container = self.loan_panel_taken,
-        )
-        self.pay_loan_entry.set_allowed_characters("numbers")
-
-        self.update_boxes()
+        self.pay_loan_button.disable()
 
 
         self.select_loan_button = UIButton(
@@ -162,6 +177,7 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
             tool_tip_text = "Select the amount you will take a loan out for",
         )        
+        self.select_loan_button.disable()
 
         self.select_pay_button = UIButton(
             relative_rect = pygame.Rect(15/24 * self.box_width, self.box_height * 2, self.box_width / 6, self.box_height),
@@ -170,6 +186,26 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Select the amount that you will pay back",
         )             
+        self.select_pay_button.disable()
+
+        self.take_loan_entry = UINumberEntryLine(
+            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
+            manager = manager,
+            container = self.loan_panel_offered,
+        )
+        self.take_loan_entry.set_text("[Click to Enter]")   
+        self.take_loan_entry.set_select_reference(self.select_loan_button)
+
+        self.pay_loan_entry = UINumberEntryLine(
+            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
+            manager = manager,
+            container = self.loan_panel_taken,
+        )
+        self.pay_loan_entry.set_text("[Click to Enter]")
+        self.pay_loan_entry.set_select_reference(self.select_pay_button)
+
+        self.update_boxes()
+
 
         self.take_max_loan_button = UIButton(
             relative_rect = pygame.Rect(19/24 * self.box_width, self.box_height * 2, self.box_width / 7, self.box_height),
@@ -196,19 +232,20 @@ class Timeline_Loan:
                 self.loan_panel_offered.show()
                 self.loan_panel_taken.hide()
 
-        if self.active_proposal == True:
-            self.active_proposal = False
-        else:
-            self.take_loan_entry.set_text("0")
-            self.selected_amount = None
-            self.take_loan_button.disable()
+        # if self.active_proposal == True:
+        #     self.active_proposal = False
+        #     print("proposal removed")
+        # else:
+        #     self.take_loan_entry.set_text("0")
+        #     self.selected_amount = None
+        #     self.take_loan_button.disable()
 
-            self.pay_loan_entry.set_text("0")
-            self.selected_amount = None
-            self.pay_loan_button.disable()
+        #     self.pay_loan_entry.set_text("0")
+        #     self.selected_amount = None
+        #     self.pay_loan_button.disable()
 
-        self.take_loan_entry.set_text_length_limit(len(str(self.get_max_amount())))         # input limit changes dynamically according to the length of the current max input value
-        self.pay_loan_entry.set_text_length_limit(len(str(self.get_amount_owed())))
+        self.take_loan_entry.set_text_length_limit(max(len(str(self.get_max_amount())),16))         # input limit changes dynamically according to the length of the current max input value, but not below 16 so the "click to enter" message can be displayed
+        self.pay_loan_entry.set_text_length_limit(max(len(str(self.get_amount_owed())),16))
 
         try: 
             self.taken_ir_box.kill()
@@ -303,13 +340,13 @@ class Timeline_Loan:
             self.take_loan_entry.set_text(str(self.get_max_amount()))
             self.current_amount = self.get_max_amount()
             self.take_loan_button.enable()
-            self.active_proposal = True
+      #      self.active_proposal = True
 
         elif event.ui_element == self.pay_max_loan_button:
             self.pay_loan_entry.set_text(str(self.get_amount_owed()))
             self.current_amount = self.get_amount_owed()
             self.pay_loan_button.enable()
-            self.active_proposal = True
+      #      self.active_proposal = True
 
         elif event.ui_element == self.select_loan_button:
             input = self.take_loan_entry.get_text()
@@ -322,21 +359,24 @@ class Timeline_Loan:
                 self.take_loan_entry.set_text(str(self.get_max_amount()))
                 self.current_amount = self.get_max_amount()
                 self.take_loan_button.enable()
-                self.active_proposal = True
+         #      self.active_proposal = True
 
             elif proposed_amount > 0:
                 self.take_loan_entry.set_text(str(proposed_amount))
                 self.current_amount = proposed_amount
                 self.take_loan_button.enable()
-                self.active_proposal = True
+        #        self.active_proposal = True
     
             else:
-                self.active_proposal = False
+          #      self.active_proposal = False
                 self.take_loan_button.disable()
 
         elif event.ui_element == self.take_loan_button:
             self.timeline_reference.take_loan(self.current_amount)
             self.current_amount = None
+            self.pay_loan_button.disable()
+            if self.pay_loan_entry.get_text() != "[Click to Enter]":
+                self.pay_loan_entry.set_text("")
 
         elif event.ui_element == self.select_pay_button:
             input = self.pay_loan_entry.get_text()
@@ -349,30 +389,32 @@ class Timeline_Loan:
                 self.pay_loan_entry.set_text(str(self.get_amount_owed()))
                 self.current_amount = self.get_amount_owed()
                 self.pay_loan_button.enable()
-                self.active_proposal = True
+         #       self.active_proposal = True
             
             elif proposed_amount > 0:
                 self.pay_loan_entry.set_text(str(proposed_amount))
                 self.current_amount = proposed_amount
                 self.pay_loan_button.enable()
-                self.active_proposal = True
+         #       self.active_proposal = True
 
             else:
-                self.active_proposal = False
+          #      self.active_proposal = False
                 self.pay_loan_button.disable()
 
         elif event.ui_element == self.pay_loan_button:
             self.timeline_reference.pay_loan(self.current_amount)
             self.current_amount = None
+            self.take_loan_button.disable()
+            self.pay_loan_button.disable()
 
         else:
             return False
         return True
 
     def update_attributes(self, new_loan: any) -> None:
-        # [TODO] update loan attributes
-        # [TODO] self.update_boxes()
-        pass
+        self.amount_owed = new_loan.amount_owed
+        self.interest_at_borrowing = new_loan.interest_at_borrowing
+        self.update_boxes()
 
     # when i button clicked, display general information about loans
     def display_info(self) -> None:
