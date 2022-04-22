@@ -32,8 +32,8 @@ class Background_Stock:
         mean = self.price + self.trend
         if mean < 0:
             mean = 0
-        std = self.volatility*mean/100
-        self.price = max(1, int(np.random.normal(mean, std, 1) + 0.5))
+        std = self.volatility*abs(mean)/100
+        self.price = max(1, int(np.random.normal(mean, std) + 0.5))
         self.trend += self.change_in_trend
 
     def get_price(self) -> int:

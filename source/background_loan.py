@@ -14,7 +14,7 @@ class Background_Loan:
         max_amount_multiplier: float,
     ) -> None:
         self.id = id
-        self.offered_interest_rate = offered_interest_rate
+        self.offered_interest_rate = max(1, offered_interest_rate)
         self.volatility = volatility
         self.trend = trend
         self.change_in_trend = change_in_trend
@@ -32,12 +32,11 @@ class Background_Loan:
         
         # update the loan interest rate based on a normal distribution 
         mean = self.offered_interest_rate + self.trend
-        std = self.volatility*mean/100
-        self.offered_interest_rate = np.random.normal(mean, std, 1)[0]      # [TODO] if this produces a negative number everything crashes
+        std = self.volatility*abs(mean)/100
+        self.offered_interest_rate = max(1, np.random.normal(mean, std))
         self.trend += self.change_in_trend 
-
-        # change in change in trend:
         self.change_in_trend += self.c_2_in_trend
+
 
     def get_historical_interest_rates(self) -> List[float]:
         return self.historical_interest_rates
