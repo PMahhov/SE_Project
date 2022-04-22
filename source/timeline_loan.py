@@ -374,6 +374,7 @@ class Timeline_Loan:
         # [TODO] self.update_boxes()
         pass
 
+    # when i button clicked, display general information about loans
     def display_info(self) -> None:
         try: 
             self.info_window.kill()

@@ -310,6 +310,7 @@ class Timeline_Stock:
         self.total_cost = self.volume * new_stock.get_avg_buy_cost()
         self.update_boxes()
     
+    # when i button clicked, display general information about stocks
     def display_info(self) -> None:
         try: 
             self.info_window.kill()

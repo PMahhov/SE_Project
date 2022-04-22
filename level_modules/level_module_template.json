@@ -1,7 +1,7 @@
 {
     "name": "template",
     "id": 0,
-    "tutorial": "This is a templatea tutorial text. Add win conditions here",
+    "tutorial": "This is a template tutorial text. Add win conditions here",
     "initial_money": 10000,
     "stocks": [
         {
@@ -35,5 +35,6 @@
     "timelimit": 5,
     "win_cond_type": "money",
     "win_cond": 10100,
-    "win_message": "Congrats, You have reached 1100 dollars!"
+    "win_message": "Congrats, You have reached 1100 dollars!",
+    "lose_message": "No!!! You didn't manage to reach 1100 dollars"
 }

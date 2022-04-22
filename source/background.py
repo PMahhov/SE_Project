@@ -3,6 +3,7 @@ import pygame
 import yaml
 from background_loan import Background_Loan
 from background_stock import Background_Stock
+from confirmation_dialog import UIConfirmationDialog
 from pygame_gui import UIManager
 from pygame_gui.elements import UIButton, UILabel, UIWindow, UIPanel
 from pygame_gui.windows import UIMessageWindow
@@ -118,9 +119,8 @@ class Background:
             visible=True,
         )
 
-        self.next_scenario_button = UIButton(
-            text="Next Scenario",
-            tool_tip_text="Go to the next scenario",
+        self.next_button = UIButton(
+            text="Next",
             relative_rect=pygame.Rect(
                 (screen_width / 35) + self.box_width/3 + 10,
                 (screen_height / 25),
@@ -129,6 +129,54 @@ class Background:
             ),
             manager=self.manager,
             visible=False,
+        )
+
+        # window will appear if the user wins the scenario
+        self.win_window = UIConfirmationDialog(
+            pygame.Rect(
+                ((screen_width/2) - (self.box_width/2)),
+                ((screen_height/2) - (5*self.box_height/2)),
+                (1 * self.box_width),
+                (5 * self.box_height),
+            ),
+            manager=self.manager,
+            window_title= "Victory!",
+            action1_short_name="Restart Scenario",
+            action2_short_name="Next Scenario",
+            action_long_desc=self.win_message,
+            visible = 0
+        )
+
+        # window will appear if the user loses the scenario
+        self.lose_window = UIConfirmationDialog(
+            pygame.Rect(
+                ((screen_width/2) - (self.box_width/2)),
+                ((screen_height/2) - (5*self.box_height/2)),
+                (1 * self.box_width),
+                (5 * self.box_height),
+            ),
+            manager=self.manager,
+            window_title= "Failure!",
+            action1_short_name="Restart Scenario",
+            action2_short_name="Next Scenario",
+            action_long_desc=self.lose_message,
+            visible = 0
+        )
+
+        # window will appear if the user clicks on the next button
+        self.end_choice_window = UIConfirmationDialog(
+            pygame.Rect(
+                ((screen_width/2) - (self.box_width/2)),
+                ((screen_height/2) - (5*self.box_height/2)),
+                (1 * self.box_width),
+                (5 * self.box_height),
+            ),
+            manager=self.manager,
+            window_title= "Next",
+            action1_short_name="Restart Scenario",
+            action2_short_name="Next Scenario",
+            action_long_desc= "What's next?",
+            visible = 0
         )
 
         self.update_labels()
@@ -190,6 +238,7 @@ class Background:
         self.win_cond_type = data_module['win_cond_type']
         self.win_cond = data_module['win_cond']
         self.win_message = data_module['win_message']
+        self.lose_message = data_module['lose_message']
 
     def get_stock(self, id: int) -> Background_Stock:
         for stock in self.stocks:
@@ -269,30 +318,13 @@ class Background:
 
         # display window with win message
         if type_end == "Victory!":
-            self.display_win_window()
-        
+            self.win_window.show()
+        else:
+            self.lose_window.show()
+
         # create button to go to next scenario
-        self.next_scenario_button.show()
+        self.next_button.show()
                  
-    def display_win_window(self) -> None:
-            try: 
-                self.win_window.kill()
-            except:
-                pass
-            finally:
-                self.win_window = UIMessageWindow(
-                    pygame.Rect(
-                        ((screen_width/2) - (self.box_width/2)),
-                        ((screen_height/2) - (5*self.box_height/2)),
-                        (1 * self.box_width),
-                        (5 * self.box_height),
-                    ),
-                    manager=self.manager,
-                    window_title= "Victory!",
-                    html_message=self.win_message
-                )
-
-
     def button_pressed(self, event) -> None:
         if event.ui_element == self.creation_button:
             self.split_timelines()
@@ -304,14 +336,26 @@ class Background:
             self.progress_time()
         elif event.ui_element == self.get_help_button:
             self.display_tutorial()
-        elif event.ui_element == self.next_scenario_button:
+        elif event.ui_element == self.next_button:
+            self.end_choice_window.show()
+        elif event.ui_element == self.win_window.action1_button:
+            self.restart_scenario()
+        elif event.ui_element == self.win_window.action2_button:
+            self.go_to_next_scenario()
+        elif event.ui_element == self.lose_window.action1_button:
+            self.restart_scenario()
+        elif event.ui_element == self.lose_window.action2_button:
+            self.go_to_next_scenario()
+        elif event.ui_element == self.end_choice_window.action1_button:
+            self.restart_scenario()
+        elif event.ui_element == self.end_choice_window.action2_button:
             self.go_to_next_scenario()
         else:
             for timeline in self.timelines:
                 # call button_pressed() in each timeline 
                 if timeline.button_pressed(event): # if returns true, no need to check for other timelines
                     break
-        self.check_loose_condition()
+        self.check_lose_condition()
         self.check_win_condition()
     
     def display_tutorial(self) -> None:
@@ -374,7 +418,7 @@ class Background:
                         break
 
     
-    def check_loose_condition(self) -> None:
+    def check_lose_condition(self) -> None:
         # if the user has no money and no stock
         if self.center_timeline.get_is_active() == True:
             if self.center_timeline.get_money() <= 0:
@@ -387,12 +431,11 @@ class Background:
                         self.end_scenario("Failure")
         
         # [TODO]: are there other loose conditions?
+    
+    def restart_scenario(self) -> None:
+        print("restart scenario")
+        # [TODO] restart scenario
 
     def go_to_next_scenario(self) -> None:
-        pass
+        print("go to next scenario")
          # [TODO] go to the next scenario 
-
-
-
-
-

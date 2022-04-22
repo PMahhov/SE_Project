@@ -1,12 +1,10 @@
 TODO list
-- [ ] UI confirmation dialog that allows to go to next scenario, restart or close and change nexrt scenario button to "next" that open the window again
+- [ ] functions to restart scenario and go to next scenario
 - [ ] copy data loan
-- [ ] implement information buttons stocks and loans
-- [ ] messaging
+- [ ] write text with informaiton about loan and stocks (in config.yaml)
 - [ ] set scroll when splitting
 - [ ] text box default test "enter the amount"
-- [ ] menu
-- [ ] i button write info about characteristics of stocks and loans (in config.yaml)
+- [ ] menu 
 
 - [ ] Update Gantt chart
  
