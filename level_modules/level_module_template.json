@@ -34,6 +34,6 @@
     "timestep": "Day",
     "timelimit": 5,
     "win_cond_type": "money",
-    "win_cond": 10100,
-    "win_message": "Congrats, You have reached 1100 dollars!"
+    "win_cond": 101000,
+    "win_message": "Congrats, You have reached 101000 dollars!"
 }

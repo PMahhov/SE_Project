@@ -6,6 +6,9 @@ from pygame_gui import UIManager
 from pygame_gui.elements import UIPanel, UIButton, UITextBox, UILabel, UITextEntryLine
 
 class UINumberEntryLine(UITextEntryLine):
+    def set_select_reference(self, select_button):
+        self.select_reference = select_button
+
     def focus(self):
         # from the pygame module
         super().focus()
@@ -14,6 +17,8 @@ class UINumberEntryLine(UITextEntryLine):
         # new addition to the function
         self.set_text("")
         self.set_allowed_characters("numbers")
+
+        self.select_reference.enable()
 
     def unfocus(self):
         # from the pygame module
@@ -155,22 +160,6 @@ class Timeline_Loan:
         )        
         self.pay_loan_button.disable()
 
-        self.take_loan_entry = UINumberEntryLine(
-            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
-            manager = manager,
-            container = self.loan_panel_offered,
-        )
-        self.take_loan_entry.set_text("[Click to Enter]")   
-
-        self.pay_loan_entry = UINumberEntryLine(
-            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
-            manager = manager,
-            container = self.loan_panel_taken,
-        )
-        self.pay_loan_entry.set_text("[Click to Enter]")
-
-        self.update_boxes()
-
 
         self.select_loan_button = UIButton(
             relative_rect = pygame.Rect(15/24 * self.box_width, self.box_height * 2, self.box_width / 6, self.box_height),
@@ -179,6 +168,7 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
             tool_tip_text = "Select the amount you will take a loan out for",
         )        
+        self.select_loan_button.disable()
 
         self.select_pay_button = UIButton(
             relative_rect = pygame.Rect(15/24 * self.box_width, self.box_height * 2, self.box_width / 6, self.box_height),
@@ -187,6 +177,26 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Select the amount that you will pay back",
         )             
+        self.select_pay_button.disable()
+
+        self.take_loan_entry = UINumberEntryLine(
+            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
+            manager = manager,
+            container = self.loan_panel_offered,
+        )
+        self.take_loan_entry.set_text("[Click to Enter]")   
+        self.take_loan_entry.set_select_reference(self.select_loan_button)
+
+        self.pay_loan_entry = UINumberEntryLine(
+            relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
+            manager = manager,
+            container = self.loan_panel_taken,
+        )
+        self.pay_loan_entry.set_text("[Click to Enter]")
+        self.pay_loan_entry.set_select_reference(self.select_pay_button)
+
+        self.update_boxes()
+
 
         self.take_max_loan_button = UIButton(
             relative_rect = pygame.Rect(19/24 * self.box_width, self.box_height * 2, self.box_width / 7, self.box_height),
@@ -393,9 +403,9 @@ class Timeline_Loan:
         return True
 
     def update_attributes(self, new_loan: any) -> None:
-        # [TODO] update loan attributes
-        # [TODO] self.update_boxes()
-        pass
+        self.amount_owed = new_loan.amount_owed
+        self.interest_at_borrowing = new_loan.interest_at_borrowing
+        self.update_boxes()
 
     def display_info(self) -> None:
         pass
