@@ -1,3 +1,4 @@
 screen_width: 1366
 screen_height: 768
-
+info_stock: "This is information about stocks"
+info_loan: "This is information about loans"

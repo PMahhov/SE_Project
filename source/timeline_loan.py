@@ -4,6 +4,15 @@ from information_popup import Information_Popup
 import pygame
 from pygame_gui import UIManager
 from pygame_gui.elements import UIPanel, UIButton, UITextBox, UILabel, UITextEntryLine
+from pygame_gui.windows import UIMessageWindow
+
+import yaml
+
+with open("config.yaml") as config_file:
+    config = yaml.safe_load(config_file)
+screen_height = config["screen_height"]
+screen_width = config["screen_width"]
+info_loan = config["info_loan"]
 
 class Timeline_Loan:
     def __init__(
@@ -366,4 +375,19 @@ class Timeline_Loan:
         pass
 
     def display_info(self) -> None:
-        pass
+        try: 
+            self.info_window.kill()
+        except:
+            pass
+        finally:
+            self.info_window = UIMessageWindow(
+                pygame.Rect(
+                    ((screen_width - (2.5 * screen_width/6)) / 2) ,
+                    (2 * screen_height / 12),
+                    (2.5 * screen_width) / 6,
+                    screen_height/2,
+                ),
+                manager=self.manager,
+                window_title= "Loans",
+                html_message=info_loan
+            )
