@@ -128,6 +128,7 @@ class Timeline_Loan:
             relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "h",
             manager = manager,
+            starting_height = 2,
             container = self.loan_panel_offered,
             tool_tip_text = "Display historical information about the loan"
         )      
@@ -137,6 +138,7 @@ class Timeline_Loan:
             relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "h",
             manager = manager,
+            starting_height = 2,
             container = self.loan_panel_taken,
             tool_tip_text = "Display a graph with historical information about the loan"
         )     
@@ -146,6 +148,7 @@ class Timeline_Loan:
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
+            starting_height = 2,
             container = self.loan_panel_offered,
             tool_tip_text = "Display information about loans"
         ) 
@@ -155,6 +158,7 @@ class Timeline_Loan:
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
+            starting_height = 2,
             container = self.loan_panel_taken,
             tool_tip_text = "Display information about loans"
         )   

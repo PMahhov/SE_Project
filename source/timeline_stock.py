@@ -153,6 +153,7 @@ class Timeline_Stock:
             relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "h",
             manager = manager,
+            starting_height = 2,
             container = self.stock_panel,
             parent_element = self.stock_panel,
             tool_tip_text = "Display a graph with historical information about the stock"
@@ -163,6 +164,7 @@ class Timeline_Stock:
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
             manager = manager,
+            starting_height = 2,
             container = self.stock_panel,
             parent_element = self.stock_panel,
             tool_tip_text = "Display information about stocks"
