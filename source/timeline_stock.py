@@ -1,8 +1,6 @@
-from multiprocessing.sharedctypes import Value
-from matplotlib import container
+import pygame
 from background_stock import Background_Stock
 from information_popup import Information_Popup
-import pygame
 from pygame_gui import UIManager
 from pygame_gui.elements import UIPanel, UITextBox, UILabel, UIButton
 from pygame_gui.windows import UIMessageWindow
@@ -25,7 +23,7 @@ class Timeline_Stock:
         box_height: int,
         timeline_panel: UIPanel,
         manager: UIManager,
-        timestep: str
+        timestep: str,
     ) -> None:
         self.box_width = box_width
         self.box_height = box_height
@@ -36,7 +34,7 @@ class Timeline_Stock:
 
         self.id = stock_reference.get_id()
         self.volume = volume
-        self.total_cost = volume*stock_reference.get_price()
+        self.total_cost = volume * stock_reference.get_price()
         self.cash_flow = 0
 
         self.stock_reference = stock_reference
@@ -45,7 +43,9 @@ class Timeline_Stock:
         self.UIobjects = []
 
         self.stock_panel = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 4 + 10),
+            relative_rect=pygame.Rect(
+                self.left, self.top, self.box_width + 6, self.box_height * 4 + 10
+            ),
             starting_layer_height=0,
             manager=self.manager,
             container=timeline_panel,
@@ -81,22 +81,32 @@ class Timeline_Stock:
         self.UIobjects.append(self.selllabel)
 
         self.buyone_button = UIButton(
-            relative_rect = pygame.Rect(self.box_width / 8 - 15, self.box_height*3, self.box_width/8, self.box_height),
-            text = "x1",
-            manager = manager,
-            container = self.stock_panel,
-            parent_element = self.stock_panel,
-            tool_tip_text = "Buy one of this stock"
+            relative_rect=pygame.Rect(
+                self.box_width / 8 - 15,
+                self.box_height * 3,
+                self.box_width / 8,
+                self.box_height,
+            ),
+            text="x1",
+            manager=manager,
+            container=self.stock_panel,
+            parent_element=self.stock_panel,
+            tool_tip_text="Buy one of this stock",
         )
         self.UIobjects.append(self.buyone_button)
 
         self.buyten_button = UIButton(
-            relative_rect = pygame.Rect(2*self.box_width / 8 - 15, self.box_height*3, self.box_width/8, self.box_height),
-            text = "x10",
-            manager = manager,
-            container = self.stock_panel,
-            parent_element = self.stock_panel,
-            tool_tip_text = "Buy 10 of this stock"
+            relative_rect=pygame.Rect(
+                2 * self.box_width / 8 - 15,
+                self.box_height * 3,
+                self.box_width / 8,
+                self.box_height,
+            ),
+            text="x10",
+            manager=manager,
+            container=self.stock_panel,
+            parent_element=self.stock_panel,
+            tool_tip_text="Buy 10 of this stock",
         )
         self.UIobjects.append(self.buyten_button)
 
@@ -111,22 +121,32 @@ class Timeline_Stock:
         self.UIobjects.append(self.buymax_button)       
 
         self.sellone_button = UIButton(
-            relative_rect = pygame.Rect(5*self.box_width / 8 - 22, self.box_height*3, self.box_width/8, self.box_height),
-            text = "x1",
-            manager = manager,
-            container = self.stock_panel,
-            parent_element = self.stock_panel,
-            tool_tip_text = "Sell one of this stock"
+            relative_rect=pygame.Rect(
+                5 * self.box_width / 8 - 22,
+                self.box_height * 3,
+                self.box_width / 8,
+                self.box_height,
+            ),
+            text="x1",
+            manager=manager,
+            container=self.stock_panel,
+            parent_element=self.stock_panel,
+            tool_tip_text="Sell one of this stock",
         )
         self.UIobjects.append(self.sellone_button)
 
         self.sellten_button = UIButton(
-            relative_rect = pygame.Rect(6*self.box_width / 8 - 22, self.box_height*3, self.box_width/8, self.box_height),
-            text = "x10",
-            manager = manager,
-            container = self.stock_panel,
-            parent_element = self.stock_panel,
-            tool_tip_text = "Sell 10 of this stock"
+            relative_rect=pygame.Rect(
+                6 * self.box_width / 8 - 22,
+                self.box_height * 3,
+                self.box_width / 8,
+                self.box_height,
+            ),
+            text="x10",
+            manager=manager,
+            container=self.stock_panel,
+            parent_element=self.stock_panel,
+            tool_tip_text="Sell 10 of this stock",
         )
         self.UIobjects.append(self.sellten_button)
 
@@ -141,11 +161,13 @@ class Timeline_Stock:
         self.UIobjects.append(self.sellmax_button)    
 
         self.pricebox = UITextBox(
-            html_text = "Price: "+str(self.stock_reference.get_price()),
-            relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
-            manager = self.manager,
-            container = self.stock_panel,
-            parent_element = self.stock_panel
+            html_text="Price: " + str(self.stock_reference.get_price()),
+            relative_rect=pygame.Rect(
+                0, self.box_height, self.box_width / 2, self.box_height
+            ),
+            manager=self.manager,
+            container=self.stock_panel,
+            parent_element=self.stock_panel,
         )
         self.UIobjects.append(self.pricebox)
 
@@ -172,7 +194,6 @@ class Timeline_Stock:
         self.UIobjects.append(self.information_button)
 
         self.update_boxes()
-    
 
     def update_boxes(self):
         if self.timeline_reference.timeline_panel.vert_scroll_bar != None:
@@ -186,19 +207,26 @@ class Timeline_Stock:
             pass
         finally:
             self.volumebox = UITextBox(
-                html_text = "Volume: "+str(self.volume),
-                relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
-                manager = self.manager,
-                container = self.stock_panel,
-                parent_element = self.stock_panel
+                html_text="Volume: " + str(self.volume),
+                relative_rect=pygame.Rect(
+                    self.box_width / 2,
+                    self.box_height,
+                    self.box_width / 2,
+                    self.box_height,
+                ),
+                manager=self.manager,
+                container=self.stock_panel,
+                parent_element=self.stock_panel,
             )
             self.buycostbox = UITextBox(
-                html_text = "Avg buy cost: " + f"{self.get_avg_buy_cost():.2f}",
-                relative_rect = pygame.Rect(0,self.box_height*2,self.box_width/2,self.box_height),
-                manager = self.manager,
-                container = self.stock_panel,
-                parent_element = self.stock_panel
-            )                      
+                html_text="Avg buy cost: " + f"{self.get_avg_buy_cost():.2f}",
+                relative_rect=pygame.Rect(
+                    0, self.box_height * 2, self.box_width / 2, self.box_height
+                ),
+                manager=self.manager,
+                container=self.stock_panel,
+                parent_element=self.stock_panel,
+            )
             # net cash flow as measured from start of scenario to current point
             self.cashflowbox = UITextBox(
             html_text = "Net cash flow: " + f"{self.cash_flow:.2f}",
@@ -220,7 +248,7 @@ class Timeline_Stock:
         else:
             self.buyone_button.disable()
             self.buymax_button.disable()
-        if buyable >=10:
+        if buyable >= 10:
             self.buyten_button.enable()
         else:
             self.buyten_button.disable()
@@ -231,10 +259,10 @@ class Timeline_Stock:
         else:
             self.sellone_button.disable()
             self.sellmax_button.disable()
-        if self.volume >=10:
+        if self.volume >= 10:
             self.sellten_button.enable()
         else:
-            self.sellten_button.disable()        
+            self.sellten_button.disable()
 
     def progress_time(self):
         self.update_boxes()
@@ -244,16 +272,18 @@ class Timeline_Stock:
             pass
         finally:
             self.pricebox = UITextBox(
-                html_text = "Price: "+str(self.stock_reference.get_price()),
-                relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
-                manager = self.manager,
-                container = self.stock_panel,
-                parent_element = self.stock_panel
+                html_text="Price: " + str(self.stock_reference.get_price()),
+                relative_rect=pygame.Rect(
+                    0, self.box_height, self.box_width / 2, self.box_height
+                ),
+                manager=self.manager,
+                container=self.stock_panel,
+                parent_element=self.stock_panel,
             )
 
     def buyable(self) -> int:
         money = self.timeline_reference.money
-        return money//self.get_price()
+        return money // self.get_price()
 
     def change_volume(self, volume: int) -> None:
         self.volume = volume
@@ -266,7 +296,7 @@ class Timeline_Stock:
         finally:
             self.info_popup = Information_Popup("Historical prices for " + self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), self.stock_reference.get_initial_number_of_historical_prices(), self.timestep, "stock price", self.manager)
             self.info_popup.display_graph()
-        
+
     def get_total_value(self) -> int:
         return self.stock_reference.get_price() * self.volume
 
@@ -282,14 +312,16 @@ class Timeline_Stock:
     def buy(self, volume_increase: int) -> None:
         if self.buyable() >= volume_increase:
             self.volume += volume_increase
-            change = self.get_price()*volume_increase
+            change = self.get_price() * volume_increase
             self.total_cost += change
             self.timeline_reference.money -= change
             self.cash_flow -= change
-        
+
     def sell(self, volume_decrease: int) -> None:
-        if self.volume >= volume_decrease:       
-            self.total_cost = ((self.volume - volume_decrease)/self.volume) * self.total_cost
+        if self.volume >= volume_decrease:
+            self.total_cost = (
+                (self.volume - volume_decrease) / self.volume
+            ) * self.total_cost
             self.volume -= volume_decrease
             change = self.get_price() * volume_decrease
             self.timeline_reference.money += change
@@ -299,11 +331,10 @@ class Timeline_Stock:
         if self.volume == 0:
             return 0
         else:
-            return self.total_cost/self.volume
+            return self.total_cost / self.volume
 
     def get_id(self) -> int:
         return self.id
-
 
     def button_pressed(self, event, timeline) -> bool:
         if event.ui_element == self.buyone_button:
@@ -325,7 +356,7 @@ class Timeline_Stock:
         else:
             return False
         return True
-    
+
     def update_attributes(self, new_stock: any) -> None:
         self.volume = new_stock.get_volume()
         self.cash_flow = new_stock.get_cash_flow()

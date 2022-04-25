@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 from background_loan import Background_Loan
 
@@ -16,4 +15,3 @@ def test_init(bg_loan: Background_Loan, historical_length: int):
     assert len(bg_loan.get_historical_interest_rates()) == historical_length
     assert bg_loan.get_offered_interest_rate() >= 1
     assert min(bg_loan.get_historical_interest_rates()) >= 1
-

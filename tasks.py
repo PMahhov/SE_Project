@@ -68,4 +68,4 @@ def format_(ctx):
     autoflake = "autoflake -i --recursive --remove-all-unused-imports --remove-duplicate-keys --remove-unused-variables"
     ctx.run(f"{autoflake} " + " ".join(paths), echo=True)
     ctx.run("isort " + " ".join(paths), echo=True)
-    ctx.run("black " + " ".join(paths), echo=True)
+    ctx.run("black --line-length 100" + " ".join(paths), echo=True)
