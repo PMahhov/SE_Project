@@ -1,6 +1,6 @@
 import pygame
 from pygame_gui import UIManager
-from pygame_gui.elements import UIButton, UILabel   #, UIWindow, UIPanel
+from pygame_gui.elements import UIButton
 from pygame_gui.windows import UIMessageWindow
 import yaml
 
@@ -36,7 +36,7 @@ class Menu:
             text="About",
             relative_rect=pygame.Rect(
                 (screen_width / 2) - self.box_width / 3,
-                1.7*screen_height/3,
+                1.65*screen_height/3,
                 2*self.box_width/3,
                 self.box_height,
             ),
@@ -52,14 +52,14 @@ class Menu:
 
     def update(self) -> bool:
         if not self.stop:
-            font_title = pygame.font.SysFont(None, 80)
+            font_title = pygame.font.SysFont("montserrat", 70)
             title = font_title.render('Welcome to Simulex!', True, (60, 60, 60))
 
-            font_subtitle = pygame.font.SysFont(None, 40)
+            font_subtitle = pygame.font.SysFont("montserrat", 30)
             subtitle = font_subtitle.render("The simulation exercise of executive simultaneous exchange", True, (80, 80, 80))
 
-            self.background.blit(title, (0.29*screen_width, 150))
-            self.background.blit(subtitle, (0.2*screen_width, 250))
+            self.background.blit(title, (0.23*screen_width, 150))
+            self.background.blit(subtitle, (0.18*screen_width, 250))
 
         return self.stop
 
