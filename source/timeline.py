@@ -249,7 +249,7 @@ class Timeline:
         return self.loan
 
     # when the user clicks on the "split timeline" or "merge timeline" button, update the timeline's attributes
-    def update_attributes(self, money: int, net_worth: int, new_stocks: List[Timeline_Stock], new_loan: Timeline_Loan) -> None:
+    def update_attributes(self, money: int, net_worth: int, new_stocks: List[Timeline_Stock], new_loan: Timeline_Loan, new_panel: UIScrollingContainer) -> None:
         self.money = money
         self.net_worth = net_worth
         
@@ -262,6 +262,11 @@ class Timeline:
             self.loan = None
         else:
             self.loan.update_attributes(new_loan)
+
+        if new_panel.vert_scroll_bar != None:
+            self.timeline_panel.vert_scroll_bar.scroll_position = new_panel.vert_scroll_bar.scroll_position
+            self.timeline_panel.vert_scroll_bar.scroll_wheel_moved = True
+            self.timeline_panel.vert_scroll_bar.update(0.0)
 
         self.update_boxes()
 

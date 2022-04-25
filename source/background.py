@@ -390,7 +390,7 @@ class Background:
             )
     
     def copy_data(self, sender_timeline: Timeline, receiver_timeline: Timeline) -> None:
-        receiver_timeline.update_attributes(sender_timeline.get_money(), sender_timeline.get_net_worth(), sender_timeline.get_stocks(), sender_timeline.get_loan())
+        receiver_timeline.update_attributes(sender_timeline.get_money(), sender_timeline.get_net_worth(), sender_timeline.get_stocks(), sender_timeline.get_loan(), sender_timeline.timeline_panel)
     
 
     def check_win_condition(self) -> None:
