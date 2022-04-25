@@ -72,7 +72,6 @@ class Timeline:
             manager = manager,
             container = self.timeline_panel,
         )
-
         
         self.stocks = []
 
@@ -90,11 +89,17 @@ class Timeline:
         self.calculate_net_worth(False)
 
         if reference_loan != None:
-            self.loan = Timeline_Loan(reference_loan, self, 2*self.box_height, self.box_width,self.box_height,self.timeline_panel,self.manager,self.timestep)
             self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + loan_panel_size + self.box_height*2 + 5))
+            self.loan = Timeline_Loan(reference_loan, self, 2*self.box_height, self.box_width,self.box_height,self.timeline_panel,self.manager,self.timestep)
+            
         else:
             self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + self.box_height*2 + 5))
             self.loan = None
+
+        for timeline_stock in self.stocks:
+            timeline_stock.update_boxes()
+
+        self.loan.update_boxes()
 
         # print("timeline additional check")
         # if not self.is_active:
@@ -111,6 +116,10 @@ class Timeline:
 
 
     def update_boxes(self):
+        if self.timeline_panel.vert_scroll_bar != None:
+            for object in [self.timeline_label,self.timeline_panel,self.timeline_panel_bg]:
+                self.timeline_panel.vert_scroll_bar.join_focus_sets(object)
+
         try:
             self.moneybox.kill()
             self.net_worth_box.kill()
@@ -129,7 +138,8 @@ class Timeline:
                 container=self.timeline_panel,
                 manager=self.manager,
             )
-
+            for object in [self.moneybox,self.net_worth_box]:
+                self.timeline_panel.vert_scroll_bar.join_focus_sets(object)
 
     def switch_activity(self) -> None:
         if self.is_active == False:

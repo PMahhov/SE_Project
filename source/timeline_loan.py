@@ -72,6 +72,7 @@ class Timeline_Loan:
         self.timeline_reference = timeline_reference
         self.timestep = timestep
 
+        self.UIobjects = []
 
         self.loan_panel_offered = UIPanel(
             relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 3 + 10),
@@ -80,6 +81,7 @@ class Timeline_Loan:
             container=timeline_panel,
             visible = not self.have_loan(),
         )        
+        self.UIobjects.append(self.loan_panel_offered)
 
         self.loan_panel_taken = UIPanel(
             relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 3 + 10),
@@ -88,6 +90,7 @@ class Timeline_Loan:
             container=timeline_panel,
             visible = self.have_loan(),
         )    
+        self.UIobjects.append(self.loan_panel_taken)
 
         self.namelabel_1 = UILabel(
             relative_rect = pygame.Rect(0,0,self.box_width,self.box_height),
@@ -95,6 +98,7 @@ class Timeline_Loan:
             manager = self.manager,
             container = self.loan_panel_offered,
             )
+        self.UIobjects.append(self.namelabel_1)
 
         self.namelabel_2 = UILabel(
             relative_rect = pygame.Rect(0,0,self.box_width,self.box_height),
@@ -102,13 +106,15 @@ class Timeline_Loan:
             manager = self.manager,
             container = self.loan_panel_taken,
             )
+        self.UIobjects.append(self.namelabel_2)
 
         self.offered_ir_box = UITextBox(
             html_text = "Interest rate: "+f"{self.loan_reference.get_offered_interest_rate():.2f}",
             relative_rect = pygame.Rect(0,self.box_height,self.box_width/2,self.box_height),
             manager = self.manager,
             container = self.loan_panel_offered,
-        )                      
+        )            
+        self.UIobjects.append(self.offered_ir_box)          
 
         self.max_amount_box = UITextBox(
             html_text = "Max amount: "+str(self.get_max_amount()),
@@ -116,6 +122,7 @@ class Timeline_Loan:
             manager = self.manager,
             container = self.loan_panel_offered,
         )            
+        self.UIobjects.append(self.max_amount_box)
 
         self.graph_button_1 = UIButton(
             relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
@@ -124,6 +131,7 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
             tool_tip_text = "Display historical information about the loan"
         )      
+        self.UIobjects.append(self.graph_button_1)
 
         self.graph_button_2 = UIButton(
             relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
@@ -132,6 +140,7 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Display a graph with historical information about the loan"
         )     
+        self.UIobjects.append(self.graph_button_2)
 
         self.information_button_1 = UIButton(
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
@@ -139,7 +148,8 @@ class Timeline_Loan:
             manager = manager,
             container = self.loan_panel_offered,
             tool_tip_text = "Display information about loans"
-        )   
+        ) 
+        self.UIobjects.append(self.information_button_1)  
         
         self.information_button_2 = UIButton(
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
@@ -148,6 +158,7 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Display information about loans"
         )   
+        self.UIobjects.append(self.information_button_2)
 
         self.take_loan_button = UIButton(
             relative_rect = pygame.Rect(0, self.box_height * 2, self.box_width / 4, self.box_height),
@@ -157,6 +168,7 @@ class Timeline_Loan:
             tool_tip_text = "Take out a loan with the offered interest rate",
         )
         self.take_loan_button.disable()
+        self.UIobjects.append(self.take_loan_button)
 
         self.pay_loan_button = UIButton(
             relative_rect = pygame.Rect(0, self.box_height * 2, self.box_width / 4, self.box_height),
@@ -166,7 +178,7 @@ class Timeline_Loan:
             tool_tip_text = "Pay off a portion of the taken loan",
         )        
         self.pay_loan_button.disable()
-
+        self.UIobjects.append(self.pay_loan_button)
 
         self.select_loan_button = UIButton(
             relative_rect = pygame.Rect(15/24 * self.box_width, self.box_height * 2, self.box_width / 6, self.box_height),
@@ -176,6 +188,7 @@ class Timeline_Loan:
             tool_tip_text = "Select the amount you will take a loan out for",
         )        
         self.select_loan_button.disable()
+        self.UIobjects.append(self.select_loan_button)
 
         self.select_pay_button = UIButton(
             relative_rect = pygame.Rect(15/24 * self.box_width, self.box_height * 2, self.box_width / 6, self.box_height),
@@ -185,6 +198,7 @@ class Timeline_Loan:
             tool_tip_text = "Select the amount that you will pay back",
         )             
         self.select_pay_button.disable()
+        self.UIobjects.append(self.select_pay_button)
 
         self.take_loan_entry = UINumberEntryLine(
             relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
@@ -193,6 +207,7 @@ class Timeline_Loan:
         )
         self.take_loan_entry.set_text("[Click to Enter]")   
         self.take_loan_entry.set_select_reference(self.select_loan_button)
+        self.UIobjects.append(self.take_loan_entry)
 
         self.pay_loan_entry = UINumberEntryLine(
             relative_rect = pygame.Rect(self.box_width/4, self.box_height * 2, 9*self.box_width / 24, self.box_height),
@@ -201,8 +216,7 @@ class Timeline_Loan:
         )
         self.pay_loan_entry.set_text("[Click to Enter]")
         self.pay_loan_entry.set_select_reference(self.select_pay_button)
-
-        self.update_boxes()
+        self.UIobjects.append(self.pay_loan_entry)
 
 
         self.take_max_loan_button = UIButton(
@@ -212,6 +226,7 @@ class Timeline_Loan:
             container = self.loan_panel_offered,
             tool_tip_text = "Select the maximum amount you can take a loan out for",            
         )
+        self.UIobjects.append(self.take_max_loan_button)
 
         self.pay_max_loan_button = UIButton(
             relative_rect = pygame.Rect(19/24 * self.box_width, self.box_height * 2, self.box_width / 7, self.box_height),
@@ -220,8 +235,16 @@ class Timeline_Loan:
             container = self.loan_panel_taken,
             tool_tip_text = "Select the maximum amount you can back your loan with",            
         )
+        self.UIobjects.append(self.pay_max_loan_button)
+
+        self.update_boxes()
 
     def update_boxes(self) -> None:
+        
+        if self.timeline_reference.timeline_panel.vert_scroll_bar != None:
+            for object in self.UIobjects:
+                self.timeline_reference.timeline_panel.vert_scroll_bar.join_focus_sets(object)
+
         if self.timeline_reference.is_active:
             if self.have_loan():
                 self.loan_panel_offered.hide()
@@ -246,12 +269,17 @@ class Timeline_Loan:
                     manager = self.manager,
                     container = self.loan_panel_taken,
                 ) 
+                if self.timeline_reference.timeline_panel.vert_scroll_bar != None:
+                    self.timeline_reference.timeline_panel.vert_scroll_bar.join_focus_sets(self.taken_ir_box)
+
             self.amount_owed_box = UITextBox(
                 html_text = "Current debt: "+str(self.get_amount_owed()),
                 relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
                 manager = self.manager,
                 container = self.loan_panel_taken,
-            )                      
+            )    
+            if self.timeline_reference.timeline_panel.vert_scroll_bar != None:
+                self.timeline_reference.timeline_panel.vert_scroll_bar.join_focus_sets(self.amount_owed_box)                  
 
     def progress_time(self) -> None:
         self.update_boxes()
