@@ -66,6 +66,7 @@ class Background:
                 self.box_width,
                 self.box_height,
             ),
+            starting_height = 3,
             manager=self.manager,
             visible=True,
         )
@@ -78,6 +79,7 @@ class Background:
                 self.box_width,
                 self.box_height,
             ),
+            starting_height = 3,
             manager=self.manager,
             visible=False,
         )
@@ -90,6 +92,7 @@ class Background:
                 self.box_width,
                 self.box_height,
             ),
+            starting_height = 3,
             manager=self.manager,
             visible=False,
         )
@@ -102,6 +105,7 @@ class Background:
                 2*self.box_width/3,
                 self.box_height,
             ),
+            starting_height = 3,
             manager=self.manager,
             visible=True,
         )
@@ -115,6 +119,7 @@ class Background:
                 1*self.box_width/3,
                 self.box_height,
             ),
+            starting_height = 3,
             manager=self.manager,
             visible=True,
         )
@@ -127,6 +132,7 @@ class Background:
                 1*self.box_width/3,
                 self.box_height,
             ),
+            starting_height = 3,
             manager=self.manager,
             visible=False,
         )
