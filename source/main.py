@@ -2,7 +2,6 @@ import pygame
 import pygame_gui
 import yaml
 from background import Background
-from information_popup import Information_Popup
 from pygame_gui import UIManager
 import numpy as np
 from menu import Menu
@@ -21,9 +20,7 @@ window_surface = pygame.display.set_mode((screen_width, screen_height))
 
 background = pygame.Surface((screen_width, screen_height))
 background.fill(pygame.Color("#A5AAAF"))
-default_manager = UIManager(
-    (screen_width, screen_height)
-) #, 'source/window.json')
+default_manager = UIManager((screen_width, screen_height))  # , 'source/window.json')
 
 clock = pygame.time.Clock()
 is_running = True

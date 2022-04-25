@@ -1,19 +1,26 @@
 import matplotlib
-import matplotlib.pyplot as plt
 import matplotlib.backends.backend_agg as agg
 from matplotlib.ticker import MaxNLocator
+import numpy as np
 import pygame
 import pylab
 import yaml
-import numpy as np
 from pygame_gui import UIManager
 from pygame_gui.elements import UIImage, UIWindow
-from typing import List
 
 matplotlib.use("Agg")
 
+
 class Information_Popup:
-    def __init__(self, window_title: str, data: any, initial_number_of_historical_data: int, x_label: int, y_label: int, manager: UIManager) -> None:
+    def __init__(
+        self,
+        window_title: str,
+        data: any,
+        initial_number_of_historical_data: int,
+        x_label: int,
+        y_label: int,
+        manager: UIManager,
+    ) -> None:
         with open("config.yaml") as config_file:
             self.config = yaml.safe_load(config_file)
         self.window_width = self.config["screen_width"]
@@ -29,28 +36,29 @@ class Information_Popup:
         # create the popup window
         self.window = UIWindow(
             pygame.Rect(
-                ((self.window_width - (2.5 * self.window_width/6)) / 2) ,
+                ((self.window_width - (2.5 * self.window_width / 6)) / 2),
                 self.window_height / 8,
                 (2.5 * self.window_width) / 6,
                 (6 * self.window_height + 50) / 10,
             ),
             manager=self.manager,
-            window_display_title= "Historical Information",
+            window_display_title="Historical Information",
         )
-       
+
         # create the graph
         fig = pylab.figure(
-            figsize=[4, 4], dpi=300,  # Inches  # 100 dots per inch,
+            figsize=[4, 4],
+            dpi=300,  # Inches  # 100 dots per inch,
         )  # resulting buffer is 400x400 pixels
         ax = fig.gca()
-        
+
         x_values = []
         for i in range(self.initial_number_of_historical_data):
             x_values.append(i - self.initial_number_of_historical_data + 1)
         for i in range(len(self.data) - self.initial_number_of_historical_data):
             x_values.append(i + 1)
         ax.plot(x_values, self.data)
-        
+
         # set graph parameters
         ax.set_title(self.window_title, fontsize = 11, pad = 10)
         ax.set_xlabel(self.x_label, labelpad=3, fontsize = 9)
@@ -72,7 +80,10 @@ class Information_Popup:
         surf = pygame.image.fromstring(raw_data, size, "RGB")
         image = UIImage(
             pygame.Rect(
-                0, 0, (2.5 * self.window_width) / 6,((self.window_width - (2.5 * self.window_width/6)) / 2 +8)
+                0,
+                0,
+                (2.5 * self.window_width) / 6,
+                ((self.window_width - (2.5 * self.window_width / 6)) / 2 + 8),
             ),
             surf,
             manager=self.manager,
@@ -81,4 +92,3 @@ class Information_Popup:
 
     def kill(self):
         self.window.kill()
-        

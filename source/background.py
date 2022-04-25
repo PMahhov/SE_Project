@@ -1,11 +1,12 @@
-from multiprocessing import managers
+import json
+
 import pygame
 import yaml
 from background_loan import Background_Loan
 from background_stock import Background_Stock
 from confirmation_dialog import UIConfirmationDialog
 from pygame_gui import UIManager
-from pygame_gui.elements import UIButton, UILabel, UIWindow, UIPanel
+from pygame_gui.elements import UIButton, UILabel, UIPanel
 from pygame_gui.windows import UIMessageWindow
 from timeline import Timeline
 from typing import List
@@ -52,11 +53,42 @@ class Background:
         self.top = 150
 
         # Creating timeline objects
-        self.left_timeline = Timeline(self.manager, "left", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=False, money = self.initial_money)
+        self.left_timeline = Timeline(
+            self.manager,
+            "left",
+            self.box_width,
+            self.box_height,
+            self.top,
+            self.stocks,
+            self.loan,
+            self.timestep,
+            is_active=False,
+            money=self.initial_money,
+        )
         self.center_timeline = Timeline(
-            self.manager, "center", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=True, money = self.initial_money)
+            self.manager,
+            "center",
+            self.box_width,
+            self.box_height,
+            self.top,
+            self.stocks,
+            self.loan,
+            self.timestep,
+            is_active=True,
+            money=self.initial_money,
+        )
         self.right_timeline = Timeline(
-            self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=False, money = self.initial_money)
+            self.manager,
+            "right",
+            self.box_width,
+            self.box_height,
+            self.top,
+            self.stocks,
+            self.loan,
+            self.timestep,
+            is_active=False,
+            money=self.initial_money,
+        )
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
 
         # Creating buttons
@@ -100,12 +132,12 @@ class Background:
             visible=False,
         )
         self.timeprogress_button = UIButton(
-            text="Next "+self.timestep,
+            text="Next " + self.timestep,
             tool_tip_text="Progress time within the scenario",
             relative_rect=pygame.Rect(
                 (screen_width / 2) - self.box_width / 3,
-                self.top/2-self.box_height/3,
-                2*self.box_width/3,
+                self.top / 2 - self.box_height / 3,
+                2 * self.box_width / 3,
                 self.box_height,
             ),
             starting_height = 3,
@@ -119,7 +151,7 @@ class Background:
             relative_rect=pygame.Rect(
                 (screen_width / 35),
                 (screen_height / 25),
-                1*self.box_width/3,
+                1 * self.box_width / 3,
                 self.box_height,
             ),
             starting_height = 3,
@@ -130,9 +162,9 @@ class Background:
         self.next_button = UIButton(
             text="Next",
             relative_rect=pygame.Rect(
-                (screen_width / 35) + self.box_width/3 + 10,
+                (screen_width / 35) + self.box_width / 3 + 10,
                 (screen_height / 25),
-                1*self.box_width/3,
+                1 * self.box_width / 3,
                 self.box_height,
             ),
             starting_height = 3,
@@ -211,47 +243,66 @@ class Background:
             pass
         finally:
             self.timeprogress_panel = UIPanel(
-            relative_rect = pygame.Rect(
-                    (5*screen_width / 6) - self.box_width / 3,
-                    self.top/2-self.box_height/3,
-                    self.box_width/2,
-                    self.box_height,
-            ),
-            starting_layer_height = 0,
-            manager = self.manager,
-        )
-            self.timeprogress_label = UILabel(
-                text=self.timestep+" "+str(self.current_time)+" / "+str(self.timelimit),
                 relative_rect=pygame.Rect(
-                    (5*screen_width / 6) - self.box_width / 3,
-                    self.top/2-self.box_height/3,
-                    self.box_width/2,
+                    (5 * screen_width / 6) - self.box_width / 3,
+                    self.top / 2 - self.box_height / 3,
+                    self.box_width / 2,
                     self.box_height,
-            ),
-            manager=self.manager,
-            visible=True,
-        )
+                ),
+                starting_layer_height=0,
+                manager=self.manager,
+            )
+            self.timeprogress_label = UILabel(
+                text=self.timestep
+                + " "
+                + str(self.current_time)
+                + " / "
+                + str(self.timelimit),
+                relative_rect=pygame.Rect(
+                    (5 * screen_width / 6) - self.box_width / 3,
+                    self.top / 2 - self.box_height / 3,
+                    self.box_width / 2,
+                    self.box_height,
+                ),
+                manager=self.manager,
+                visible=True,
+            )
 
-    def load_data(self, path_level_module: str) -> None:  
+    def load_data(self, path_level_module: str) -> None:
         # read level_module JSON file and initialize stocks, loans and other variables
         file = open(path_level_module)
         data_module = json.load(file)
 
         self.initial_money = data_module["initial_money"]
-        self.level_name = data_module["name"]
 
         self.stocks = []
         for stock in data_module["stocks"]:
-            self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['change_in_trend'], stock['number_of_historical_prices']))
-        
+            self.stocks.append(
+                Background_Stock(
+                    stock["id"],
+                    stock["name"],
+                    stock["price"],
+                    stock["volatility"],
+                    stock["trend"],
+                    stock["number_of_historical_prices"],
+                )
+            )
+
         loan = data_module["loan"]
         if loan == "None":
             self.loan = None
         else:
-            self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['change_in_trend'], loan['c_2_in_trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
+            self.loan = Background_Loan(
+                loan["id"],
+                loan["offered_interest_rate"],
+                loan["volatility"],
+                loan["trend"],
+                loan["number_of_historical_interest_rates"],
+                loan["max_amount_multiplier"],
+            )
 
-        #self.transaction_cost = data_module['transaction_cost']
-        self.tutorial = data_module['tutorial']
+        self.transaction_cost = data_module["transaction_cost"]
+        self.tutorial = data_module["tutorial"]
 
         self.timestep = data_module["timestep"]
         self.timelimit = data_module["timelimit"]
@@ -311,30 +362,29 @@ class Background:
         for timeline in self.timelines:
             timeline.progress_time()
 
-
     # end the scenario
     def end_scenario(self, type_end: str) -> None:
         self.timeprogress_button.kill()
         self.scenario_end_panel = UIPanel(
-            relative_rect = pygame.Rect(
+            relative_rect=pygame.Rect(
                 (screen_width / 2) - self.box_width / 3,
-                self.top/2-self.box_height/3,
-                2*self.box_width/3,
+                self.top / 2 - self.box_height / 3,
+                2 * self.box_width / 3,
                 self.box_height,
             ),
-            starting_layer_height = 0,
-            manager = self.manager,
+            starting_layer_height=0,
+            manager=self.manager,
         )
         self.timeprogress_button = UILabel(
             text="Scenario End - " + type_end,
             relative_rect=pygame.Rect(
                 (screen_width / 2) - self.box_width / 3,
-                self.top/2-self.box_height/3,
-                2*self.box_width/3,
+                self.top / 2 - self.box_height / 3,
+                2 * self.box_width / 3,
                 self.box_height,
             ),
-            manager = self.manager,
-            visible = True
+            manager=self.manager,
+            visible=True,
         )
         self.timeprogress_button.disable()
 
@@ -376,8 +426,10 @@ class Background:
             self.go_to_next_scenario()
         else:
             for timeline in self.timelines:
-                # call button_pressed() in each timeline 
-                if timeline.button_pressed(event): # if returns true, no need to check for other timelines
+                # call button_pressed() in each timeline
+                if timeline.button_pressed(
+                    event
+                ):  # if returns true, no need to check for other timelines
                     break
         for timeline in self.timelines:
             timeline.update_boxes()
@@ -388,9 +440,9 @@ class Background:
     
         self.check_lose_condition()
         self.check_win_condition()
-    
+
     def display_tutorial(self) -> None:
-        try: 
+        try:
             self.tutorial_window.kill()
         except:
             pass
@@ -403,26 +455,30 @@ class Background:
                     (8 * self.box_height),
                 ),
                 manager=self.manager,
-                window_title= self.level_name,
-                html_message=self.tutorial
+                window_title="Tutorial",
+                html_message=self.tutorial,
             )
-    
+
     def copy_data(self, sender_timeline: Timeline, receiver_timeline: Timeline) -> None:
         receiver_timeline.update_attributes(sender_timeline.get_money(), sender_timeline.get_net_worth(), sender_timeline.get_stocks(), sender_timeline.get_loan(), sender_timeline.timeline_panel)
     
 
     def check_win_condition(self) -> None:
-        # if win_cond_type == "money": 
+        # if win_cond_type == "money":
         #     win_cond = int
         # if win_cond_type == "stock":
         #     win_cond = dictionary of stocks and volume for each stock
         # if win_cond_type = "loan":
-        #     wind_cond = "None" 
-        
+        #     wind_cond = None
+
         # the win condition is to reach a particular amount of money
         if self.win_cond_type == "money":
             for timeline in self.timelines:
-                if timeline.get_is_active() and timeline.get_money() >= self.win_cond and self.scenario_end == False:
+                if (
+                    timeline.get_is_active()
+                    and timeline.get_money() >= self.win_cond
+                    and self.scenario_end == False
+                ):
                     self.scenario_end = True
                     self.end_scenario("Victory!")
 
@@ -441,12 +497,15 @@ class Background:
                     if win == True and self.scenario_end == False:
                         self.scenario_end = True
                         self.end_scenario("Victory!")
-                        break          
-        
+                        break
+
         # the win condition is to reimburse a loan
         elif self.win_cond_type == "loan":
             for timeline in self.timelines:
-                if timeline.get_is_active() and timeline.get_loan().get_amount_owed() <= 0:
+                if (
+                    timeline.get_is_active()
+                    and timeline.get_loan().get_amount_owed() <= 0
+                ):
                     if self.scenario_end == False:
                         self.scenario_end = True
                         self.end_scenario("Victory!")
@@ -464,7 +523,7 @@ class Background:
                     if self.scenario_end == False:
                         self.scenario_end = True
                         self.end_scenario("Failure")
-        
+
         # [TODO]: are there other loose conditions?
     
     def restart_scenario(self) -> None:

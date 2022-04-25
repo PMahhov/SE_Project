@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 from background_stock import Background_Stock
 
@@ -15,4 +14,3 @@ def test_init(bg_stock: Background_Stock, historical_length: int):
     assert len(bg_stock.get_historical_prices()) == historical_length
     assert bg_stock.get_price() >= 1
     assert min(bg_stock.get_historical_prices()) >= 1
-
