@@ -99,7 +99,8 @@ class Timeline:
         for timeline_stock in self.stocks:
             timeline_stock.update_boxes()
 
-        self.loan.update_boxes()
+        if reference_loan != None:
+            self.loan.update_boxes()
 
         # print("timeline additional check")
         # if not self.is_active:
