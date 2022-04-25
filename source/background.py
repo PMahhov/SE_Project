@@ -140,6 +140,18 @@ class Background:
             visible=False,
         )
 
+        # self.next_panel = UIPanel(
+        #     relative_rect=pygame.Rect(
+        #         (screen_width / 35) + self.box_width/3 + 10 - 3,
+        #         (screen_height / 25) - 3,
+        #         1*self.box_width/3 + 6,
+        #         self.box_height + 6,
+        #     ),
+        #     starting_layer_height = 2,
+        #     manager=self.manager,
+        #     visible=False,            
+        # )
+
         # window will appear if the user wins the scenario
         self.win_window = UIConfirmationDialog(
             pygame.Rect(
@@ -332,7 +344,9 @@ class Background:
             self.lose_window.show()
 
         # create button to go to next scenario
+        # self.next_panel.show()
         self.next_button.show()
+        
                  
     def button_pressed(self, event) -> None:
         if event.ui_element == self.creation_button:
