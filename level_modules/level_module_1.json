@@ -1,7 +1,7 @@
 {
     "name": "Level 1: Introduction",
     "id": 0,
-    "tutorial": "This is level 1, good luck!",
+    "tutorial": "This is level 1, good luck! [WRITE MORE - GOAL; HOW TO PLAY? (TUTORIAL)",
     "initial_money": 5000,
     "stocks": [
         {
@@ -24,6 +24,10 @@
     "loan": "None",
     "transaction_cost": 1,
     "timestep": "Month",
-    "timelimit": 7
+    "timelimit": 7,
+    "win_cond_type": "money",
+    "win_cond": 101000,
+    "win_message": "[TEMPORARY] Congrats, You have reached 101000 dollars!",
+    "lose_message": "[TEMPORARY] Oh no you didn't manage to reach the objective!"    
 }
 

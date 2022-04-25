@@ -8,6 +8,7 @@ from pygame_gui import UIManager
 from pygame_gui.elements import UIButton, UILabel, UIWindow, UIPanel
 from pygame_gui.windows import UIMessageWindow
 from timeline import Timeline
+from typing import List
 import json
 import numpy as np
 
@@ -33,12 +34,14 @@ class Background:
         )  # return the instance variable that contains the object of the Background class
 
     # Initialize attributes of the class
-    def init_class(self, manager: UIManager, path_level_module: str):
+    def init_class(self, manager: UIManager, path_level_modules: List[str]):
 
         self.manager = manager
         self.scenario_end = False
 
-        self.load_data(path_level_module)
+        self.path_level_modules = path_level_modules
+        self.current_module_path = self.path_level_modules[0]
+        self.load_data(self.current_module_path)
 
         # Game tracking information
         self.current_time = 1
@@ -446,9 +449,14 @@ class Background:
         # [TODO]: are there other loose conditions?
     
     def restart_scenario(self) -> None:
-        print("restart scenario")
-        # [TODO] restart scenario
+        self.manager.clear_and_reset()
+        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules)
 
-    def go_to_next_scenario(self) -> None:
-        print("go to next scenario")
-         # [TODO] go to the next scenario 
+    def go_to_next_scenario(self) -> None:    
+        if len(self.path_level_modules) > 1:
+            self.path_level_modules.pop(0)
+        # [TODO]: either put a window saying "you win, you completed all modules" OR add randomly generated levels
+
+        self.manager.clear_and_reset()
+        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules)
+    
