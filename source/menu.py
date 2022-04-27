@@ -52,10 +52,10 @@ class Menu:
 
     def update(self) -> bool:
         if not self.stop:
-            font_title = pygame.font.SysFont("montserrat", 70)
+            font_title = pygame.font.Font("source/montserrat_font.ttf", 70)
             title = font_title.render('Welcome to Simulex!', True, (60, 60, 60))
 
-            font_subtitle = pygame.font.SysFont("montserrat", 30)
+            font_subtitle = pygame.font.Font("source/montserrat_font.ttf", 30)
             subtitle = font_subtitle.render("The simulation exercise of executive simultaneous exchange", True, (80, 80, 80))
 
             self.background.blit(title, (0.23*screen_width, 150))
