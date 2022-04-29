@@ -238,7 +238,8 @@ class Background:
         data_module = json.load(file)
 
         self.initial_money = data_module["initial_money"]
-        
+        self.level_name = data_module["name"]
+
         self.stocks = []
         for stock in data_module["stocks"]:
             self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['change_in_trend'], stock['number_of_historical_prices']))
@@ -402,7 +403,7 @@ class Background:
                     (8 * self.box_height),
                 ),
                 manager=self.manager,
-                window_title= "Tutorial",
+                window_title= self.level_name,
                 html_message=self.tutorial
             )
     
@@ -416,7 +417,7 @@ class Background:
         # if win_cond_type == "stock":
         #     win_cond = dictionary of stocks and volume for each stock
         # if win_cond_type = "loan":
-        #     wind_cond = None 
+        #     wind_cond = "None" 
         
         # the win condition is to reach a particular amount of money
         if self.win_cond_type == "money":
@@ -431,7 +432,8 @@ class Background:
                 if timeline.get_is_active():
                     win = True
                     for stock in timeline.get_stocks():
-                        if stock.get_volume() < self.win_cond_type[stock.get_id()]:
+                        # print(self.win_cond_type[stock.get_id()])
+                        if stock.get_volume() < self.win_cond[str(stock.get_id())]:
                             win = False
                     if win == True and self.scenario_end == False:
                         self.scenario_end = True

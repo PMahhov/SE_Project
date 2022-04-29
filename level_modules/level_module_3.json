@@ -1,0 +1,43 @@
+{
+    "name": "Scenario 3: Up by the Bootstraps",
+    "id": 3,
+    "tutorial": "This is a template tutorial text. Add win conditions here",
+    "initial_money": 10000,
+    "stocks": [
+        {
+            "id": 0,
+            "name": "stock 0",
+            "price": 100,
+            "volatility": 2,
+            "trend": 3,
+            "change_in_trend": 0.1,
+            "number_of_historical_prices": 30
+        },
+        {
+            "id": 1,
+            "name": "stock 1",
+            "price": [TODO],
+            "volatility": [TODO],
+            "trend": [TODO],
+            "change_in_trend": [TODO],
+            "number_of_historical_prices": [TODO]
+        }
+    ],
+    "loan": {
+        "exists": 1,
+        "id": 0,
+        "offered_interest_rate": [TODO],
+        "volatility": [TODO],
+        "trend": [TODO],
+        "change_in_trend": [TODO],
+        "number_of_historical_interest_rates": [TODO],
+        "max_amount_multiplier": [TODO]
+    },
+    "timestep": "[TODO]",
+    "timelimit": [TODO],
+    "win_cond_type": "loan",
+    "win_cond": "None",
+    "win_message": "You have successfully crawled your way up from the pits of despair.",
+    "lose_message": "You have succumbed to the depths of debt."
+ }
+ 
