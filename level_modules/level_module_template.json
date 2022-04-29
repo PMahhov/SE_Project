@@ -33,7 +33,6 @@
         "number_of_historical_interest_rates": 23,
         "max_amount_multiplier": 3
     },
-    "transaction_cost": 1,
     "timestep": "Day",
     "timelimit": 5,
     "win_cond_type": "money",
