@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.backends.backend_agg as agg
+from matplotlib.ticker import MaxNLocator
 import pygame
 import pylab
 import yaml
@@ -57,6 +58,8 @@ class Information_Popup:
         ax.tick_params(axis='both', which='major', labelsize=8)
         y_max = np.amax(self.data) + 0.2 * (np.amax(self.data) - np.amin(self.data))
         y_min = np.amin(self.data) - 0.2 * (np.amax(self.data) - np.amin(self.data))
+        if self.y_label == "stock price":
+            ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         ax.set_ylim(y_min, y_max)
 
         canvas = agg.FigureCanvasAgg(fig)
