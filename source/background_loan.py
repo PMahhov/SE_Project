@@ -8,6 +8,7 @@ class Background_Loan:
         offered_interest_rate: float,
         volatility: float,
         trend: float,
+        change_in_trend: float,
         number_of_historical_interest_rates: int,
         max_amount_multiplier: float,
     ) -> None:

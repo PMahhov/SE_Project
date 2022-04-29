@@ -10,6 +10,7 @@
             "price": 100,
             "volatility": 2,
             "trend": 3,
+            "change_in_trend": 0.1,
             "number_of_historical_prices": 10
         },
         {
@@ -18,7 +19,8 @@
             "price": 10,
             "volatility": 1,
             "trend": 5,
-            "number_of_historical_prices": 4
+            "change_in_trend": -0.3,
+            "number_of_historical_prices": 10
         }
     ],
     "loan": "None",

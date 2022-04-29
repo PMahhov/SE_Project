@@ -241,13 +241,13 @@ class Background:
         
         self.stocks = []
         for stock in data_module["stocks"]:
-            self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['number_of_historical_prices']))
+            self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['change_in_trend'], stock['number_of_historical_prices']))
         
         loan = data_module["loan"]
         if loan == "None":
             self.loan = None
         else:
-            self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
+            self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['change_in_trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
 
         self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']

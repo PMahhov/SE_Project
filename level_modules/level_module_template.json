@@ -10,15 +10,17 @@
             "price": 100,
             "volatility": 2,
             "trend": 3,
+            "change_in_trend": -0.1,
             "number_of_historical_prices": 30
         },
         {
             "id": 1,
             "name": "stock1",
             "price": 10,
-            "volatility": 5,
-            "trend": 2,
-            "number_of_historical_prices": 40
+            "volatility": 3,
+            "trend": -2,
+            "change_in_trend": 0.2,
+            "number_of_historical_prices": 30
         }
     ],
     "loan": {
@@ -27,6 +29,7 @@
         "offered_interest_rate": 2,
         "volatility": 1,
         "trend": 0.1,
+        "change_in_trend": 0.01,
         "number_of_historical_interest_rates": 23,
         "max_amount_multiplier": 3
     },

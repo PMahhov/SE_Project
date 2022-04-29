@@ -8,7 +8,8 @@ class Background_Stock:
         name: str,
         price: int,
         volatility: int,
-        trend: int,
+        trend: float,
+        change_in_trend: float,
         number_of_historical_prices: int,
     ) -> None:
         self.id = id
@@ -16,6 +17,7 @@ class Background_Stock:
         self.price = max(1, price)
         self.volatility = volatility
         self.trend = trend
+        self.change_in_trend = change_in_trend
         self.initial_number_of_historical_prices = number_of_historical_prices
         self.historical_prices = []
         for i in range(number_of_historical_prices):
@@ -28,8 +30,11 @@ class Background_Stock:
         
         # update the stock price based on a normal distribution 
         mean = self.price + self.trend
+        if mean < 0:
+            mean = 0
         std = self.volatility*mean/100
         self.price = max(1, int(np.random.normal(mean, std, 1) + 0.5))
+        self.trend += self.change_in_trend
 
     def get_price(self) -> int:
         return self.price
