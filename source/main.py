@@ -53,7 +53,7 @@ while is_running:
 
 default_manager.clear_and_reset()
 
-path_level_modules = ["level_modules/level_module_template.json", "level_modules/level_module_1.json"]
+path_level_modules = ["level_modules/level_module_1.json"]
 
 bg = Background()
 bg.init_class(default_manager, path_level_modules)

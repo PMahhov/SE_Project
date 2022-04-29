@@ -52,8 +52,8 @@ class Information_Popup:
         
         # set graph parameters
         ax.set_title(self.window_title, fontsize = 12, pad = 10)
-        ax.set_xlabel(self.x_label, labelpad=3, fontsize = 10)
-        ax.set_ylabel(self.y_label, labelpad=0, fontsize = 10)
+        ax.set_xlabel(self.x_label, labelpad=3, fontsize = 9)
+        ax.set_ylabel(self.y_label, labelpad=0, fontsize = 9)
         ax.tick_params(axis='both', which='major', labelsize=8)
 
         canvas = agg.FigureCanvasAgg(fig)

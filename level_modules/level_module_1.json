@@ -1,35 +1,34 @@
 {
-    "name": "Level 1: Introduction",
-    "id": 0,
-    "tutorial": "This is level 1, good luck! [WRITE MORE - GOAL; HOW TO PLAY? (TUTORIAL)",
-    "initial_money": 5000,
+    "name": "Level 1: Get Rich Quick!",
+    "id": 1,
+    "tutorial": "This is a template tutorial text. Add win conditions here",
+    "initial_money": 10000,
     "stocks": [
         {
             "id": 0,
-            "name": "stock0",
-            "price": 100,
-            "volatility": 2,
-            "trend": 3,
-            "change_in_trend": 0.1,
-            "number_of_historical_prices": 10
+            "name": "StableCorp",
+            "price": 200,
+            "volatility": 0.5,
+            "trend": 1,
+            "change_in_trend": 0,
+            "number_of_historical_prices": 20
         },
         {
             "id": 1,
-            "name": "stock1",
-            "price": 10,
-            "volatility": 1,
-            "trend": 5,
-            "change_in_trend": -0.3,
-            "number_of_historical_prices": 10
+            "name": "[TODO] 2",
+            "price": 150,
+            "volatility": 2,
+            "trend": -0.2,
+            "change_in_trend": 0.05,
+            "number_of_historical_prices": 20
         }
     ],
     "loan": "None",
-    "transaction_cost": 1,
-    "timestep": "Month",
+    "timestep": "Week",
     "timelimit": 7,
     "win_cond_type": "money",
     "win_cond": 101000,
-    "win_message": "[TEMPORARY] Congrats, You have reached 101000 dollars!",
-    "lose_message": "[TEMPORARY] Oh no you didn't manage to reach the objective!"    
-}
-
+    "win_message": "[TODO] Congrats, You have reached 101000 dollars!",
+    "lose_message": "[TODO] Oh no you didn't manage to reach the objective!"
+ }
+ 

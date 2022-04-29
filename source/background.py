@@ -249,7 +249,7 @@ class Background:
         else:
             self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['change_in_trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
 
-        self.transaction_cost = data_module['transaction_cost']
+        #self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']
 
         self.timestep = data_module["timestep"]
@@ -413,7 +413,7 @@ class Background:
     def check_win_condition(self) -> None:
         # if win_cond_type == "money": 
         #     win_cond = int
-        # if win_cond_type == "stocks":
+        # if win_cond_type == "stock":
         #     win_cond = dictionary of stocks and volume for each stock
         # if win_cond_type = "loan":
         #     wind_cond = None 
