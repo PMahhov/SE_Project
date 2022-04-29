@@ -55,6 +55,9 @@ class Information_Popup:
         ax.set_xlabel(self.x_label, labelpad=3, fontsize = 10)
         ax.set_ylabel(self.y_label, labelpad=0, fontsize = 10)
         ax.tick_params(axis='both', which='major', labelsize=8)
+        y_max = np.amax(self.data) + 0.2 * (np.amax(self.data) - np.amin(self.data))
+        y_min = np.amin(self.data) - 0.2 * (np.amax(self.data) - np.amin(self.data))
+        ax.set_ylim(y_min, y_max)
 
         canvas = agg.FigureCanvasAgg(fig)
         canvas.draw()
