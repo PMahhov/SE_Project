@@ -264,7 +264,7 @@ class Timeline_Stock:
         except:
             pass
         finally:
-            self.info_popup = Information_Popup(self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), self.stock_reference.get_initial_number_of_historical_prices(), self.timestep, "stock price", self.manager)
+            self.info_popup = Information_Popup("Historical prices for " + self.stock_reference.get_name(), self.stock_reference.get_historical_prices(), self.stock_reference.get_initial_number_of_historical_prices(), self.timestep, "stock price", self.manager)
             self.info_popup.display_graph()
         
     def get_total_value(self) -> int:
