@@ -10,28 +10,28 @@
             "price": 250,
             "volatility": 0.5,
             "trend": 0.5,
-            "change_in_trend": -0.05,
-            "number_of_historical_prices": 20
+            "change_in_trend": -0.08,
+            "number_of_historical_prices": 22
         },
         {
             "id": 1,
             "name": "stock 1",
             "price": 400,
-            "volatility": 1,
+            "volatility": 2,
             "trend": 0,
-            "change_in_trend": 0.05,
-            "number_of_historical_prices": 20
+            "change_in_trend": 0.08,
+            "number_of_historical_prices": 22
         }
     ],
     "loan": {
         "exists": 1,
         "id": 0,
-        "offered_interest_rate": 3.5,
+        "offered_interest_rate": 1.5,
         "volatility": 1,
         "trend": 0.2,
         "change_in_trend": -0.03,
         "c_2_in_trend": 0.002,
-        "number_of_historical_interest_rates": 20,
+        "number_of_historical_interest_rates": 22,
         "max_amount_multiplier": 2.5
     },
     "timestep": "Month",

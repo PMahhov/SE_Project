@@ -263,6 +263,7 @@ class Timeline_Loan:
         try: 
             self.taken_ir_box.kill()
             self.amount_owed_box.kill()
+            self.max_amount_box.kill()
         except:
             pass
         finally:
@@ -282,6 +283,12 @@ class Timeline_Loan:
                 manager = self.manager,
                 container = self.loan_panel_taken,
             )    
+            self.max_amount_box = UITextBox(
+                html_text = "Max amount: "+str(self.get_max_amount()),
+                relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
+                manager = self.manager,
+                container = self.loan_panel_offered,
+            )   
             if self.timeline_reference.timeline_panel.vert_scroll_bar != None:
                 self.timeline_reference.timeline_panel.vert_scroll_bar.join_focus_sets(self.amount_owed_box)                  
 
@@ -289,7 +296,6 @@ class Timeline_Loan:
         self.update_boxes()
         try:
             self.offered_ir_box.kill()
-            self.max_amount_box.kill()
         except:
             pass
         finally:
@@ -299,12 +305,6 @@ class Timeline_Loan:
             manager = self.manager,
             container = self.loan_panel_offered,
             )           
-            self.max_amount_box = UITextBox(
-                html_text = "Max amount: "+str(self.get_max_amount()),
-                relative_rect = pygame.Rect(self.box_width/2,self.box_height,self.box_width/2,self.box_height),
-                manager = self.manager,
-                container = self.loan_panel_offered,
-            )   
     
     def get_max_amount(self) -> int:
         return int(self.timeline_reference.net_worth *  self.loan_reference.get_max_amount_multiplier())
@@ -425,6 +425,8 @@ class Timeline_Loan:
         self.amount_owed = new_loan.amount_owed
         self.interest_at_borrowing = new_loan.interest_at_borrowing
         self.update_boxes()
+        self.pay_loan_button.disable()
+        self.take_loan_button.disable()
 
     # when i button clicked, display general information about loans
     def display_info(self) -> None:
