@@ -427,6 +427,8 @@ class Timeline_Loan:
         self.update_boxes()
         self.pay_loan_button.disable()
         self.take_loan_button.disable()
+        self.pay_loan_entry.set_text("")
+        self.take_loan_entry.set_text("")
 
     # when i button clicked, display general information about loans
     def display_info(self) -> None:

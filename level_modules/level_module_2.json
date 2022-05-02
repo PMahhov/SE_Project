@@ -16,8 +16,8 @@
         {
             "id": 1,
             "name": "stock 1",
-            "price": 400,
-            "volatility": 2,
+            "price": 200,
+            "volatility": 4,
             "trend": 0,
             "change_in_trend": 0.08,
             "number_of_historical_prices": 22
