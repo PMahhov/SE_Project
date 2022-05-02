@@ -426,7 +426,7 @@ class Background:
                     self.scenario_end = True
                     self.end_scenario("Victory!")
 
-        # the win condition is to buy a particular amount of stocks
+        # the win condition is to buy a particular amount of stocks and have no debt remaining
         elif self.win_cond_type == "stock":
             for timeline in self.timelines:
                 if timeline.get_is_active():
@@ -435,6 +435,9 @@ class Background:
                         # print(self.win_cond_type[stock.get_id()])
                         if stock.get_volume() < self.win_cond[str(stock.get_id())]:
                             win = False
+                    if self.loan != None:
+                        if timeline.get_loan().have_loan():
+                                win = False
                     if win == True and self.scenario_end == False:
                         self.scenario_end = True
                         self.end_scenario("Victory!")

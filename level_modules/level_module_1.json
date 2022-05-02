@@ -1,7 +1,7 @@
 {
     "name": "Scenario 1: Get Rich Quick!",
     "id": 1,
-    "tutorial": "This is a template tutorial text. Add win conditions here",
+    "tutorial": "Objective: Increase your net worth to 11000 before the allotted time is up.",
     "initial_money": 10000,
     "stocks": [
         {
