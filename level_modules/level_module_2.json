@@ -2,24 +2,24 @@
     "name": "Scenario 2: Hostile Takeover",
     "id": 2,
     "tutorial": "This is a template tutorial text. Add win conditions here",
-    "initial_money": 10000,
+    "initial_money": 20000,
     "stocks": [
         {
             "id": 0,
             "name": "stock 0",
-            "price": 100,
-            "volatility": 2,
-            "trend": 3,
-            "change_in_trend": 0.1,
+            "price": 250,
+            "volatility": 0.5,
+            "trend": 0.5,
+            "change_in_trend": -0.05,
             "number_of_historical_prices": 20
         },
         {
             "id": 1,
             "name": "stock 1",
-            "price": 10,
-            "volatility": 5,
-            "trend": 2,
-            "change_in_trend": 0.2,
+            "price": 400,
+            "volatility": 1,
+            "trend": 0,
+            "change_in_trend": 0.05,
             "number_of_historical_prices": 20
         }
     ],
@@ -37,7 +37,7 @@
     "timestep": "Month",
     "timelimit": 12,
     "win_cond_type": "stock",
-    "win_cond": {"0": 50, "1":  0},
+    "win_cond": {"0": 101, "1":  0},
     "win_message": "Congratulations, you have managed to take control of a failing company. It would be interesting to see if you'd be able to pull it from the brink, but that would be another game entirely.",
     "lose_message": "Unfortunately, it seems that you fell a bit short from your target goal. Perhaps you'd like to try again? You can of course just move on to the next scenario instead."
  }

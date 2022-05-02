@@ -360,8 +360,8 @@ class Timeline_Loan:
             self.take_loan_button.enable()
 
         elif event.ui_element == self.pay_max_loan_button:
-            self.pay_loan_entry.set_text(str(self.get_amount_owed()))
-            self.current_amount = self.get_amount_owed()
+            self.current_amount = min(self.get_amount_owed(), self.timeline_reference.get_money())
+            self.pay_loan_entry.set_text(str(self.current_amount))
             self.pay_loan_button.enable()
 
         elif event.ui_element == self.select_loan_button:
@@ -399,13 +399,13 @@ class Timeline_Loan:
                 proposed_amount = int(self.pay_loan_entry.get_text())
 
             if proposed_amount > self.get_amount_owed():
-                self.pay_loan_entry.set_text(str(self.get_amount_owed()))
-                self.current_amount = self.get_amount_owed()
+                self.current_amount = min(self.get_amount_owed(), self.timeline_reference.get_money())
+                self.pay_loan_entry.set_text(str(self.current_amount))
                 self.pay_loan_button.enable()
             
             elif proposed_amount > 0:
-                self.pay_loan_entry.set_text(str(proposed_amount))
-                self.current_amount = proposed_amount
+                self.current_amount = min(proposed_amount, self.timeline_reference.get_money())
+                self.pay_loan_entry.set_text(str(self.current_amount))
                 self.pay_loan_button.enable()
 
             else:
