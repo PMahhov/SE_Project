@@ -248,7 +248,7 @@ class Background:
         if loan == "None":
             self.loan = None
         else:
-            self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['change_in_trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
+            self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['change_in_trend'], loan['c_2_in_trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
 
         #self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']
@@ -297,7 +297,7 @@ class Background:
         self.current_time += 1
         self.update_labels()
 
-        if self.current_time >= self.timelimit:
+        if self.current_time >= self.timelimit+1:
             self.scenario_end = True
             self.end_scenario("Failure")
 

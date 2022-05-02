@@ -11,7 +11,7 @@
             "volatility": 2,
             "trend": 3,
             "change_in_trend": 0.1,
-            "number_of_historical_prices": 30
+            "number_of_historical_prices": 20
         },
         {
             "id": 1,
@@ -20,21 +20,22 @@
             "volatility": 5,
             "trend": 2,
             "change_in_trend": 0.2,
-            "number_of_historical_prices": 40
+            "number_of_historical_prices": 20
         }
     ],
     "loan": {
         "exists": 1,
         "id": 0,
-        "offered_interest_rate": 2,
+        "offered_interest_rate": 3.5,
         "volatility": 1,
-        "trend": 0.1,
-        "change_in_trend": 0.5,
-        "number_of_historical_interest_rates": 23,
-        "max_amount_multiplier": 3
+        "trend": 0.2,
+        "change_in_trend": -0.03,
+        "c_2_in_trend": 0.002,
+        "number_of_historical_interest_rates": 20,
+        "max_amount_multiplier": 2.5
     },
-    "timestep": "[TODO]",
-    "timelimit": 15,
+    "timestep": "Month",
+    "timelimit": 12,
     "win_cond_type": "stock",
     "win_cond": {"0": 50, "1":  0},
     "win_message": "Congratulations, you have managed to take control of a failing company. It would be interesting to see if you'd be able to pull it from the brink, but that would be another game entirely.",
