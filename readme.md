@@ -7,6 +7,9 @@ TODO list
 - [X] create risk table
 - [X] Update Gantt chart
 - [ ] create level module
-- [ ] write text with informaiton about loan and stocks (in config.yaml)
-- [ ] implement change in trends for stocks and loans
+- [X] write text with informaiton about loan and stocks (in config.yaml)
+- [X] implement change in trends for stocks and loans
+- [ ] write tutorials
+- [ ] finish implementation level module 3
+- [ ] update all game messages
 
