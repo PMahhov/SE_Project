@@ -1,7 +1,7 @@
 {
     "name": "Scenario 2: Hostile Takeover",
     "id": 2,
-    "tutorial": "<b>Objective</b>: Acquire a controlling stake in the Chyrpr company by buying 101 stocks of the Chyrpr company before 10 weeks is up.",
+    "tutorial": "<b>Objective</b>: Acquire a controlling stake in the Chyrpr company by buying 101 stocks before 10 weeks is up.",
     "initial_money": 20000,
     "stocks": [
         {
@@ -26,6 +26,7 @@
     "loan": {
         "exists": 1,
         "id": 0,
+        "amount_if_taken": 0,
         "offered_interest_rate": 1.5,
         "volatility": 1,
         "trend": 0.2,

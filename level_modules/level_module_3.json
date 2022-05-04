@@ -1,43 +1,54 @@
 {
     "name": "Scenario 3: Up by the Bootstraps",
     "id": 3,
-    "tutorial": "This is a template tutorial text. Add win conditions here",
-    "initial_money": 10000,
+    "tutorial": "<b>Objective</b>: Pay off your entire debt before 12 months is up.",
+    "initial_money": -10000,
     "stocks": [
         {
             "id": 0,
             "name": "stock 0",
-            "price": 100,
-            "volatility": 2,
-            "trend": 3,
-            "change_in_trend": 0.1,
-            "number_of_historical_prices": 30
+            "price": 500,
+            "volatility": 3,
+            "trend": -3,
+            "change_in_trend": 0.16,
+            "number_of_historical_prices": 34
         },
         {
             "id": 1,
             "name": "stock 1",
-            "price": [TODO],
-            "volatility": [TODO],
-            "trend": [TODO],
-            "change_in_trend": [TODO],
-            "number_of_historical_prices": [TODO]
-        }
+            "price": 300,
+            "volatility": 5,
+            "trend": -0.05,
+            "change_in_trend": 0.01,
+            "number_of_historical_prices": 22
+        },
+        {
+            "id": 2,
+            "name": "stock 2",
+            "price": 200,
+            "volatility": 2,
+            "trend": 1.5,
+            "change_in_trend": -0.05,
+            "number_of_historical_prices": 22
+        }        
     ],
     "loan": {
         "exists": 1,
         "id": 0,
-        "offered_interest_rate": [TODO],
-        "volatility": [TODO],
-        "trend": [TODO],
-        "change_in_trend": [TODO],
-        "number_of_historical_interest_rates": [TODO],
-        "max_amount_multiplier": [TODO]
+        "amount_if_taken": 20000,
+        "offered_interest_rate": 1,
+        "volatility": 0,
+        "trend": 0,
+        "change_in_trend": 0,
+        "c_2_in_trend": 0,
+        "number_of_historical_interest_rates": 22,
+        "max_amount_multiplier": 3
     },
     "timestep": "Month",
     "timelimit": 12,
     "win_cond_type": "loan",
     "win_cond": "None",
     "win_message": "You have successfully crawled your way up from the pits of despair.",
-    "lose_message": "You have succumbed to the depths of debt."
+    "lose_message": "You have succumbed to the depths of your debt. Perhaps you'd like to try again?"
  }
  

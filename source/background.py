@@ -59,6 +59,10 @@ class Background:
             self.manager, "right", self.box_width, self.box_height, self.top, self.stocks, self.loan, self.timestep, is_active=False, money = self.initial_money)
         self.timelines = [self.left_timeline, self.center_timeline, self.right_timeline]
 
+        if self.create_loan_at_start:
+            for timeline in self.timelines:
+                timeline.take_loan(amount = self.start_loan_amount)
+
         # Creating buttons
         self.creation_button = UIButton(
             text="Split Timeline",
@@ -244,11 +248,16 @@ class Background:
         for stock in data_module["stocks"]:
             self.stocks.append(Background_Stock(stock['id'], stock['name'], stock['price'], stock['volatility'], stock['trend'], stock['change_in_trend'], stock['number_of_historical_prices']))
         
+        self.create_loan_at_start = False
+
         loan = data_module["loan"]
         if loan == "None":
             self.loan = None
         else:
             self.loan =  Background_Loan(loan['id'], loan['offered_interest_rate'], loan['volatility'], loan['trend'], loan['change_in_trend'], loan['c_2_in_trend'], loan['number_of_historical_interest_rates'],loan['max_amount_multiplier'])
+            if loan['exists'] == 1:
+                self.create_loan_at_start = True
+                self.start_loan_amount = loan ['amount_if_taken']
 
         #self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']
@@ -256,7 +265,6 @@ class Background:
         self.timestep = data_module["timestep"]
         self.timelimit = data_module["timelimit"]
 
-        # [TODO] add win conditions and win condition type
         self.win_cond_type = data_module['win_cond_type']
         self.win_cond = data_module['win_cond']
         self.win_message = data_module['win_message']
