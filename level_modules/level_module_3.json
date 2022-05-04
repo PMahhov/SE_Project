@@ -33,8 +33,8 @@
         "number_of_historical_interest_rates": [TODO],
         "max_amount_multiplier": [TODO]
     },
-    "timestep": "[TODO]",
-    "timelimit": [TODO],
+    "timestep": "Month",
+    "timelimit": 12,
     "win_cond_type": "loan",
     "win_cond": "None",
     "win_message": "You have successfully crawled your way up from the pits of despair.",

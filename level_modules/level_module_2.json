@@ -1,12 +1,12 @@
 {
     "name": "Scenario 2: Hostile Takeover",
     "id": 2,
-    "tutorial": "This is a template tutorial text. Add win conditions here",
+    "tutorial": "<b>Objective</b>: Acquire a controlling stake in the Chyrpr company by buying 101 stocks of the Chyrpr company before 10 weeks is up.",
     "initial_money": 20000,
     "stocks": [
         {
             "id": 0,
-            "name": "stock 0",
+            "name": "Chyrpr",
             "price": 250,
             "volatility": 0.5,
             "trend": 0.5,
@@ -15,7 +15,7 @@
         },
         {
             "id": 1,
-            "name": "stock 1",
+            "name": "Cadecoin",
             "price": 200,
             "volatility": 4,
             "trend": 0,
@@ -34,8 +34,8 @@
         "number_of_historical_interest_rates": 22,
         "max_amount_multiplier": 2.5
     },
-    "timestep": "Month",
-    "timelimit": 12,
+    "timestep": "Week",
+    "timelimit": 10,
     "win_cond_type": "stock",
     "win_cond": {"0": 101, "1":  0},
     "win_message": "Congratulations, you have managed to take control of a failing company. It would be interesting to see if you'd be able to pull it from the brink, but that would be another game entirely.",

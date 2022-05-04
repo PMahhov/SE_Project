@@ -1,7 +1,7 @@
 {
     "name": "Scenario 1: Get Rich Quick!",
     "id": 1,
-    "tutorial": "Objective: Increase your money to 11000 before the allotted time is up.",
+    "tutorial": "<b>Objective</b>: Increase your money to 11000 before 7 days is up.",
     "initial_money": 10000,
     "stocks": [
         {
@@ -24,7 +24,7 @@
         }
     ],
     "loan": "None",
-    "timestep": "Week",
+    "timestep": "Day",
     "timelimit": 7,
     "win_cond_type": "money",
     "win_cond": 11000,

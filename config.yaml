@@ -2,33 +2,35 @@ screen_width: 1366
 screen_height: 768
 info_stock: "A <b>STOCK</b> represents a small portion of ownership of a company. The units of ownership are called shares. When you buy a share and the value of the company increases, the value of the share increases proportionally. To make money, you should buy shares when their price is low and sell when their price is high. <br> <br>
 
-<b>Trading Stocks</b> <br>In this section you can choose to buy and sell shares in <b>1x </b>,<b>10x</b> and <b>Max</b> quantities. If you have sufficient money, you can buy some shares; the max button will allow you to buy as many of the shares as you can afford. If you already have some stock, you can sell some shares; the max button will allow you to sell as many of the shares that you own. <br> 
+<b>Trading Stocks</b> <br>In this section you can choose to buy and sell shares in <b>1x</b>, <b>10x</b> and <b>Max</b> quantities. If you have sufficient money, you can buy some shares; the Max button will allow you to buy as many of the shares as you can afford. If you already have some stock, you can sell some shares; the Max button will allow you to sell as many of the shares as you own. <br> 
 <br>
 <b>+ Price</b>: how much it will cost you to buy 1 share and equally how much money you will get for selling 1 share <br> 
 <b>+ Volume</b>: how many shares you own <br> 
 <b>+ Avg buy cost</b>: the average amount of money you have spent on each share (because you may have bought the shares at different prices) <br> 
-<b>+ Net cash flow</b>: how much money you have invested in the stock. When you buy stock, <b>net cash flow</b> decreases by the amount spent on the stock and, when you sell stock, <b>net cash flow</b> increases by how much money you get. If you have no volume but net cash flow is not 0, you have either lost money or profited from investing in the stock
+<b>+ Net cash flow</b>: how much money you have invested in the stock <br>
+<br>When you buy a stock, its <b>Net cash flow</b> decreases by the amount spent on the stock; when you sell stock, it increases by how much money you get. If, after you sell off all of one particular stock, its net cash flow does not end up zero, then a negative value means you have lost money, and a positive value means that you have profited from investing in that stock.
 <br> <br>
 
 <b>Graph</b>
-<br>You should use the <b>h</b> button to see the historical price of stocks. The price at time 0 is the price at the beginning of the scenario, and prices at negative times are simulated prices before the beginning. You might be able to use some of this information to determine which stocks are worth investing in. "
+<br>You should use the <b>h</b> button to see the historical price of stocks. The price at time 0 is the price at the beginning of the scenario, negative dates represent the time before the start. <br> 
+<br>You might be able to use some of this information to determine which stocks are worth investing in, according to your perception of their trends and volatility. Keep in mind, however, that the past performance of a financial instrument is not necessarily indicative of their future value!"
 
-info_loan: "A <b>LOAN</b> is money that you borrow from a lender which you can spend. However, over time, even though you have not borrowed any more, the amount you must pay back to the lender increases. This is represented by: <br>
-<b>+ Interest rate</b>: the percentage increase of the amount owed after each time you progress time <br>
-<b>+ Max amount</b>: the maximum amount you can borrow <br> <br>
+info_loan: "A <b>LOAN</b> is money that you borrow from a lender which you can spend and must later pay back. The amount of money you owe increases by the interest rate as time goes on; the larger the amount not yet paid back, the larger the increase in debt. In-game a loan is represented by: <br>
+<b>+ Interest rate</b>: the percentage increase of the amount owed after you progress time <br>
+<b>+ Max amount</b>: the maximum amount you are allowed to borrow, depending on your current net worth <br> <br>
 
 <b>Managing Loans</b> 
-<br>To take a loan, you may either type in an amount followed by the select button or you may click the max button to fill the box with max borrowable amount. You must then click the <b>Take loan</b> button. <br> 
-<br>Once you have taken a loan, your available money immediately increases, the <b>max amount</b> section turns into <b>current debt</b> and the <b>take loan</b> button turns into <b>pay back</b>. The way you pay back loans is identical to how you take a loan and you may incrementally pay back your loan until it all paid off. You may not take another loan until you have completely paid off your existing loan. <br> 
-<br>The loans in this system are fixed-interest loans, which means that the interest rate will be the same throughout the period of your loan.* Therefore, you should generally take loans when the interest rate is low and if you believe you can make more money from investing in the stock market than the amount you lose to interest rates. <br> <br>
+<br>To take a loan, you may either type in an amount and press the select button or you may click the max button to fill the box with the largest borrowable amount. You must then click the <b>Take loan</b> button to receive the selected amount. <br> 
+<br>Once you have taken a loan, your available money immediately increases, the <b>Max amount</b> section turns into <b>Current debt</b> and the <b>Take loan</b> button turns into <b>Pay back</b>. The way you pay back loans is identical to how you take a loan and you may incrementally pay back your loan until it is all paid off. You may not take another loan until you have completely paid off your existing loan. <br> 
+<br>The loans in this system are fixed-interest loans, which means that the interest rate will be the same throughout the period of your loan.* Therefore, you should generally take loans when the interest rate is low and only if you believe you can make more money from investing in the stock market than the amount you inevitably lose to interest rates. <br>
+<br>* Some loans in the real world are variable-interest which means that the interest rate may change over time. <br> <br>
 
 <b>Graph</b> 
-<br>You should use the <b>h</b> button to see the historical interest rates of loans. The price at time 0 is the interest rate at the beginning of the scenario, and interest rates at negative times are simulated interest rates before the beginning. <br> 
-<br>* Some loans in the real world are variable-interest which means that the interest rate may change over time. 
+<br>You should use the <b>h</b> button to see the historical interest rates of loans. The price at time 0 is the interest rate at the beginning of the scenario, negative dates represent the time before the start. <br> 
 "
 about_section: "Thank you for enjoying our scenario-based learning tool. This was developed by New York University Abu Dhabi students as the main project for our Software Engineering class in Spring 2022: <br> <br>
-<b>+ Peter Mahhov</b>, idea progenitor and GUI tinkerer <br> 
+<b>+ Peter Mahhov</b>, game designer and GUI tinkerer <br> 
 <b>+ Mathilde Simoni</b>, programming whiz and graphing perfector <br> 
 <b>+ Lachlan Pham</b>, testing serf and proud ex-finance sellout <br> 
-<br>We would like to acknowledge professor, Dr. Mai Oudah, and teaching assistant, Dena Ahmed for their guidance in the creation of this project.
+<br>We would like to acknowledge our professor, Dr. Mai Oudah, and teaching assistant Dena Ahmed for their guidance in the creation of this project.
 "

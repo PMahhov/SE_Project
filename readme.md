@@ -12,7 +12,7 @@ TODO list
 - [ ] finish writing tutorials 
 - [ ] add html syntax to tutorials
 - [ ] implement level module 3
-- [ ] finish implementation level module 2 (name stocks)
+- [X] finish implementation level module 2 (name stocks)
 - [ ] update all game messages
 - [ ] update subtitle
 - [ ] add comments (only for grade)
