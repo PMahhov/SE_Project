@@ -1,11 +1,11 @@
 import pygame
+import yaml
 from background_loan import Background_Loan
 from information_popup import Information_Popup
 from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UIButton, UITextBox, UILabel, UITextEntryLine
+from pygame_gui.elements import (UIButton, UILabel, UIPanel, UITextBox,
+                                 UITextEntryLine)
 from pygame_gui.windows import UIMessageWindow
-
-import yaml
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
