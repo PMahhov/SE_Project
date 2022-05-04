@@ -5,7 +5,8 @@ import yaml
 from background_loan import Background_Loan
 from background_stock import Background_Stock
 from pygame_gui import UIManager
-from pygame_gui.elements import UILabel, UIPanel, UIScrollingContainer, UITextBox
+from pygame_gui.elements import (UILabel, UIPanel, UIScrollingContainer,
+                                 UITextBox)
 from timeline_loan import Timeline_Loan
 from timeline_stock import Timeline_Stock
 
