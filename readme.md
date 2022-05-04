@@ -9,9 +9,9 @@ TODO list
 - [X] write text with informaiton about loan and stocks (in config.yaml)
 - [X] implement change in trends for stocks and loans
 - [X] create level module
-- [ ] finish writing tutorials 
-- [ ] add html syntax to tutorials
-- [ ] implement level module 3
+- [X] finish writing tutorials 
+- [X] add html syntax to tutorials
+- [X] implement level module 3
 - [X] finish implementation level module 2 (name stocks)
 - [ ] update all game messages
 - [ ] update subtitle

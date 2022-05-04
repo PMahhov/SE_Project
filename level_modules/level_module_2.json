@@ -1,7 +1,7 @@
 {
     "name": "Scenario 2: Hostile Takeover",
     "id": 2,
-    "tutorial": "<b>Objective</b>: Acquire a controlling stake in the Chyrpr company by buying 101 stocks before 10 weeks is up.",
+    "tutorial": "<b>Objective</b>: Acquire a controlling stake in the Chyrpr company by buying 101 stocks before 10 weeks is up, while also paying off any debt you accumulate in the process. <br>    <br>Welcome to level 2! <br>        <br>In this level, in addition to trading stocks, you can now take out a loan! Similarly to stocks, you can access general information about loans by clicking on the <b>i</b> button as well as a graph with its historical behavior by clicking on the <b>h</b> button.<br>        <br>In this level, your objective is to buy 101 Chyrpr stocks in just 10 weeks.<br>        <br>Remember: if you take out a loan, don't forget to pay it back before the time is up! You cannot win while being in debt.",
     "initial_money": 20000,
     "stocks": [
         {
@@ -24,7 +24,7 @@
         }
     ],
     "loan": {
-        "exists": 1,
+        "exists": 0,
         "id": 0,
         "amount_if_taken": 0,
         "offered_interest_rate": 1.5,
