@@ -8,7 +8,7 @@ TODO list
 - [X] Update Gantt chart
 - [X] write text with informaiton about loan and stocks (in config.yaml)
 - [X] implement change in trends for stocks and loans
-- [ ] create level module
+- [X] create level module
 - [ ] finish writing tutorials 
 - [ ] add html syntax to tutorials
 - [ ] implement level module 3

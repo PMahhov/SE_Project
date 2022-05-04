@@ -174,7 +174,7 @@ class Timeline:
     def take_loan(self, amount: int) -> None:
         if self.loan == None:
             raise TypeError("trying to take a nonexistent loan")
-    #    elif (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():
+    #    elif (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():         3this is commented out due to level 3
      #       raise ValueError("cannot take loan")
         else:
             self.loan.take_loan(amount)
