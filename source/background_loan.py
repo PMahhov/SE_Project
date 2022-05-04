@@ -9,6 +9,7 @@ class Background_Loan:
         volatility: float,
         trend: float,
         change_in_trend: float,
+        c_2_in_trend: float,
         number_of_historical_interest_rates: int,
         max_amount_multiplier: float,
     ) -> None:
@@ -16,6 +17,8 @@ class Background_Loan:
         self.offered_interest_rate = offered_interest_rate
         self.volatility = volatility
         self.trend = trend
+        self.change_in_trend = change_in_trend
+        self.c_2_in_trend = c_2_in_trend
         self.initial_number_of_historical_interest_rates = number_of_historical_interest_rates
         self.historical_interest_rates = []
         for i in range(number_of_historical_interest_rates):
@@ -25,12 +28,16 @@ class Background_Loan:
     # update all atributes of the class when the user push the button "progress time"
     def progress_time(self) -> None:
         # add previous loan interest rate to the list of historical interest rates
-        self.historical_interest_rates.append( self.offered_interest_rate)
+        self.historical_interest_rates.append(self.offered_interest_rate)
         
         # update the loan interest rate based on a normal distribution 
         mean = self.offered_interest_rate + self.trend
         std = self.volatility*mean/100
-        self.offered_interest_rate = np.random.normal(mean, std, 1)[0]
+        self.offered_interest_rate = np.random.normal(mean, std, 1)[0]      # [TODO] if this produces a negative number everything crashes
+        self.trend += self.change_in_trend 
+
+        # change in change in trend:
+        self.change_in_trend += self.c_2_in_trend
 
     def get_historical_interest_rates(self) -> List[float]:
         return self.historical_interest_rates

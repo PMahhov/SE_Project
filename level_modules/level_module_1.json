@@ -1,7 +1,7 @@
 {
     "name": "Scenario 1: Get Rich Quick!",
     "id": 1,
-    "tutorial": "This is a template tutorial text. Add win conditions here",
+    "tutorial": "Objective: Increase your money to 11000 before the allotted time is up.",
     "initial_money": 10000,
     "stocks": [
         {
@@ -11,7 +11,7 @@
             "volatility": 0.5,
             "trend": 1,
             "change_in_trend": 0,
-            "number_of_historical_prices": 20
+            "number_of_historical_prices": 22
         },
         {
             "id": 1,
@@ -20,7 +20,7 @@
             "volatility": 4,
             "trend": -0.2,
             "change_in_trend": 0.05,
-            "number_of_historical_prices": 20
+            "number_of_historical_prices": 22
         }
     ],
     "loan": "None",
