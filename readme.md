@@ -10,11 +10,16 @@ TODO list
 - [X] implement change in trends for stocks and loans
 - [ ] create level module
 - [ ] finish writing tutorials 
-- [ ] add html syntax to tutorials
-- [ ] implement level module 3
-- [ ] finish implementation level module 2 (name stocks)
+- [X] add html syntax to tutorials (mathilde)
+- [X] implement level module 3
+- [X] finish implementation level module 2 (name stocks)
 - [ ] update all game messages
-- [ ] update subtitle
-- [ ] add comments (only for grade)
-- [ ] update gantt chart
+- [X] update subtitle
+- [ ] add comments (only for grade) (lachlan)
+- [X] update gantt chart
+- [ ] add code for logs (lachlan)
+- [ ] Finish validation test plan
+- [ ] Finish test cases
+- [ ] write test resutls
+- [ ] ending message after level 3 (go back to level 1)
 
