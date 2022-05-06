@@ -34,13 +34,14 @@ class Background:
         )  # return the instance variable that contains the object of the Background class
 
     # Initialize attributes of the class
-    def init_class(self, manager: UIManager, path_level_modules: List[str]):
+    def init_class(self, manager: UIManager, path_level_modules: List[str], index: int = 0):
 
         self.manager = manager
         self.scenario_end = False
+        self.index = index
 
         self.path_level_modules = path_level_modules
-        self.current_module_path = self.path_level_modules[0]
+        self.current_module_path = self.path_level_modules[self.index]
         self.load_data(self.current_module_path)
 
         # Game tracking information
@@ -155,7 +156,13 @@ class Background:
         #     manager=self.manager,
         #     visible=False,            
         # )
-
+        print("index:", self.index)
+        print(len(path_level_modules) - 1)
+        if self.index == len(path_level_modules) - 1:
+            text_button_2 = "Restart Game"
+        else:
+            text_button_2 = "Next Scenario"
+        print(text_button_2)
         # window will appear if the user wins the scenario
         self.win_window = UIConfirmationDialog(
             pygame.Rect(
@@ -167,7 +174,7 @@ class Background:
             manager=self.manager,
             window_title= "Victory!",
             action1_short_name="Restart Scenario",
-            action2_short_name="Next Scenario",
+            action2_short_name=text_button_2,
             action_long_desc=self.win_message,
             visible = 0
         )
@@ -183,7 +190,7 @@ class Background:
             manager=self.manager,
             window_title= "Failure!",
             action1_short_name="Restart Scenario",
-            action2_short_name="Next Scenario",
+            action2_short_name=text_button_2,
             action_long_desc=self.lose_message,
             visible = 0
         )
@@ -477,13 +484,9 @@ class Background:
     
     def restart_scenario(self) -> None:
         self.manager.clear_and_reset()
-        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules)
+        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules, index = self.index)
 
     def go_to_next_scenario(self) -> None:    
-        if len(self.path_level_modules) > 1:
-            self.path_level_modules.pop(0)
-        # [TODO]: either put a window saying "you win, you completed all modules" OR add randomly generated levels
-
         self.manager.clear_and_reset()
-        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules)
+        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules, index = (self.index + 1)%3)
     
