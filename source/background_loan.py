@@ -10,19 +10,26 @@ class Background_Loan:
     ...
     ATTRIBUTES
     ----------
+
     id : int
         unique loan identification (currently, only one possible loan available, id will be useful in future iterations if there are several loan options)
-    offered_interest_rate : float [1.0, inf]
+    offered_interest_rate : float [0.2, inf)
         the interest rate currently offered. When user takes loan, their interest rate will be fixed to the offered_interest_rate and time of taking.
         this will change after each time interval even if the user has taken a loan
     volatility: float [0.0, 100.0]
         the percentage standard deviation for the normal distribution from which the next offered_interest_rate will be taken
     trend: float [-inf, inf]
         offered_interest_rate + trend is the mean for the normal distribution from which the next offered_interest_rate will be taken
-    initial_number_of_historical_interest_rates : int [0, inf]
+    change_in_trend : float (-inf, inf)
+        the amount that trend changes after each timetep (parallel to mathematical derivative of trend)
+    c_2_in_trend ; float (-inf, inf)
+        the amount that change_in_trend changes after each timestep (parallel to mathematical derivative of change_in_trend OR second derivative of trend)
+    initial_number_of_historical_interest_rates : int [0, inf)
         the number of simulated time intervals that occur before the simulation start
-    historical_interest_rates : List[Float]
+    historical_interest_rates : List[float]
         a list of past offered_interest_rate. Is appended to after each time interval
+    max_amount_multiplier : float (0.0, inf)
+        the timeline may borrow an amount proportional to its net worth, the max_amount_multiplier is the proportional coefficient
 
     METHODS
     -------
