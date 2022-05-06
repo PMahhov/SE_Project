@@ -20,6 +20,7 @@ screen_width = config["screen_width"]
 
 class Background:
 
+    # Singleton class has a private attribute  "instance"
     _instance = None
 
     # Called internally by Python when creating an object of a class
@@ -39,6 +40,7 @@ class Background:
         self.scenario_end = False
         self.index = index
 
+        # import level module file for current scenario
         self.path_level_modules = path_level_modules
         self.current_module_path = self.path_level_modules[self.index]
         self.load_data(self.current_module_path)
@@ -116,7 +118,6 @@ class Background:
             manager=self.manager,
             visible=True,
         )
-
         self.get_help_button = UIButton(
             text="Tutorial",
             tool_tip_text="Display the level tutorial",
@@ -130,7 +131,6 @@ class Background:
             manager=self.manager,
             visible=True,
         )
-
         self.next_button = UIButton(
             text="Next",
             relative_rect=pygame.Rect(
@@ -347,7 +347,6 @@ class Background:
             self.lose_window.show()
 
         # create button to go to next scenario
-        # self.next_panel.show()
         self.next_button.show()
         
                  
@@ -465,8 +464,6 @@ class Background:
                     if self.scenario_end == False:
                         self.scenario_end = True
                         self.end_scenario("Failure")
-        
-        # [TODO]: are there other loose conditions?
     
     def restart_scenario(self) -> None:
         self.manager.clear_and_reset()
@@ -474,5 +471,5 @@ class Background:
 
     def go_to_next_scenario(self) -> None:    
         self.manager.clear_and_reset()
-        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules, index = (self.index + 1)%3)
+        self.init_class(manager = self.manager, path_level_modules = self.path_level_modules, index = (self.index + 1)%len(self.path_level_modules))
     
