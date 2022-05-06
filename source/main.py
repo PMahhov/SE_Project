@@ -2,7 +2,6 @@ import pygame
 import pygame_gui
 import yaml
 from background import Background
-from information_popup import Information_Popup
 from pygame_gui import UIManager
 import numpy as np
 from menu import Menu

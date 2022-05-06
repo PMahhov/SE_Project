@@ -1,14 +1,16 @@
-import numpy as np
 import pytest
 from background_stock import Background_Stock
 
 
 @pytest.mark.parametrize(
-    "bg_stock, price",
+    "bg_stock, historical_length",
     [
-        (Background_Stock(0, "AAPL", 5, 1, 1, np.array([1, 2, 3])), 5),
-        (Background_Stock(0, "GOOG", 3, 1, 1, np.array([1, 2, 3])), 3),
+        (Background_Stock(0, "AAPL", 5, 1, 1, 10), 10),
+        (Background_Stock(0, "GOOG", 3, 50, -100, 3), 3),
+        (Background_Stock(0, "TSLA", -7, 1, 1, 1), 1),
     ],
 )
-def test_get_price(bg_stock, price):
-    assert bg_stock.get_price() == price
+def test_init(bg_stock: Background_Stock, historical_length: int):
+    assert len(bg_stock.get_historical_prices()) == historical_length
+    assert bg_stock.get_price() >= 1
+    assert min(bg_stock.get_historical_prices()) >= 1

@@ -1,15 +1,14 @@
-from datetime import time
-from xmlrpc.client import Boolean
+from typing import List
+
 import pygame
 import yaml
-from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UITextBox, UIScrollingContainer, UILabel
-from background_stock import Background_Stock
-from timeline_stock import Timeline_Stock
-from background_stock import Background_Stock
 from background_loan import Background_Loan
+from background_stock import Background_Stock
+from pygame_gui import UIManager
+from pygame_gui.elements import (UILabel, UIPanel, UIScrollingContainer,
+                                 UITextBox)
 from timeline_loan import Timeline_Loan
-from typing import List
+from timeline_stock import Timeline_Stock
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -24,7 +23,7 @@ class Timeline:
         side: str,
         box_width: int,
         box_height: int,
-        top:int,
+        top: int,
         reference_stocks: List[Background_Stock],
         reference_loan: Background_Loan,
         timestep: str,
@@ -54,36 +53,52 @@ class Timeline:
             raise ValueError("Timeline has weird side")
 
         self.timeline_panel_bg = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, screen_height-300+7),
+            relative_rect=pygame.Rect(
+                self.left, self.top, self.box_width + 6, screen_height - 300 + 7
+            ),
             starting_layer_height=0,
             manager=self.manager,
             visible=self.is_active,
         )
         self.timeline_panel = UIScrollingContainer(
-            relative_rect=pygame.Rect(0,0,self.box_width, screen_height-300+7),
-            starting_height = 1,
-            container = self.timeline_panel_bg,
+            relative_rect=pygame.Rect(0, 0, self.box_width, screen_height - 300 + 7),
+            starting_height=1,
+            container=self.timeline_panel_bg,
             manager=self.manager,
-            visible= self.is_active,
+            visible=self.is_active,
         )
         self.timeline_label = UILabel(
-            relative_rect = pygame.Rect(0,0,self.box_width,self.box_height),
-            text = "TIMELINE",
-            manager = manager,
-            container = self.timeline_panel,
+            relative_rect=pygame.Rect(0, 0, self.box_width, self.box_height),
+            text="TIMELINE",
+            manager=manager,
+            container=self.timeline_panel,
         )
         
         self.stocks = []
 
-        stock_top = 2*self.box_height
-        stock_panel_size = self.box_height * 4 + 10     # if you change these two, change the corresponding height in the panel creation itself
+        stock_top = 2 * self.box_height
+        stock_panel_size = (
+            self.box_height * 4 + 10
+        )  # if you change these two, change the corresponding height in the panel creation itself
         loan_panel_size = self.box_height * 3 + 10
 
         if reference_loan != None:
             stock_top += loan_panel_size
 
         for background_stock in reference_stocks:
-            self.stocks.append(Timeline_Stock(0, background_stock,self,stock_top,self.box_width,self.box_height,self.timeline_panel,self.manager, self.timestep))
+            self.stocks.append(
+                Timeline_Stock(
+                    0,
+                    background_stock,
+                    self,
+                    stock_top,
+                    self.box_width,
+                    self.box_height,
+                    self.timeline_panel,
+                    self.manager,
+                    self.timestep,
+                )
+            )
             stock_top += stock_panel_size
 
         self.calculate_net_worth(False)
@@ -93,7 +108,14 @@ class Timeline:
             self.loan = Timeline_Loan(reference_loan, self, 2*self.box_height, self.box_width,self.box_height,self.timeline_panel,self.manager,self.timestep)
             
         else:
-            self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + self.box_height*2 + 5))
+            self.timeline_panel.set_scrollable_area_dimensions(
+                (
+                    self.box_width - 20,
+                    (stock_panel_size) * len(reference_stocks)
+                    + self.box_height * 2
+                    + 5,
+                )
+            )
             self.loan = None
 
         for timeline_stock in self.stocks:
@@ -103,7 +125,6 @@ class Timeline:
             self.loan.update_boxes()
         
         self.update_boxes()
-
 
     def update_boxes(self):
         if self.timeline_panel.vert_scroll_bar != None:
@@ -118,13 +139,15 @@ class Timeline:
         finally:
             self.moneybox = UITextBox(
                 html_text="Money: " + str(self.money),
-                relative_rect=pygame.Rect(0, self.box_height, self.box_width/2, 50),
+                relative_rect=pygame.Rect(0, self.box_height, self.box_width / 2, 50),
                 container=self.timeline_panel,
                 manager=self.manager,
             )
             self.net_worth_box = UITextBox(
                 html_text="Net Worth: " + str(self.net_worth),
-                relative_rect=pygame.Rect(self.box_width/2, self.box_height, self.box_width/2, 50),
+                relative_rect=pygame.Rect(
+                    self.box_width / 2, self.box_height, self.box_width / 2, 50
+                ),
                 container=self.timeline_panel,
                 manager=self.manager,
             )
@@ -140,19 +163,21 @@ class Timeline:
             self.is_active = False
         else:
             raise ValueError("timeline is neither active or inactive")
-
+            
     def take_loan(self, amount: int) -> None:
         if self.loan == None:
             raise TypeError("trying to take a nonexistent loan")
-    #    elif (self.net_worth *  self.loan.get_loan_reference().get_max_amount_multiplier()) < amount or self.loan.have_loan():         3this is commented out due to level 3
-     #       raise ValueError("cannot take loan")
+        elif (
+            self.net_worth * self.loan.get_loan_reference().get_max_amount_multiplier()
+        ) < amount or self.loan.have_loan():
+            raise ValueError("cannot take loan")
         else:
             self.loan.take_loan(amount)
             self.money += amount
 
     def pay_max_loan(self) -> None:
         if self.money <= 0 or self.loan.get_amount_owed() <= 0:
-            pass # cannot pay off any amount
+            pass  # cannot pay off any amount
         else:
             amount = min(self.cash, self.loan.get_amount_owed())
             self.pay_loan(amount)
@@ -161,7 +186,11 @@ class Timeline:
     def pay_loan(self, amount: int) -> None:
         if self.loan == None:
             raise TypeError("trying to pay a nonexistent loan")
-        elif self.loan.get_amount_owed() < amount or self.money < amount or not self.loan.have_loan():
+        elif (
+            self.loan.get_amount_owed() < amount
+            or self.money < amount
+            or not self.loan.have_loan()
+        ):
             raise ValueError("cannot pay off loan")
         else:
             self.loan.pay_off(amount)
@@ -179,20 +208,21 @@ class Timeline:
         if self.loan != None:
             self.loan.progress_amount_owed()
 
-        self.calculate_net_worth(self.loan != None)         # loan exists if it is not none
+        self.calculate_net_worth(self.loan != None)  # loan exists if it is not none
 
         # call progress time for timeline stocks
         for stock in self.stocks:
             stock.progress_time()
 
-        # call progress time for timeline loans: 
+        # call progress time for timeline loans:
         if self.loan != None:
             self.loan.progress_time()
 
-        self.update_boxes()       
-             
+        self.update_boxes()
 
-    def display_historical_information(self, financial_instrument: str, id: int) -> None:
+    def display_historical_information(
+        self, financial_instrument: str, id: int
+    ) -> None:
         if financial_instrument == "loan":
             self.loan.display_info(self.manager)
         else:
@@ -200,7 +230,6 @@ class Timeline:
                 if stock.get_id() == id:
                     stock.display_info(self.manager)
                     break
-
 
     def button_pressed(self, event) -> bool:
         for stock in self.stocks:
@@ -216,10 +245,10 @@ class Timeline:
                 return True
         else:
             return False
-    
+
     def get_money(self) -> int:
         return self.money
-    
+
     def get_net_worth(self) -> int:
         return self.net_worth
 
@@ -233,12 +262,12 @@ class Timeline:
     def update_attributes(self, money: int, net_worth: int, new_stocks: List[Timeline_Stock], new_loan: Timeline_Loan, new_panel: UIScrollingContainer) -> None:
         self.money = money
         self.net_worth = net_worth
-        
+
         i = 0
         for stock in self.stocks:
             stock.update_attributes(new_stocks[i])
-            i +=1
-    
+            i += 1
+
         if new_loan == None:
             self.loan = None
         else:

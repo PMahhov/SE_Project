@@ -1,12 +1,11 @@
-from binascii import rlecode_hqx
+import pygame
+import yaml
 from background_loan import Background_Loan
 from information_popup import Information_Popup
-import pygame
 from pygame_gui import UIManager
-from pygame_gui.elements import UIPanel, UIButton, UITextBox, UILabel, UITextEntryLine
+from pygame_gui.elements import (UIButton, UILabel, UIPanel, UITextBox,
+                                 UITextEntryLine)
 from pygame_gui.windows import UIMessageWindow
-
-import yaml
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -56,7 +55,7 @@ class Timeline_Loan:
         manager: UIManager,
         timestep: str,
         amount_owed: int = 0,
-        interest_at_borrowing = None,
+        interest_at_borrowing=None,
     ) -> None:
         self.box_width = box_width
         self.box_height = box_height
@@ -75,7 +74,9 @@ class Timeline_Loan:
         self.UIobjects = []
 
         self.loan_panel_offered = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 3 + 10),
+            relative_rect=pygame.Rect(
+                self.left, self.top, self.box_width + 6, self.box_height * 3 + 10
+            ),
             starting_layer_height=0,
             manager=self.manager,
             container=timeline_panel,
@@ -84,7 +85,9 @@ class Timeline_Loan:
         self.UIobjects.append(self.loan_panel_offered)
 
         self.loan_panel_taken = UIPanel(
-            relative_rect=pygame.Rect(self.left, self.top, self.box_width + 6, self.box_height * 3 + 10),
+            relative_rect=pygame.Rect(
+                self.left, self.top, self.box_width + 6, self.box_height * 3 + 10
+            ),
             starting_layer_height=0,
             manager=self.manager,
             container=timeline_panel,
@@ -165,11 +168,13 @@ class Timeline_Loan:
         self.UIobjects.append(self.information_button_2)
 
         self.take_loan_button = UIButton(
-            relative_rect = pygame.Rect(0, self.box_height * 2, self.box_width / 4, self.box_height),
-            text = "Take loan",
-            manager = manager,
-            container = self.loan_panel_offered,
-            tool_tip_text = "Take out a loan with the offered interest rate",
+            relative_rect=pygame.Rect(
+                0, self.box_height * 2, self.box_width / 4, self.box_height
+            ),
+            text="Take loan",
+            manager=manager,
+            container=self.loan_panel_offered,
+            tool_tip_text="Take out a loan with the offered interest rate",
         )
         self.take_loan_button.disable()
         self.UIobjects.append(self.take_loan_button)
@@ -224,20 +229,30 @@ class Timeline_Loan:
 
 
         self.take_max_loan_button = UIButton(
-            relative_rect = pygame.Rect(19/24 * self.box_width, self.box_height * 2, self.box_width / 7, self.box_height),
-            text = "Max",
-            manager = manager,
-            container = self.loan_panel_offered,
-            tool_tip_text = "Select the maximum amount you can take a loan out for",            
+            relative_rect=pygame.Rect(
+                19 / 24 * self.box_width,
+                self.box_height * 2,
+                self.box_width / 7,
+                self.box_height,
+            ),
+            text="Max",
+            manager=manager,
+            container=self.loan_panel_offered,
+            tool_tip_text="Select the maximum amount you can take a loan out for",
         )
         self.UIobjects.append(self.take_max_loan_button)
 
         self.pay_max_loan_button = UIButton(
-            relative_rect = pygame.Rect(19/24 * self.box_width, self.box_height * 2, self.box_width / 7, self.box_height),
-            text = "Max",
-            manager = manager,
-            container = self.loan_panel_taken,
-            tool_tip_text = "Select the maximum amount you can back your loan with",            
+            relative_rect=pygame.Rect(
+                19 / 24 * self.box_width,
+                self.box_height * 2,
+                self.box_width / 7,
+                self.box_height,
+            ),
+            text="Max",
+            manager=manager,
+            container=self.loan_panel_taken,
+            tool_tip_text="Select the maximum amount you can back your loan with",
         )
         self.UIobjects.append(self.pay_max_loan_button)
 
@@ -260,7 +275,7 @@ class Timeline_Loan:
         self.take_loan_entry.set_text_length_limit(max(len(str(self.get_max_amount())),16))         # input limit changes dynamically according to the length of the current max input value, but not below 16 so the "click to enter" message can be displayed
         self.pay_loan_entry.set_text_length_limit(max(len(str(self.get_amount_owed())),16))
 
-        try: 
+        try:
             self.taken_ir_box.kill()
             self.amount_owed_box.kill()
             self.max_amount_box.kill()
@@ -307,11 +322,16 @@ class Timeline_Loan:
             )           
     
     def get_max_amount(self) -> int:
-        return int(self.timeline_reference.net_worth *  self.loan_reference.get_max_amount_multiplier())
+        return int(
+            self.timeline_reference.net_worth
+            * self.loan_reference.get_max_amount_multiplier()
+        )
 
     def progress_amount_owed(self) -> int:
         if self.interest_at_borrowing != None:
-            self.amount_owed = int(self.amount_owed * (1 + self.interest_at_borrowing/100) + 1) # round up
+            self.amount_owed = int(
+                self.amount_owed * (1 + self.interest_at_borrowing / 100) + 1
+            )  # round up
 
     def take_loan(self, amount: int) -> None:
         self.amount_owed = amount
@@ -333,7 +353,6 @@ class Timeline_Loan:
             return True
         else:
             return False
-    
 
     def display_graph(self) -> None:
         try:
@@ -341,7 +360,14 @@ class Timeline_Loan:
         except:
             pass
         finally:
-            self.info_popup = Information_Popup("Historical Loan Interest Rates", self.loan_reference.get_historical_interest_rates(), self.loan_reference.get_initial_number_of_historical_interest_rates(), self.timestep, "interest rate", self.manager)
+            self.info_popup = Information_Popup(
+                "Historical Loan Interest Rates",
+                self.loan_reference.get_historical_interest_rates(),
+                self.loan_reference.get_initial_number_of_historical_interest_rates(),
+                self.timestep,
+                "interest rate",
+                self.manager,
+            )
             self.info_popup.display_graph()
 
     def button_pressed(self, event) -> bool:
@@ -371,7 +397,9 @@ class Timeline_Loan:
             else:
                 proposed_amount = int(self.take_loan_entry.get_text())
 
-            if proposed_amount > self.get_max_amount():                         # if the user inputs too large of a loan proposal, it defaults to max
+            if (
+                proposed_amount > self.get_max_amount()
+            ):  # if the user inputs too large of a loan proposal, it defaults to max
                 self.take_loan_entry.set_text(str(self.get_max_amount()))
                 self.current_amount = self.get_max_amount()
                 self.take_loan_button.enable()
