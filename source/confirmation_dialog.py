@@ -11,13 +11,22 @@ from pygame_gui.elements import UIWindow, UIButton, UITextBox
 
 class UIConfirmationDialog(UIWindow):
 
+    """
+    A confirmation dialog that lets a user choose between 2 paths (with 2 buttons)
+    Inherited the code from the pygame_gui module and changed some functionality
+    The updated sections are highlighted with comments
+    """
+
     def __init__(self, rect: pygame.Rect,
                  manager: IUIManagerInterface,
                  action_long_desc: str,
                  *,
                  window_title: str = 'pygame-gui.Confirm',
+
+                 # 2 added parameters to manually set the button labels
                  action1_short_name: str = 'pygame-gui.OK',
                  action2_short_name: str = 'pygame-gui.Cancel',
+
                  blocking: bool = True,
                  object_id: Union[ObjectID, str] = ObjectID('#confirmation_dialog', None),
                  visible: int = 1):
@@ -35,6 +44,8 @@ class UIConfirmationDialog(UIWindow):
             warnings.warn(warn_string, UserWarning)
         self.set_minimum_dimensions(minimum_dimensions)
 
+        # Definitions for the 2 buttons were updated from the original module
+        # the "text" attributes are the 2 variables "action2_short_name" and "action1_short_name"
         self.action2_button = UIButton(relative_rect=pygame.Rect(-10, -40, -1, 30),
                                       text=action2_short_name,
                                       manager=self.ui_manager,

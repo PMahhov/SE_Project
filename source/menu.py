@@ -11,6 +11,42 @@ screen_width = config["screen_width"]
 about_text = config["about_section"]
 
 class Menu:
+
+    """
+    A class that displays an initial menu with 2 buttons: 
+    - "About" to display the about section
+    - "Start" to start the first scenario of the game
+
+    ...
+    ATTRIBUTES
+    ----------
+    manager: UIManager
+        Manager for the Graphical User Interface
+    box_width: int
+    box_height: int
+    background: Background
+        Instance of the background screen previously created in main.py
+    stop: Bool
+        True when the user ckicked on the "Start" button
+    start_button: UIButton
+        Click on it to start the first scenario of the game
+    about_button: UIButton
+        Click on it to display the about section
+    
+    METHODS
+    -------
+    button_pressed(): 
+        Calls appropriate methods when the user clicks on a UIButton
+    update():
+        Displays the title and subtitle and returns True if the user clicked on "Start" or False otherwise
+        This function is called from main.py to check if the menu should still be displayed or if the game should start
+    start_scenario():
+        Hides the menu in order to start the game
+    display_about_window():
+        Displays a UIWindow with the about section
+    """
+
+
     def __init__(self, manager: UIManager, background: any) -> None:
         self.manager = manager
         self.box_width = screen_width / 3
