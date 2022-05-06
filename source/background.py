@@ -20,6 +20,7 @@ screen_width = config["screen_width"]
 
 class Background:
 
+    # Singleton class has a private attribute  "instance"
     _instance = None
 
     # Called internally by Python when creating an object of a class
@@ -40,6 +41,7 @@ class Background:
         self.scenario_end = False
         self.index = index
 
+        # import level module file for current scenario
         self.path_level_modules = path_level_modules
         self.current_module_path = self.path_level_modules[self.index]
         self.load_data(self.current_module_path)
@@ -117,7 +119,6 @@ class Background:
             manager=self.manager,
             visible=True,
         )
-
         self.get_help_button = UIButton(
             text="Tutorial",
             tool_tip_text="Display the level tutorial",
@@ -131,7 +132,6 @@ class Background:
             manager=self.manager,
             visible=True,
         )
-
         self.next_button = UIButton(
             text="Next",
             relative_rect=pygame.Rect(
