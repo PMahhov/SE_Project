@@ -101,18 +101,7 @@ class Timeline:
 
         if reference_loan != None:
             self.loan.update_boxes()
-
-        # print("timeline additional check")
-        # if not self.is_active:
-        #     self.timeline_panel_bg.hide()
-        #     self.timeline_panel.hide()
-        #     self.loan.loan_panel_offered.hide()
-        #     self.loan.loan_panel_taken.hide()
-        # else:
-        #     self.timeline_panel_bg.show()
-        #     self.timeline_panel.show()
         
-
         self.update_boxes()
 
 
@@ -151,25 +140,6 @@ class Timeline:
             self.is_active = False
         else:
             raise ValueError("timeline is neither active or inactive")
-
-    # def buy_max_stock(self, timeline_stock: Timeline_Stock) -> None:
-    #     volume = self.money//timeline_stock.get_price()
-    #     self.buy_stock(timeline_stock, volume)
-
-    # def buy_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
-    #     cost = timeline_stock.get_price() * volume
-    #     if cost > self.money:# add fee
-    #         pass # cannot buy
-    #     else: 
-    #         timeline_stock.buy(volume)
-    #         self.money -= cost
-
-    # def sell_stock(self, timeline_stock: Timeline_Stock, volume: int) -> None:
-    #     if volume > timeline_stock.get_volume():# add fee
-    #         pass # cannot sell
-    #     else: 
-    #         timeline_stock.sell(volume)
-    #         self.money += volume * timeline_stock.get_price()
 
     def take_loan(self, amount: int) -> None:
         if self.loan == None:

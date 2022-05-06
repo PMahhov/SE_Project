@@ -23,9 +23,10 @@ default_manager = UIManager(
     (screen_width, screen_height)
 )
 
-# start the clock
+# start in-game clock
 clock = pygame.time.Clock()
 is_running = True
+
 
 # ------------
 # INITIAL MENU
