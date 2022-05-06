@@ -13,15 +13,16 @@ TODO list
 - [X] add html syntax to tutorials
 - [X] implement level module 3
 - [X] finish implementation level module 2 (name stocks)
-- [ ] update all game messages
+- [X] update all game messages
 - [X] update subtitle
 - [ ] add comments (only for grade) (lachlan)
 - [X] update gantt chart
 - [ ] add code for logs (lachlan)
 - [X] Finish validation test plan
-- [ ] Finish test cases
-- [ ] write test results
+- [X] Finish test cases
+- [X] write test results
 - [X] ending message after level 3 (go back to level 1)
 - [X] explain you can open tutorial any time (Peter)
 - [ ] examine def of netcash flow (Peter)
+- [ ] screenshots readme file
 

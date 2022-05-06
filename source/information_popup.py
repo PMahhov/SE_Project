@@ -13,11 +13,42 @@ from typing import List
 matplotlib.use("Agg")
 
 class Information_Popup:
+    
+    """
+    A class that displays a graph with historical information for stocks (stock prices) or for a loan (interest rates)
+
+    ...
+    ATTRIBUTES
+    ----------
+    screen_width: int
+    screen_height: int
+    window_title: str
+    data: np.array(int) or np.array(float)
+        Data to be plotted on a graph. Contains historical prices (for stocks) or historical interest rates (for loans). 
+        Is appended to after each time interval
+    initial number of historical data: int
+        Initial number of data points for historical prices (stocks) or interest rates (loan)
+    x_label: str
+        Label for x-axis
+    y_label: str
+        Label for y-axis
+    manager: UIManager
+        Manager for the Graphical User Interface
+    
+    METHODS
+    -------
+    display_graph():
+        Creates and displays the graph with Matplotlib and add it to the pop-up window
+    
+    kill():
+        Kills the information pop-up window
+    """
+    
     def __init__(self, window_title: str, data: any, initial_number_of_historical_data: int, x_label: int, y_label: int, manager: UIManager) -> None:
         with open("config.yaml") as config_file:
             self.config = yaml.safe_load(config_file)
-        self.window_width = self.config["screen_width"]
-        self.window_height = self.config["screen_height"]
+        self.screen_width = self.config["screen_width"]
+        self.screen_height = self.config["screen_height"]
         self.window_title = window_title
         self.data = np.array(data, dtype=object)
         self.initial_number_of_historical_data = initial_number_of_historical_data
@@ -29,10 +60,10 @@ class Information_Popup:
         # create the popup window
         self.window = UIWindow(
             pygame.Rect(
-                ((self.window_width - (2.5 * self.window_width/6)) / 2) ,
-                self.window_height / 8,
-                (2.5 * self.window_width) / 6,
-                (6 * self.window_height + 50) / 10,
+                ((self.screen_width - (2.5 * self.screen_width/6)) / 2) ,
+                self.screen_height / 8,
+                (2.5 * self.screen_width) / 6,
+                (6 * self.screen_height + 50) / 10,
             ),
             manager=self.manager,
             window_display_title= "Historical Information",
@@ -72,7 +103,7 @@ class Information_Popup:
         surf = pygame.image.fromstring(raw_data, size, "RGB")
         image = UIImage(
             pygame.Rect(
-                0, 0, (2.5 * self.window_width) / 6,((self.window_width - (2.5 * self.window_width/6)) / 2 +8)
+                0, 0, (2.5 * self.screen_width) / 6,((self.screen_width - (2.5 * self.screen_width/6)) / 2 +8)
             ),
             surf,
             manager=self.manager,
