@@ -59,8 +59,6 @@ class Background_Loan:
         self.max_amount_multiplier = max_amount_multiplier
 
     def progress_time(self) -> None:
-        # add previous loan interest rate to the list of historical interest rates
-        self.historical_interest_rates.append(self.offered_interest_rate)
         
         # update the loan interest rate based on a normal distribution 
         mean = self.offered_interest_rate + self.trend
