@@ -7,7 +7,7 @@ info_stock: "A <b>STOCK</b> represents a small portion of ownership of a company
 <b>+ Price</b>: how much it will cost you to buy 1 share and equally how much money you will get for selling 1 share <br> 
 <b>+ Volume</b>: how many shares you own <br> 
 <b>+ Avg buy cost</b>: the average amount of money you have spent on each share (because you may have bought the shares at different prices) <br> 
-<b>+ Net cash flow</b>: how much money you have invested in the stock <br>
+<b>+ Net cash flow</b>: the contribution to your money of trading this stock (explanation below) <br>
 <br>When you buy a stock, its <b>Net cash flow</b> decreases by the amount spent on the stock; when you sell stock, it increases by how much money you get. If, after you sell off all of one particular stock, its net cash flow does not end up zero, then a negative value means you have lost money, and a positive value means that you have profited from investing in that stock.
 <br> <br>
 
