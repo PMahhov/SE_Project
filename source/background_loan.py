@@ -45,7 +45,8 @@ class Background_Loan:
     ) -> None:
 
         self.id = id
-        self.offered_interest_rate = max(1, offered_interest_rate)
+        self.offered_interest_rate = max(0.2, offered_interest_rate)
+        #self.offered_interest_rate = offered_interest_rate
         self.volatility = volatility
         self.trend = trend
         self.change_in_trend = change_in_trend
@@ -59,25 +60,16 @@ class Background_Loan:
         self.max_amount_multiplier = max_amount_multiplier
 
     def progress_time(self) -> None:
-        
-        # update the loan interest rate based on a normal distribution 
-        mean = self.offered_interest_rate + self.trend
-        # std = self.volatility * abs(mean) / 100
-        # self.offered_interest_rate = max(0.2, np.random.normal(mean, std))      # [TODO] if this produces a negative number everything crashes
-        std = self.volatility*mean/100
-        self.offered_interest_rate = np.random.normal(mean, std, 1)[0] 
-        self.trend += self.change_in_trend 
-
-        # adds previous loan interest rate to the list of historical interest rates
-        self.historical_interest_rates.append(self.offered_interest_rate)
 
         # update the loan interest rate based on a normal distribution
         mean = self.offered_interest_rate + self.trend
         std = self.volatility * abs(mean) / 100
-        self.offered_interest_rate = max(1, np.random.normal(mean, std))
+        self.offered_interest_rate = max(0.2, np.random.normal(mean, std))
         self.trend += self.change_in_trend 
         self.change_in_trend += self.c_2_in_trend
 
+        # adds previous loan interest rate to the list of historical interest rates
+        self.historical_interest_rates.append(self.offered_interest_rate)
 
     def get_id(self) -> int:
         return self.id
