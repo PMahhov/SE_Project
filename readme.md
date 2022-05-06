@@ -15,7 +15,7 @@ TODO list
 - [X] finish implementation level module 2 (name stocks)
 - [X] update all game messages
 - [X] update subtitle
-- [ ] add comments (lachlan)
+- [ ] finish comments (lachlan)
 - [X] update gantt chart
 - [ ] add code for logs (lachlan)
 - [X] Finish validation test plan
@@ -24,5 +24,5 @@ TODO list
 - [X] ending message after level 3 (go back to level 1)
 - [X] explain you can open tutorial any time (Peter)
 - [X] examine def of netcash flow (Peter)
-- [ ] screenshots readme file
+- [ ] screenshots readme file (Peter)
 
