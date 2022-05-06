@@ -17,7 +17,6 @@ with open("config.yaml") as config_file:
 screen_height = config["screen_height"]
 screen_width = config["screen_width"]
 
-
 class Background:
 
     # Singleton class has a private attribute  "instance"
@@ -202,6 +201,7 @@ class Background:
         self.check_win_condition()
         self.display_tutorial()
 
+    # update the days on the timeprogress label 
     def update_labels(self):
         try:
             self.timeprogress_label.kill()
@@ -230,8 +230,8 @@ class Background:
             visible=True,
         )
 
+    # read level_module JSON file and initialize stocks, loans and other variables
     def load_data(self, path_level_module: str) -> None:  
-        # read level_module JSON file and initialize stocks, loans and other variables
         file = open(path_level_module)
         data_module = json.load(file)
 
@@ -244,6 +244,7 @@ class Background:
         
         self.create_loan_at_start = False
 
+        # initialize the loan if there is one
         loan = data_module["loan"]
         if loan == "None":
             self.loan = None
@@ -253,7 +254,6 @@ class Background:
                 self.create_loan_at_start = True
                 self.start_loan_amount = loan ['amount_if_taken']
 
-        #self.transaction_cost = data_module['transaction_cost']
         self.tutorial = data_module['tutorial']
 
         self.timestep = data_module["timestep"]
@@ -273,8 +273,8 @@ class Background:
     def get_loan(self) -> Background_Loan:
         return self.loan
 
+    # copy center timeline information into left and right timelines
     def split_timelines(self) -> None:
-        # copy center timeline information into left and right timelines
         self.copy_data(self.center_timeline, self.left_timeline)
         self.copy_data(self.center_timeline, self.right_timeline)
 
@@ -285,8 +285,8 @@ class Background:
         self.dropleft_button.show()
         self.dropright_button.show()
 
+    # copy given timeline information into center timeline
     def merge_timeline(self, timeline: Timeline) -> None:
-        # copy given timeline information into center timeline
         self.copy_data(timeline, self.center_timeline)
 
         for tl in self.timelines:
@@ -295,6 +295,7 @@ class Background:
             self.dropleft_button.hide()
             self.dropright_button.hide()
 
+    # update all time-variable attributes
     def progress_time(self) -> None:
         self.current_time += 1
         self.update_labels()
@@ -307,6 +308,7 @@ class Background:
         for stock in self.stocks:
             stock.progress_time()
 
+        # call progress time for the background loan if it exists
         if self.loan != None:
             self.loan.progress_time()
 
@@ -340,7 +342,7 @@ class Background:
         )
         self.timeprogress_button.disable()
 
-        # display window with win message
+        # display window with win or lose message
         if type_end == "Victory!":
             self.win_window.show()
         else:
@@ -348,8 +350,8 @@ class Background:
 
         # create button to go to next scenario
         self.next_button.show()
-        
-                 
+
+    # called every time the user clicks on a button            
     def button_pressed(self, event) -> None:
         if event.ui_element == self.creation_button:
             self.split_timelines()
@@ -408,10 +410,10 @@ class Background:
                 html_message=self.tutorial
             )
     
+    # copy data from 1 timeline to another when the user splits or merges timelines
     def copy_data(self, sender_timeline: Timeline, receiver_timeline: Timeline) -> None:
         receiver_timeline.update_attributes(sender_timeline.get_money(), sender_timeline.get_net_worth(), sender_timeline.get_stocks(), sender_timeline.get_loan(), sender_timeline.timeline_panel)
     
-
     def check_win_condition(self) -> None:
         # if win_cond_type == "money": 
         #     win_cond = int

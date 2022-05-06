@@ -25,9 +25,10 @@ default_manager = UIManager(
 
 default_manager.preload_fonts([{'name': 'fira_code', 'point_size': 14, 'style': 'bold_italic'},{'name': 'fira_code', 'point_size': 14, 'style': 'italic'},{'name': 'fira_code', 'point_size': 14, 'style': 'bold'}])
 
-# start the clock
+# start in-game clock
 clock = pygame.time.Clock()
 is_running = True
+
 
 # ------------
 # INITIAL MENU
