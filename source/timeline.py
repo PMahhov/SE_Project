@@ -23,17 +23,17 @@ class Timeline:
         side: str,
         box_width: int,
         box_height: int,
-        top: int,
-        reference_stocks: List[Background_Stock],
-        reference_loan: Background_Loan,
-        timestep: str,
+        top:int,
+        reference_stocks: List[Background_Stock], # a list of instances of the Background_Stock class
+        reference_loan: Background_Loan, # an instance of the Background_Loan class
+        timestep: str, 
         is_active: bool,
-        money: int,
+        money: int, 
     ) -> None:
-        self.is_active = is_active
-        self.money = money
-        self.manager = manager
-        self.timestep = timestep
+        self.is_active = is_active  # True if the timeline is displayed and "working", False if hidden
+        self.money = money # Amount of cash the user owns in the Timeline
+        self.manager = manager # Manager for the Graphical User Interface
+        self.timestep = timestep # Can be "day", "week" or "month"
 
         # UI setup
         self.top = top
@@ -73,8 +73,6 @@ class Timeline:
             manager=manager,
             container=self.timeline_panel,
         )
-        
-        self.stocks = []
 
         stock_top = 2 * self.box_height
         stock_panel_size = (
@@ -85,6 +83,10 @@ class Timeline:
         if reference_loan != None:
             stock_top += loan_panel_size
 
+        # Creates a list of Timeline_Stock 
+        # Based on reference_stocks, a list of Background_Stock
+        # Each instance of the Timeline_Stock class has a reference to an instance of the Background_Stock class
+        self.stocks = []
         for background_stock in reference_stocks:
             self.stocks.append(
                 Timeline_Stock(
@@ -103,6 +105,8 @@ class Timeline:
 
         self.calculate_net_worth(False)
 
+        # if a loan in included in the current scenario, create 1 instance of Timeline_Loan
+        # the instance of Timeline_loan has a reference to the instance  of Background_Loan called reference_loan
         if reference_loan != None:
             self.timeline_panel.set_scrollable_area_dimensions((self.box_width-20,(stock_panel_size) * len(reference_stocks) + loan_panel_size + self.box_height*2 + 5))
             self.loan = Timeline_Loan(reference_loan, self, 2*self.box_height, self.box_width,self.box_height,self.timeline_panel,self.manager,self.timestep)
@@ -154,6 +158,7 @@ class Timeline:
             for object in [self.moneybox,self.net_worth_box]:
                 self.timeline_panel.vert_scroll_bar.join_focus_sets(object)
 
+    # called by background to hide (if previously active) or display (if previously hidden) a timeline
     def switch_activity(self) -> None:
         if self.is_active == False:
             self.timeline_panel_bg.show()
@@ -175,6 +180,7 @@ class Timeline:
             self.loan.take_loan(amount)
             self.money += amount
 
+    # when click on the "max" button to pay back the maximum amount 
     def pay_max_loan(self) -> None:
         if self.money <= 0 or self.loan.get_amount_owed() <= 0:
             pass  # cannot pay off any amount
@@ -183,6 +189,7 @@ class Timeline:
             self.pay_loan(amount)
             self.money -= amount
 
+    # pay back the loan with the chosen amount
     def pay_loan(self, amount: int) -> None:
         if self.loan == None:
             raise TypeError("trying to pay a nonexistent loan")
@@ -204,6 +211,7 @@ class Timeline:
         if loan_exists:
             self.net_worth -= self.loan.get_amount_owed()
 
+    # update all timne-variable attributes when the user progresses through the game
     def progress_time(self) -> None:
         if self.loan != None:
             self.loan.progress_amount_owed()

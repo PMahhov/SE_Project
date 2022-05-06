@@ -24,4 +24,5 @@ TODO list
 - [X] ending message after level 3 (go back to level 1)
 - [X] explain you can open tutorial any time (Peter)
 - [ ] examine def of netcash flow (Peter)
+- [ ] screenshots readme file
 

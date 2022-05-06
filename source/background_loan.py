@@ -64,8 +64,10 @@ class Background_Loan:
         
         # update the loan interest rate based on a normal distribution 
         mean = self.offered_interest_rate + self.trend
-        std = self.volatility * abs(mean) / 100
-        self.offered_interest_rate = max(0.2, np.random.normal(mean, std))      # [TODO] if this produces a negative number everything crashes
+        # std = self.volatility * abs(mean) / 100
+        # self.offered_interest_rate = max(0.2, np.random.normal(mean, std))      # [TODO] if this produces a negative number everything crashes
+        std = self.volatility*mean/100
+        self.offered_interest_rate = np.random.normal(mean, std, 1)[0] 
         self.trend += self.change_in_trend 
 
         # adds previous loan interest rate to the list of historical interest rates
