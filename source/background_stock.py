@@ -33,14 +33,14 @@ class Background_Stock:
         Updates relevant loan attributes after a (previously-specified) time interval
         """
 
-        # add previous stock price to the list of historical prices
-        self.historical_prices.append(self.price)
-
         # update the stock price based on a normal distribution
         mean = self.price + self.trend
         std = self.volatility * abs(mean) / 100
         self.price = max(1, int(np.random.normal(mean, std) + 0.5))
         self.trend += self.change_in_trend
+
+        # add previous stock price to the list of historical prices
+        self.historical_prices.append(self.price)
 
     def get_id(self) -> int:
         return self.id
