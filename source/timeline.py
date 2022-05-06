@@ -130,6 +130,7 @@ class Timeline:
         
         self.update_boxes()
 
+    # update UITextbox
     def update_boxes(self):
         if self.timeline_panel.vert_scroll_bar != None:
             for object in [self.timeline_label,self.timeline_panel,self.timeline_panel_bg]:
@@ -169,6 +170,7 @@ class Timeline:
         else:
             raise ValueError("timeline is neither active or inactive")
             
+    # take a specific amount of a loan 
     def take_loan(self, amount: int) -> None:
         if self.loan == None:
             raise TypeError("trying to take a nonexistent loan")
@@ -203,6 +205,7 @@ class Timeline:
             self.loan.pay_off(amount)
             self.money -= amount
 
+    # calculate the user's net worth for the specific timeline
     def calculate_net_worth(self, loan_exists: bool) -> None:
         self.net_worth = self.money
         for stock in self.stocks:
@@ -211,7 +214,7 @@ class Timeline:
         if loan_exists:
             self.net_worth -= self.loan.get_amount_owed()
 
-    # update all timne-variable attributes when the user progresses through the game
+    # update all time-variable attributes when the user progresses through the game
     def progress_time(self) -> None:
         if self.loan != None:
             self.loan.progress_amount_owed()
@@ -228,6 +231,7 @@ class Timeline:
 
         self.update_boxes()
 
+    # display stock or loan historical information
     def display_historical_information(
         self, financial_instrument: str, id: int
     ) -> None:
@@ -239,6 +243,7 @@ class Timeline:
                     stock.display_info(self.manager)
                     break
 
+    # called when player clicks on any UIButton
     def button_pressed(self, event) -> bool:
         for stock in self.stocks:
             if stock.button_pressed(event, self):
@@ -271,11 +276,13 @@ class Timeline:
         self.money = money
         self.net_worth = net_worth
 
+        # update stocks
         i = 0
         for stock in self.stocks:
             stock.update_attributes(new_stocks[i])
             i += 1
 
+        # update loan
         if new_loan == None:
             self.loan = None
         else:
