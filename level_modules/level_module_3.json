@@ -49,6 +49,6 @@
     "win_cond_type": "loan",
     "win_cond": "None",
     "win_message": "You have successfully crawled your way up from the pits of despair. <br> <br>Congratulations, by completing this final challenge, you have bested all we have to offer!",
-    "lose_message": "You have succumbed to the depths of your debt. Perhaps you'd like to try again?"
+    "lose_message": "You have succumbed to the depths of your debt. Perhaps you'd like to try again? <br><br>This is the final challenge we have to offer, the only other option is to restart the game entirely."
  }
  
