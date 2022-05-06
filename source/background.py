@@ -25,7 +25,6 @@ class Background:
     # Called internally by Python when creating an object of a class
     def __new__(cls):
         if cls._instance is None:  # check whether the instance of the variable is None
-            print("Creating the object")
             cls._instance = super(Background, cls).__new__(
                 cls
             )  # create a new object with the super() method
@@ -145,24 +144,12 @@ class Background:
             visible=False,
         )
 
-        # self.next_panel = UIPanel(
-        #     relative_rect=pygame.Rect(
-        #         (screen_width / 35) + self.box_width/3 + 10 - 3,
-        #         (screen_height / 25) - 3,
-        #         1*self.box_width/3 + 6,
-        #         self.box_height + 6,
-        #     ),
-        #     starting_layer_height = 2,
-        #     manager=self.manager,
-        #     visible=False,            
-        # )
-        print("index:", self.index)
-        print(len(path_level_modules) - 1)
+        # if this is the last scenario, the game should be restarted (load up scenario 1)
         if self.index == len(path_level_modules) - 1:
             text_button_2 = "Restart Game"
         else:
             text_button_2 = "Next Scenario"
-        print(text_button_2)
+
         # window will appear if the user wins the scenario
         self.win_window = UIConfirmationDialog(
             pygame.Rect(
@@ -447,7 +434,6 @@ class Background:
                 if timeline.get_is_active():
                     win = True
                     for stock in timeline.get_stocks():
-                        # print(self.win_cond_type[stock.get_id()])
                         if stock.get_volume() < self.win_cond[str(stock.get_id())]:
                             win = False
                     if self.loan != None:
