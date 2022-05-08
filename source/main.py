@@ -5,10 +5,11 @@ from background import Background
 from pygame_gui import UIManager
 import numpy as np
 from menu import Menu
-import logging
-import os
-from datetime import datetime
-import platform
+
+# import logging
+# import os
+# from datetime import datetime
+# import platform
 
 
 
@@ -18,11 +19,11 @@ screen_height = config["screen_height"]
 screen_width = config["screen_width"]
 
 # set up logging
-if not os.path.exists("logging"):
-    os.makedirs("logging")
-now = datetime.now().strftime("%Y%m%d@%H:%M:%S")
-printable_now = datetime.now().strftime("%Y%m%d at %H:%M:%S")
-logging.basicConfig(filename=os.path.join('logging', f'debug[{now}].log'), encoding='utf-8', level=logging.INFO,format='%(message)s')
+# if not os.path.exists("logging"):
+#     os.makedirs("logging")
+# now = datetime.now().strftime("%Y%m%d@%H:%M:%S")
+# printable_now = datetime.now().strftime("%Y%m%d at %H:%M:%S")
+# logging.basicConfig(filename=os.path.join('logging', f'debug[{now}].log'), encoding='utf-8', level=logging.INFO,format='%(message)s')
 
 
 
