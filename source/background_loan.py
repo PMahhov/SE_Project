@@ -33,7 +33,7 @@ class Background_Loan:
 
     METHODS
     -------
-    progress_time:
+    progress_time : None
         simulates a time interval skip, updating offered_interest_rate by selecting from a normal distribution defined by volatility and trend.
         stores new offered_interest_rate to historical_interest_rates
 
