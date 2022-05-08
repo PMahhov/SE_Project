@@ -22,8 +22,7 @@ Please download the following :
 
 Then, navigate in the SE_project folder and run the following command: `python3 source/main.py`
 
-
-TODO list
+### TODO list
 - [X] functions to restart scenario and go to next scenario
 - [X] copy data loan
 - [X] set scroll when splitting
