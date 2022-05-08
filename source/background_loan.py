@@ -21,7 +21,7 @@ class Background_Loan:
     trend: float [-inf, inf]
         offered_interest_rate + trend is the mean for the normal distribution from which the next offered_interest_rate will be taken
     change_in_trend : float (-inf, inf)
-        the amount that trend changes after each timetep (parallel to mathematical derivative of trend)
+        the amount that trend changes after each timestep (parallel to mathematical derivative of trend)
     c_2_in_trend ; float (-inf, inf)
         the amount that change_in_trend changes after each timestep (parallel to mathematical derivative of change_in_trend OR second derivative of trend)
     initial_number_of_historical_interest_rates : int [0, inf)
@@ -35,7 +35,7 @@ class Background_Loan:
     -------
     progress_time:
         simulates a time interval skip, updating offered_interest_rate by selecting from a normal distribution defined by volatility and trend.
-        stores second last offered_interest_rate to historical_interest_rates
+        stores new offered_interest_rate to historical_interest_rates
 
     """
 
