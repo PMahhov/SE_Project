@@ -1,9 +1,5 @@
 
-source/__pycache__/background_loan.cpython-39.pyc
-source/__pycache__/background_stock.cpython-39.pyc
-source/__pycache__/information_popup.cpython-39.pyc
-source/__pycache__/timeline.cpython-39.pyc
-source/__pycache__/timeline_loan.cpython-39.pyc
-source/__pycache__/timeline_stock.cpython-39.pyc
+**/__pycache__
 *.pyc
+logging*
 *.pyc
