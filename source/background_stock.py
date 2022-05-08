@@ -4,6 +4,44 @@ import numpy as np
 
 
 class Background_Stock:
+    """
+    A predominately data class that stores information about one stock available for the user to take.
+
+    ...
+    ATTRIBUTES
+    ----------
+
+        id: int,
+        name: str,
+        price: int,
+        volatility: int,
+        trend: float,
+        change_in_trend: float,
+        number_of_historical_prices: int,
+    id : int
+        unique stock identification number
+    name : float
+        stock name, should also be unique and will be displayed to user on historical graph
+    price : int [1, inf)
+        the current price of a stock. After each time skip, a new price is selected from a psuedo-normal distribution defined by volatility and trend
+    volatility: float [0.0, 100.0]
+        the percentage standard deviation for the normal distribution from which the next price will be taken
+    trend: float (-inf, inf)
+        price + trend is the mean for the normal distribution from which the next price will be taken
+    change_in_trend: float
+        the amount that trend changes after each timestep (parallel to mathematical derivative of trend)
+    number_of_historical_prices : int [0, inf)
+        the number of simulated time intervals that occur before the simulation start
+    historical_prices : List[int]
+        a list of past prices. Is appended to after each time interval
+
+    METHODS
+    -------
+    progress_time:
+        simulates a time interval skip, updating price by selecting from a normal distribution defined by volatility and trend.
+        stores new price to historical_prices
+
+    """
     def __init__(
         self,
         id: int,

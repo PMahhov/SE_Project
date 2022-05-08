@@ -35,7 +35,6 @@ class Background:
 
     # Initialize attributes of the class
     def init_class(self, manager: UIManager, path_level_modules: List[str], index: int = 0):
-
         self.manager = manager
         self.scenario_end = False
         self.index = index

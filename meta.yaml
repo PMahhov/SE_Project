@@ -1,29 +1,22 @@
 requirements:
-    # python 3.10.2, # conda 4.10.1, # pygame 2.1.2,  # pygame_gui 0.6.4
-    # run in terminal:
-      # pip3 install pygame
-      # pip3 install pygame_gui
-      # pip3 install conda
-      # conda create --name se-proj
-      # conda activate se-proj
-      # conda install invoke
-      # conda install -c conda-forge autoflake
-
   develop:
-    - pytest=6.2.4
-    - flake8
-    - isort
-    - black
-    - autoflake
-    - pandas
-
-  build:
-    - pytest=6.2.4 #replace later
+    - pytest=7.1.1
+    - flake8=4.0.1
+    - isort=5.9.3
+    - black=19.10b0
 
   run:
-    - numpy=1.21.2
-    - pytest=6.2.4
     - matplotlib=3.5.1
+  
+  channel:
+    - conda-forge autoflake=1.4
+
+  pip:
+    - pygame=2.1.2
+    - pygame_gui=0.6.4
+
+  
+
     
     
 

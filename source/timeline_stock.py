@@ -13,6 +13,43 @@ screen_width = config["screen_width"]
 info_stock = config["info_stock"]
 
 class Timeline_Stock:
+    """
+    Represents the status of stocks available to a timeline
+
+    ...
+    ATTRIBUTES (non-GUI)
+    --------------------
+    id : int
+        id equal to Background_Stock reference upon which this Timeline_Stock is based 
+    volume : int [0, inf)
+        number of shares of stock owned by timeline
+    total_cost : int [0, inf)
+        total amount spent on current volume of stocks. Used to calculate average amount spent on currently owned stocks because they may have been bought at different prices
+    cash_flow : int (-inf, inf)
+        contribution of stock investment on money: 
+            - negative if, overall, more money has been spent buying current volume of stocks than profit from stock trades
+            - positive if, overall, profit from stock trades is higher than money spent buy current volume of stocks
+            - if volume of stocks is 0, a non-zero cash flow indicates confirmed loss/profit
+    stock_reference : Background_Stock
+        reference to the Background_Stock object upon which this instance of Timeline_Stock was based
+    timeline_reference : Timeline
+        reference to the Timeline object in which this instance of Timeline_Stock was created
+
+    METHODS (non-GUI)
+    -----------------
+    buyable : int
+        returns the maximal number of shares of given stock can be bought with timeline money
+    change_volume : None
+        volume setter
+    get_total_value : int
+        gets total value of the owned stock at the current price
+    buy : None
+        increases owned volume of stock by argument amount, recalculates various relevant attributes including reference_timeline money
+    sell : None
+        decreases owned volume of stock by argument amount, recalculates various relevant attributes including reference_timelien money
+    get_avg_buy_cost : float
+        returns average cost of currently owned stocks (since they may have been bought a different prices)
+    """
     def __init__(
         self,
         volume: int,
@@ -25,6 +62,8 @@ class Timeline_Stock:
         manager: UIManager,
         timestep: str,
     ) -> None:
+
+        # GUI attributes
         self.box_width = box_width
         self.box_height = box_height
         self.left = 0
@@ -32,16 +71,17 @@ class Timeline_Stock:
         self.manager = manager
         self.timestep = timestep
 
+        # Relevant data attributes
         self.id = stock_reference.get_id()
         self.volume = volume
         self.total_cost = volume * stock_reference.get_price()
         self.cash_flow = 0
-
         self.stock_reference = stock_reference
         self.timeline_reference = timeline_reference
 
         self.UIobjects = []
 
+        # stock panel, containing all other GUI elements relevant to stocks
         self.stock_panel = UIPanel(
             relative_rect=pygame.Rect(
                 self.left, self.top, self.box_width + 6, self.box_height * 4 + 10
@@ -53,6 +93,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.stock_panel)
 
+        # stock panel label
         self.namelabel = UILabel(
             relative_rect = pygame.Rect(0,0,self.box_width,self.box_height),
             text = self.stock_reference.get_name(),
@@ -61,7 +102,8 @@ class Timeline_Stock:
             parent_element = self.stock_panel,
             )
         self.UIobjects.append(self.namelabel)
-
+        
+        # stock buy label
         self.buylabel = UILabel(
             relative_rect = pygame.Rect(0,self.box_height*3,self.box_width/8,self.box_height),
             text = "Buy: ",
@@ -71,6 +113,7 @@ class Timeline_Stock:
             ) 
         self.UIobjects.append(self.buylabel)    
         
+        # stock sell label
         self.selllabel = UILabel(
             relative_rect = pygame.Rect(self.box_width/2 - 10,self.box_height*3,self.box_width/8,self.box_height),
             text = "Sell: ",
@@ -80,6 +123,7 @@ class Timeline_Stock:
             ) 
         self.UIobjects.append(self.selllabel)
 
+        # buy "x1" button
         self.buyone_button = UIButton(
             relative_rect=pygame.Rect(
                 self.box_width / 8 - 15,
@@ -95,6 +139,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.buyone_button)
 
+        # buy "x10" button
         self.buyten_button = UIButton(
             relative_rect=pygame.Rect(
                 2 * self.box_width / 8 - 15,
@@ -110,6 +155,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.buyten_button)
 
+        # buy "Max" button
         self.buymax_button = UIButton(
             relative_rect = pygame.Rect(3*self.box_width / 8 - 15, self.box_height*3, self.box_width/8, self.box_height),
             text = "Max",
@@ -120,6 +166,7 @@ class Timeline_Stock:
         ) 
         self.UIobjects.append(self.buymax_button)       
 
+        # sell "x1" button
         self.sellone_button = UIButton(
             relative_rect=pygame.Rect(
                 5 * self.box_width / 8 - 22,
@@ -135,6 +182,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.sellone_button)
 
+        # sell "x10" button
         self.sellten_button = UIButton(
             relative_rect=pygame.Rect(
                 6 * self.box_width / 8 - 22,
@@ -150,6 +198,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.sellten_button)
 
+        # sell "Max" button
         self.sellmax_button = UIButton(
             relative_rect = pygame.Rect(7*self.box_width / 8 - 22, self.box_height*3, self.box_width/8, self.box_height),
             text = "Max",
@@ -160,6 +209,7 @@ class Timeline_Stock:
         )     
         self.UIobjects.append(self.sellmax_button)    
 
+        # stock price field
         self.pricebox = UITextBox(
             html_text="Price: " + str(self.stock_reference.get_price()),
             relative_rect=pygame.Rect(
@@ -171,6 +221,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.pricebox)
 
+        # stock "h" button to display historical information
         self.graph_button = UIButton(
             relative_rect = pygame.Rect((self.box_height*0.9)+5,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "h",
@@ -182,6 +233,7 @@ class Timeline_Stock:
         )
         self.UIobjects.append(self.graph_button)
 
+        # stock "i" button to display general stock information
         self.information_button = UIButton(
             relative_rect = pygame.Rect(self.box_height*0.1,self.box_height*0.1,self.box_height*0.8,self.box_height*0.8),
             text = "i",
@@ -196,6 +248,7 @@ class Timeline_Stock:
         self.update_boxes()
 
     def update_boxes(self):
+        # Updates display of all UI elements at UI event triggers
         if self.timeline_reference.timeline_panel.vert_scroll_bar != None:
             for object in self.UIobjects:
                 self.timeline_reference.timeline_panel.vert_scroll_bar.join_focus_sets(object)
@@ -265,6 +318,7 @@ class Timeline_Stock:
             self.sellten_button.disable()
 
     def progress_time(self):
+        # Progresses time by updating all GUI boxes and price display
         self.update_boxes()
         try:
             self.pricebox.kill()
@@ -282,13 +336,16 @@ class Timeline_Stock:
             )
 
     def buyable(self) -> int:
+        # returns number (rounded down integer) of shares of this stock that the timeline can buy given its money
         money = self.timeline_reference.money
         return money // self.get_price()
 
     def change_volume(self, volume: int) -> None:
+        # sets volume
         self.volume = volume
 
     def display_graph(self) -> None:
+        # displays Information_Popup of historical stock information
         try:
             self.info_popup.kill()
         except:
@@ -298,6 +355,7 @@ class Timeline_Stock:
             self.info_popup.display_graph()
 
     def get_total_value(self) -> int:
+        # returns value of owned stock at current price. Used to calculate net_worth
         return self.stock_reference.get_price() * self.volume
 
     def get_price(self) -> int:
@@ -310,6 +368,7 @@ class Timeline_Stock:
         return self.cash_flow
 
     def buy(self, volume_increase: int) -> None:
+        # timeline buys argument volume of shares; volume, total_cost, cash_flow, reference_timeline money are all modified accordingly
         if self.buyable() >= volume_increase:
             self.volume += volume_increase
             change = self.get_price() * volume_increase
@@ -318,6 +377,7 @@ class Timeline_Stock:
             self.cash_flow -= change
 
     def sell(self, volume_decrease: int) -> None:
+        # timeline sells argument volume of shares; volume, total_cost, cash_flow, reference_timeline money are all modified accordingly
         if self.volume >= volume_decrease:
             self.total_cost = (
                 (self.volume - volume_decrease) / self.volume
@@ -328,6 +388,8 @@ class Timeline_Stock:
             self.cash_flow += change
 
     def get_avg_buy_cost(self) -> float:
+        # returns average cost of currently owned stocks;
+        # to avoid zero division, if volume is zero, returns zero 
         if self.volume == 0:
             return 0
         else:
@@ -337,6 +399,8 @@ class Timeline_Stock:
         return self.id
 
     def button_pressed(self, event, timeline) -> bool:
+        # iterates through all stock panel buttons to see which, if any, have been clicked and calls corresponding methods
+        # returns True if it's a button in this Timeline_Stock to prevent iteration through other buttons, False otherwise
         if event.ui_element == self.buyone_button:
             self.buy(1)
         elif event.ui_element == self.buyten_button:
@@ -358,6 +422,7 @@ class Timeline_Stock:
         return True
 
     def update_attributes(self, new_stock: any) -> None:
+        # copies attributes of argument Timeline_Stock into this Timeline_Stock, used during a timeline split or merge to ensure proper copying of information
         self.volume = new_stock.get_volume()
         self.cash_flow = new_stock.get_cash_flow()
 
@@ -365,8 +430,8 @@ class Timeline_Stock:
         self.total_cost = self.volume * new_stock.get_avg_buy_cost()
         self.update_boxes()
     
-    # when i button clicked, display general information about stocks
     def display_info(self) -> None:
+        # upon "i" click, displays general information about what stocks are and what each of the fields mean to the user
         try: 
             self.info_window.kill()
         except:

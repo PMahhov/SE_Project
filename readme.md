@@ -12,15 +12,27 @@ A Scenario-based financial literacy learning tool to address the barriers in lea
 ![Alt text](screenshots/screenshot2.jpg?raw=true "Game")
 
 ### Instructions to run the code
-Please download the following :
-* python 
-* pygame
-* pygame_gui
-* numpy (1.21.2)
+Assuming you have python 3.9.* and pip, please download the following using "pip install" or "pip3 install" in terminal. Tested version numbers are in brackets. If you are having difficulties with dependencies, specify the version number as well e.g. "pip install pygame=2.1.2":
+* pygame (2.1.2)
+* pygame_gui (0.6.4)
+* numpy (1.21.5)
 * matplotlib (3.5.1)
-* pandas 
 
 Then, navigate in the SE_project folder and run the following command: `python3 source/main.py`
+
+### Instruction for development and testing
+Simulex was developed within a conda environment. To set this up, type these commands into terminal, whilst in the SE_project folder:
+* pip install conda OR pip3 install conda (installing conda if you don't already have it)
+* conda create -n simulex python=3.9 (creating conda environment)
+* conda activate simulex (activating conda environment)
+* conda install invoke
+* invoke bootstrap (will install all necessary development libraries)
+
+Now you may use the following commands to develop
+* invoke test (uses pytest to run tests in tests folder)
+* invoke check (checks if python files are well-formatted)
+* invoke format (automatically formats python files)
+
 
 ### TODO list
 - [X] functions to restart scenario and go to next scenario
@@ -39,14 +51,14 @@ Then, navigate in the SE_project folder and run the following command: `python3 
 - [X] finish implementation level module 2 (name stocks)
 - [X] update all game messages
 - [X] update subtitle
-- [ ] finish comments (lachlan)
+- [X] finish comments (lachlan)
 - [X] update gantt chart
-- [ ] add code for logs (lachlan)
+- [X] add code for logs (lachlan)
 - [X] Finish validation test plan
 - [X] Finish test cases
 - [X] write test results
 - [X] ending message after level 3 (go back to level 1)
 - [X] explain you can open tutorial any time (Peter)
 - [X] examine def of netcash flow (Peter)
-- [ ] screenshots readme file (Peter)
+- [X] screenshots readme file (Peter)
 

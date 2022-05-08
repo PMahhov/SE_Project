@@ -4,8 +4,8 @@ import sys
 from invoke import task
 
 
-@task(help={"python": "Set the python version (default: current version)"})
-def bootstrap(ctx, python="3.10.2"):
+@task
+def bootstrap(ctx, python="3.10.4"):
     """Install required conda packages."""
 
     def ensure_packages(*packages):
@@ -15,6 +15,14 @@ def bootstrap(ctx, python="3.10.2"):
             pty=sys.platform != "win32",
             echo=True,
         )
+
+    def ensure_from_channel(*packages):
+        for package in packages:
+            ctx.run(f"conda install --quiet --yes -c {' '.join(package.split())}")
+
+    def ensure_pip(*packages):
+        for package in packages:
+            ctx.run(f"pip3 install {package}")
 
     try:
         import jinja2
@@ -31,25 +39,23 @@ def bootstrap(ctx, python="3.10.2"):
         template.render(load_setup_py_data=lambda: {}, python=python)
     )
     develop_packages = meta_yaml["requirements"]["develop"]
-    build_packages = meta_yaml["requirements"]["build"]
     run_packages = meta_yaml["requirements"]["run"]
+    channel_packages = meta_yaml["requirements"]["channel"]
+    pip_packages = meta_yaml["requirements"]["pip"]
 
-    ensure_packages(*develop_packages, *build_packages, *run_packages)
+    ensure_packages(*develop_packages, *run_packages)
+    ensure_from_channel(*channel_packages)
+    ensure_pip(*pip_packages)
 
 
-@task(help={})
+@task
 def test(ctx,):
     """Run tests."""
     args = []
     ctx.run("pytest tests/setup_test.py tests " + " ".join(args), pty=True, echo=True)
 
 
-@task(
-    help={
-        "style": "Check style with flake8, isort, and black",
-        "typing": "Check typing with mypy",
-    }
-)
+@task
 def check(ctx, style=True, typing=True):
     """Check for style and static typing errors."""
     paths = ["tests", "source"]
@@ -61,7 +67,7 @@ def check(ctx, style=True, typing=True):
         ctx.run(f"mypy --no-incremental --cache-dir=/dev/null {paths}", echo=True)
 
 
-@task(name="format", aliases=["fmt"])
+@task
 def format_(ctx):
     """Format code to use standard style guidelines."""
     paths = ["tests", "source"]
