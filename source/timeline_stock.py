@@ -15,13 +15,6 @@ info_stock = config["info_stock"]
 class Timeline_Stock:
     """
     Represents the status of stocks available to a timeline
-    self.id = stock_reference.get_id()
-    self.volume = volume
-    self.total_cost = volume * stock_reference.get_price()
-    self.cash_flow = 0
-
-    self.stock_reference = stock_reference
-    self.timeline_reference = timeline_reference
 
     ...
     ATTRIBUTES (non-GUI)
