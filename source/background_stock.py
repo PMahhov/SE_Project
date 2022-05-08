@@ -5,7 +5,7 @@ import numpy as np
 
 class Background_Stock:
     """
-    A predominately data class that stores information about the loan available for the user to take.
+    A predominately data class that stores information about one stock available for the user to take.
 
     ...
     ATTRIBUTES
@@ -28,16 +28,18 @@ class Background_Stock:
         the percentage standard deviation for the normal distribution from which the next price will be taken
     trend: float (-inf, inf)
         price + trend is the mean for the normal distribution from which the next price will be taken
-    initial_number_of_historical_interest_rates : int [0, inf)
+    change_in_trend: float
+        the amount that trend changes after each timestep (parallel to mathematical derivative of trend)
+    number_of_historical_prices : int [0, inf)
         the number of simulated time intervals that occur before the simulation start
-    historical_interest_rates : List[int]
-        a list of past offered_interest_rate. Is appended to after each time interval
+    historical_prices : List[int]
+        a list of past prices. Is appended to after each time interval
 
     METHODS
     -------
     progress_time:
-        simulates a time interval skip, updating offered_interest_rate by selecting from a normal distribution defined by volatility and trend.
-        stores second last offered_interest_rate to historical_interest_rates
+        simulates a time interval skip, updating price by selecting from a normal distribution defined by volatility and trend.
+        stores new price to historical_prices
 
     """
     def __init__(
