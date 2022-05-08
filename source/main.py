@@ -22,7 +22,7 @@ if not os.path.exists("logging"):
     os.makedirs("logging")
 now = datetime.now().strftime("%Y%m%d@%H:%M:%S")
 printable_now = datetime.now().strftime("%Y%m%d at %H:%M:%S")
-logging.basicConfig(filename=f"logging/debug[{now}].log", encoding='utf-8', level=logging.INFO,format='%(message)s')
+logging.basicConfig(filename=os.path.join('logging', f'debug[{now}].log'), encoding='utf-8', level=logging.INFO,format='%(message)s')
 
 
 
