@@ -45,7 +45,7 @@ default_manager.preload_fonts([{'name': 'fira_code', 'point_size': 14, 'style': 
 clock = pygame.time.Clock()
 is_running = True
 
-logging.info(f"Welcome to the Simulex debugging logs. These logs recorded on a {platform.system()} {platform.release()} on {printable_now}")
+#logging.info(f"Welcome to the Simulex debugging logs. These logs recorded on a {platform.system()} {platform.release()} on {printable_now}")
 
 # ------------
 # INITIAL MENU
