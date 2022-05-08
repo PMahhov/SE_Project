@@ -290,6 +290,7 @@ class Background:
                 self.start_loan_amount = loan ['amount_if_taken']
 
         self.tutorial = data_module['tutorial']
+        self.name = data_module['name']
 
         self.timestep = data_module["timestep"]
         self.timelimit = data_module["timelimit"]
@@ -442,7 +443,7 @@ class Background:
                     (8 * self.box_height),
                 ),
                 manager=self.manager,
-                window_title="Tutorial",
+                window_title=self.name,
                 html_message=self.tutorial,
             )
     
