@@ -60,7 +60,7 @@ class Timeline_Loan:
         percentage increase on amount_owed after each timeskip. This is fixed for the duration of the loan
     loan_reference : Background_Loan
         reference to the Background_Loan object upon which this instance of Timeline_Loan was based
-    time_reference : Timeline
+    timeline_reference : Timeline
         reference to the Timeline object in which this instance of Timeline_Loan was created
 
     METHODS (non-GUI)
@@ -73,10 +73,8 @@ class Timeline_Loan:
         takes loan for timeline equal to amount argument
     pay_loan : None
         reduces timeline money and amount_owed to pay off a part (or all) of loan
-    have_loan : Bool
+    have_loan : bool
         returns True is timeline has a loan i.e. amount_owed > 0
-    
-
     """
     def __init__(
         self,
@@ -531,7 +529,7 @@ class Timeline_Loan:
         return True
 
     def update_attributes(self, new_loan: any) -> None:
-        # copies attributes of argument Timeline_Loan, used during a timeline split or merge to ensure proper copying of information
+        # copies attributes of argument Timeline_Loan into this Timeline_Loan, used during a timeline split or merge to ensure proper copying of information
         self.amount_owed = new_loan.amount_owed
         self.interest_at_borrowing = new_loan.interest_at_borrowing
         self.update_boxes()
