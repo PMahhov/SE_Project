@@ -53,7 +53,7 @@ Now you may use the following commands to develop
 - [X] update subtitle
 - [X] finish comments (lachlan)
 - [X] update gantt chart
-- [ ] add code for logs (lachlan)
+- [X] add code for logs (lachlan)
 - [X] Finish validation test plan
 - [X] Finish test cases
 - [X] write test results
