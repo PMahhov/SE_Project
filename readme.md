@@ -33,6 +33,66 @@ Now you may use the following commands to develop
 * invoke check (checks if python files are well-formatted)
 * invoke format (automatically formats python files)
 
+### Distribution of tasks
+All
+* Requirements gathering
+* Backend design and modeling
+* Risk management
+* Test design
+* Writing/editing
+
+Mathilde
+* Create skeleton for main classes 
+* Implement singleton Background class 
+* Implement Information_Popup class
+* Create function to extract historical data and display graphs with matplotlib library
+* Code function to load json files and create json templates (for level modules)
+* Display pop-up windows for:
+    * Tutorials
+    * About section 
+    * Information about stocks
+    * Information about loans
+* Convert texts to html format (display format in pygame_gui)
+* Implement function to copy data between timelines when merging or splitting them
+* Set up end of scenario and end of game mechanics
+* Create initial menu GUI and logic
+* Document testing plan:
+    * Validation testing plan
+    * Write test cases for "progress time" and "merge timelines" use cases
+    * Test on MacOS
+
+Lachlan
+* Manage development environment
+    * Ensure dependency and library consistency
+    * Set up python package and establish standards for workflow: testing, formatting, configuration, version control 
+* Functionality for trading stocks and loans
+* Research and implementation of behavior of financial instruments
+    * Write educational content for information pop-ups
+* Create and run unit tests
+    * Boundary testing 
+* Documentation and refactoring
+* Document testing plan:
+    * Validation testing plan
+    * Write test cases for "buy stock" use case
+    * Test on MacOS
+
+Peter
+* main.py graphics and set up overarching game loop
+* Testing on Windows 10
+* Design and implementation of nearly every GUI element and interactable object
+    * e.g. display of timelines, loans, stocks, time progress; almost every button, panel, and label
+* Several GUI quality-of-life features 
+    * e.g. comprehensive scrollbar functionality, intuitive text inputs for loans
+* Functionality implementation
+    * Backend and frontend mechanisms for state-switching classes (switch level, split/merge timeline, take/pay loan)
+    * Timeline stocks and loans
+    * Background loan update and copy functionalities
+    * Timeline stat tracking and display (net worth, net cash flow)
+* Game design (both high level and low level)
+    * Conceptual design
+    * Level design
+    * Value tweaking (playability, difficulty, mathematical analysis)
+* Extensive playtesting
 
 ### TODO list
 - [X] functions to restart scenario and go to next scenario
