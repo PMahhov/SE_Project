@@ -34,14 +34,14 @@ Now you may use the following commands to develop
 * invoke format (automatically formats python files)
 
 ### Distribution of tasks
-All
+#### All
 * Requirements gathering
 * Backend design and modeling
 * Risk management
 * Test design
 * Writing/editing
 
-Mathilde
+#### Mathilde
 * Create skeleton for main classes 
 * Implement singleton Background class 
 * Implement Information_Popup class
@@ -61,7 +61,7 @@ Mathilde
     * Write test cases for "progress time" and "merge timelines" use cases
     * Test on MacOS
 
-Lachlan
+#### Lachlan
 * Manage development environment
     * Ensure dependency and library consistency
     * Set up python package and establish standards for workflow: testing, formatting, configuration, version control 
@@ -76,7 +76,7 @@ Lachlan
     * Write test cases for "buy stock" use case
     * Test on MacOS
 
-Peter
+#### Peter
 * main.py graphics and set up overarching game loop
 * Testing on Windows 10
 * Design and implementation of nearly every GUI element and interactable object
