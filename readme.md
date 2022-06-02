@@ -17,6 +17,7 @@ Assuming you have python 3.9.* and pip, please download the following using "pip
 * pygame_gui (0.6.4)
 * numpy (1.21.5)
 * matplotlib (3.5.1)
+* pyyaml
 
 Then, navigate in the SE_project folder and run the following command: `python3 source/main.py`
 
